@@ -69,13 +69,9 @@
     function talkToMiczy() {
       const input = document.getElementById("userInput").value;
       const output = document.getElementById("output");
-      
-      // In attesa dell'API vera, una risposta finta divertente:
-      output.innerText = `MiczyAI pensa... hmm... "${input}" suona come una pizza parlante 🍕.`;
-      
-      // Quando avrai un'API, sostituisci qui con una fetch:
-      /*
-      fetch("sk-K0XUMudJBfGm1dXoe5pkapbO5mlyr_8UXa0dK3xFDUT3BlbkFJmXAj-wOv2KIVsb3XBSYMAsA3B2DFvrD0IS4kTP8jQA", {
+
+      // Chiamata al backend Replit
+      fetch("https://189c8ee2-6913-42fb-9a81-23461e895b08-00-cagr4pxyb4fx.kirk.replit.dev/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -87,10 +83,11 @@
         output.innerText = data.response;
       })
       .catch(err => {
+        console.error("Errore:", err);
         output.innerText = "Errore nel parlare con MiczyAI 😢";
       });
-      */
     }
   </script>
 </body>
 </html>
+
