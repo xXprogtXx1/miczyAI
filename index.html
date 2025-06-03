@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MiczyAI</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(135deg, #ffd6e0, #d6f0ff);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    header {
+      padding: 2rem;
+      background-color: #fff0f5;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: #ff69b4;
+    }
+    p {
+      color: #666;
+      font-size: 1.2rem;
+    }
+    main {
+      padding: 2rem;
+    }
+    input, button {
+      padding: 1rem;
+      font-size: 1rem;
+      margin: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #87ceeb;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00bfff;
+      color: white;
+    }
+    #output {
+      margin-top: 2rem;
+      padding: 1rem;
+      border-radius: 10px;
+      background-color: #f0f8ff;
+      min-height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MiczyAI</h1>
+    <p>L’intelligenza artificiale più intelligente... o forse no 🤖💭</p>
+  </header>
+  <main>
+    <input type="text" id="userInput" placeholder="Scrivi qualcosa..." />
+    <button onclick="talkToMiczy()">Invia</button>
+    <div id="output">Qui apparirà la risposta dell'AI!</div>
+  </main>
+
+  <script>
+    function talkToMiczy() {
+      const input = document.getElementById("userInput").value;
+      const output = document.getElementById("output");
+      
+      // In attesa dell'API vera, una risposta finta divertente:
+      output.innerText = `MiczyAI pensa... hmm... "${input}" suona come una pizza parlante 🍕.`;
+      
+      // Quando avrai un'API, sostituisci qui con una fetch:
+      /*
+      fetch("https://your-api-url.com/ai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prompt: input })
+      })
+      .then(res => res.json())
+      .then(data => {
+        output.innerText = data.response;
+      })
+      .catch(err => {
+        output.innerText = "Errore nel parlare con MiczyAI 😢";
+      });
+      */
+    }
+  </script>
+</body>
+</html>
