@@ -70,8 +70,7 @@
       const input = document.getElementById("userInput").value;
       const output = document.getElementById("output");
 
-      // Chiamata al backend Replit
-      fetch("https://189c8ee2-6913-42fb-9a81-23461e895b08-00-cagr4pxyb4fx.kirk.replit.dev/api/chat", {
+      fetch("https://1024cd1b-da45-44ca-aea1-a5eebcb7b937-00-7l5gwvxrzcjd.picard.replit.dev/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -80,7 +79,7 @@
       })
       .then(res => res.json())
       .then(data => {
-        output.innerText = data.response;
+        output.innerText = data.response || "Nessuna risposta ricevuta 😐";
       })
       .catch(err => {
         console.error("Errore:", err);
@@ -90,4 +89,3 @@
   </script>
 </body>
 </html>
-
