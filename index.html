@@ -71,14 +71,18 @@
   </main>
 
   <script>
+    const inputField = document.getElementById("userInput");
+    const output = document.getElementById("output");
+
     async function talkToMiczy() {
-      const input = document.getElementById("userInput").value.trim();
-      const output = document.getElementById("output");
+      const input = inputField.value.trim();
 
       if (!input) {
         output.innerText = "Inserisci qualcosa prima di inviare!";
         return;
       }
+
+      output.innerText = "Sto pensando...";
 
       try {
         const response = await fetch("https://31a29899-c40e-4b1a-b02f-1efd803e841a-00-1akgrxx2fhfls.picard.replit.dev/chat", {
@@ -88,17 +92,35 @@
         });
 
         if (!response.ok) {
-          throw new Error("Errore nella risposta dal server");
+          throw new Error(`Server ha risposto con codice ${response.status}`);
         }
 
         const data = await response.json();
-        output.innerText = data.response || "Nessuna risposta ricevuta 😐";
+
+        if (!data.response) {
+          output.innerText = "Nessuna risposta ricevuta 😐";
+        } else {
+          output.innerText = data.response;
+        }
+
+        inputField.value = "";
 
       } catch (error) {
         console.error(error);
-        output.innerText = "Errore nel parlare con MiczyAI 😢";
+        if (error.message.includes("Failed to fetch")) {
+          output.innerText = "Impossibile raggiungere il server, controlla la connessione.";
+        } else {
+          output.innerText = "Errore nel parlare con MiczyAI 😢";
+        }
       }
     }
+
+    inputField.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        talkToMiczy();
+      }
+    });
   </script>
 </body>
 </html>
