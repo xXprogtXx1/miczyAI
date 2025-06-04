@@ -3,20 +3,13 @@ const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 
 // Aggiunge un messaggio alla chat
-function aggiungiMessaggio(testo, mittente, usaMarkdown = false) {
+function aggiungiMessaggio(testo, mittente) {
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
-  msg.innerHTML = usaMarkdown ? marked.parse(testo) : escapeHTML(testo);
+  msg.innerText = testo;
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
   salvaCronologiaChat(); // Salva ogni volta che si aggiunge un messaggio
-}
-
-// Escape HTML per i messaggi utente
-function escapeHTML(text) {
-  const div = document.createElement("div");
-  div.innerText = text;
-  return div.innerHTML;
 }
 
 // Aggiunge il loader
@@ -58,7 +51,7 @@ async function talkToMiczy() {
 
     const data = await response.json();
     rimuoviLoader();
-    aggiungiMessaggio(data.response || "Nessuna risposta ricevuta 😐", "ai", true);
+    aggiungiMessaggio(data.response || "Nessuna risposta ricevuta 😐", "ai");
 
   } catch (error) {
     console.error(error);
@@ -71,7 +64,7 @@ async function talkToMiczy() {
 
 // Gestisce l'invio con il tasto Invio
 inputField.addEventListener("keydown", function(event) {
-  if (event.key === "Enter" && !event.shiftKey) {
+  if (event.key === "Enter") {
     event.preventDefault();
     talkToMiczy();
   }
@@ -86,7 +79,7 @@ toggleDark.addEventListener("change", function () {
 function salvaCronologiaChat() {
   const messaggi = [...chatBox.querySelectorAll(".msg")].map(msg => {
     return {
-      testo: msg.getAttribute("data-raw") || msg.innerText,
+      testo: msg.textContent,
       mittente: msg.classList.contains("utente") ? "utente" : "ai"
     };
   });
@@ -99,7 +92,7 @@ function caricaCronologiaChat() {
   if (salvata) {
     const messaggi = JSON.parse(salvata);
     messaggi.forEach(msg => {
-      aggiungiMessaggio(msg.testo, msg.mittente, msg.mittente === "ai");
+      aggiungiMessaggio(msg.testo, msg.mittente);
     });
   }
 }
