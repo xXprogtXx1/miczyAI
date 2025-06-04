@@ -1,165 +1,84 @@
-body { 
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #ffd6e0, #d6f0ff);
+body {
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  text-align: center;
-  transition: background 0.5s, color 0.5s;
+  background-color: #f0f0f0;
+  color: #222;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-body.dark-mode {
-  background: #1e1e1e;
-  color: #f0f0f0;
-}
-
-header {
-  padding: 2rem;
-  background-color: #fff0f5;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: relative;
-}
-
-body.dark-mode header {
-  background-color: #2c2c2c;
-}
-
-h1 {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-  color: #ff69b4;
-}
-
-p {
-  color: #666;
-  font-size: 1.2rem;
-}
-
-main {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#chatForm {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 1rem;
-  width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-#userInput {
-  padding: 1rem;
-  font-size: 1rem;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  width: 70%;
-  max-width: 400px;
-  box-sizing: border-box;
-}
-
-button {
-  padding: 1rem;
-  font-size: 1rem;
-  border-radius: 10px;
-  border: none;
-  background-color: #87ceeb;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-sizing: border-box;
-}
-
-button:hover {
-  background-color: #00bfff;
-  color: white;
-  box-shadow: 0 0 10px #00bfff;
-}
-
-/* Pulsante clear (🗑️) */
-.chat-controls {
-  margin-top: 1rem;
-}
-
-.clear-btn {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.clear-btn:hover {
-  transform: scale(1.2);
-  color: red;
-}
-
-/* Chat box */
-.chat-box {
-  margin: 0 auto;
-  padding: 1.2rem;
-  max-width: 600px;
-  width: 90%;
-  height: 300px;
-  background: #f0f8ff;
-  border-radius: 15px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
-}
-
-.chat-box::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
-body.dark-mode .chat-box {
-  background-color: #2e2e2e;
-  border: 1px solid #555;
-}
-
-.msg {
-  padding: 0.8rem 1.2rem;
-  border-radius: 20px;
-  max-width: 75%;
-  word-wrap: break-word;
-  line-height: 1.4;
-}
-
-.msg.utente {
-  align-self: flex-end;
-  background-color: #87ceeb;
-  color: white;
-}
-
-.msg.ai {
-  align-self: flex-start;
-  background-color: #dedede;
-}
-
-body.dark-mode .msg.ai {
-  background-color: #444;
+.dark-mode {
+  background-color: #121212;
   color: #eee;
 }
 
-/* Loader (dots bounce) */
+.container {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#chat-box {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  height: 400px;
+  overflow-y: auto;
+  background-color: #fff;
+  transition: background-color 0.3s;
+}
+
+.dark-mode #chat-box {
+  background-color: #1e1e1e;
+}
+
+.msg {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  white-space: pre-wrap;
+}
+
+.msg.utente {
+  background-color: #d1e7dd;
+  align-self: flex-end;
+}
+
+.dark-mode .msg.utente {
+  background-color: #29513a;
+}
+
+.msg.ai {
+  background-color: #e2e3e5;
+}
+
+.dark-mode .msg.ai {
+  background-color: #333;
+}
+
+/* Loader stile a pallini */
+.loader-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .loader {
   display: flex;
-  gap: 5px;
-  justify-content: flex-start;
-  align-items: center;
+  gap: 6px;
 }
 
 .loader div {
   width: 8px;
   height: 8px;
-  background-color: #999;
   border-radius: 50%;
-  animation: bounce 1s infinite ease-in-out;
+  background: #999;
+  animation: bounce 0.6s infinite alternate;
 }
 
 .loader div:nth-child(2) {
@@ -171,85 +90,65 @@ body.dark-mode .msg.ai {
 }
 
 @keyframes bounce {
-  0%, 80%, 100% {
-    transform: scale(0);
-  }
-  40% {
-    transform: scale(1);
+  to {
+    transform: translateY(-8px);
   }
 }
 
-/* Dark mode toggle switch */
-.switch {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
+/* Input & Bottoni */
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 5px;
+  resize: none;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+.dark-mode textarea {
+  background-color: #2a2a2a;
+  color: #eee;
+  border: 1px solid #555;
 }
 
-.slider {
-  position: absolute;
+button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  font-size: 14px;
   cursor: pointer;
-  background-color: #ccc;
-  border-radius: 24px;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transition: 0.4s;
+  border: none;
+  background-color: #5c5cfc;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.2s;
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  transition: 0.4s;
+button:hover {
+  background-color: #3c3cf7;
 }
 
-input:checked + .slider {
-  background-color: #2196f3;
+/* Markdown styling (opzionale) */
+.msg.ai h1, .msg.ai h2, .msg.ai h3 {
+  margin-top: 10px;
 }
 
-input:checked + .slider:before {
-  transform: translateX(26px);
+.msg.ai pre, .msg.ai code {
+  background: #272822;
+  color: #f8f8f2;
+  padding: 5px;
+  border-radius: 4px;
+  font-family: monospace;
+  white-space: pre-wrap;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  #chatForm {
-    flex-direction: column;
-    align-items: center;
-  }
+.msg.ai a {
+  color: #0a7fff;
+  text-decoration: underline;
+}
 
-  #userInput,
-  button {
-    width: 90%;
-    font-size: 0.9rem;
-  }
-
-  button {
-    margin-top: 10px;
-  }
-
-  .chat-box {
-    height: 250px;
-    padding: 0.5rem;
-  }
-
-  .clear-btn {
-    font-size: 1.8rem;
-  }
+.dark-mode .msg.ai pre,
+.dark-mode .msg.ai code {
+  background: #444;
 }
