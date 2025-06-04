@@ -43,10 +43,12 @@ main {
 
 #chatForm {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
   margin-bottom: 1rem;
-  width: 100%;
-  justify-content: center;
+  flex-wrap: wrap;
 }
 
 #userInput {
@@ -205,11 +207,17 @@ input:checked + .slider:before {
   #chatForm {
     flex-direction: column;
     align-items: center;
+    gap: 12px;
   }
 
-  #userInput, button {
+  #userInput {
     width: 90%;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+  }
+
+  button {
+    width: 90%;
+    font-size: 1rem;
   }
 
   .chat-box {
