@@ -1,31 +1,41 @@
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
+const chatBox = document.getElementById("chat-box");
 
-function aggiungiMessaggio(testo, mittente, isLoader = false) {
+function aggiungiMessaggio(testo, mittente) {
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
+  msg.innerText = testo;
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
 
-  if (isLoader) {
-    msg.innerHTML = `<span class="loader-dots"><span></span></span> ${testo}`;
-    msg.dataset.loader = "true";
-  } else {
-    msg.innerText = testo;
-  }
+function aggiungiLoader() {
+  const loaderWrapper = document.createElement("div");
+  loaderWrapper.className = "msg ai loader-wrapper";
+  loaderWrapper.setAttribute("id", "loader");
+  loaderWrapper.innerHTML = `
+    <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  `;
+  chatBox.appendChild(loaderWrapper);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
 
-  document.getElementById("chat-box").appendChild(msg);
-  document.getElementById("chat-box").scrollTop = document.getElementById("chat-box").scrollHeight;
+function rimuoviLoader() {
+  const loader = document.getElementById("loader");
+  if (loader) loader.remove();
 }
 
 async function talkToMiczy() {
   const input = inputField.value.trim();
-
-  if (!input) {
-    aggiungiMessaggio("Inserisci qualcosa prima di inviare!", "ai");
-    return;
-  }
+  if (!input) return;
 
   aggiungiMessaggio(input, "utente");
-  aggiungiMessaggio("Sto pensando", "ai", true);
+  aggiungiLoader();
 
   try {
     const response = await fetch("https://backend-miczy-ai.onrender.com/chat", {
@@ -35,13 +45,12 @@ async function talkToMiczy() {
     });
 
     const data = await response.json();
-    const chatBox = document.getElementById("chat-box");
-    const loaderMsg = Array.from(chatBox.children).find(el => el.dataset.loader === "true");
-    if (loaderMsg) loaderMsg.remove();
-
+    rimuoviLoader();
     aggiungiMessaggio(data.response || "Nessuna risposta ricevuta 😐", "ai");
+
   } catch (error) {
     console.error(error);
+    rimuoviLoader();
     aggiungiMessaggio("Errore nel parlare con MiczyAI 😢", "ai");
   }
 
