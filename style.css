@@ -38,32 +38,33 @@ main {
   padding: 2rem;
 }
 
-/* Chat form */
-form {
+.input-wrapper {
+  max-width: 600px;
+  width: 90%;
+  margin: 0 auto 1rem auto;
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
-input[type="text"] {
-  flex-grow: 1;
-  max-width: 70%;
+input, button {
   padding: 1rem;
   font-size: 1rem;
   border-radius: 10px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+input {
+  flex: 1;
+  min-width: 200px;
 }
 
 button {
-  padding: 1rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 10px;
-  border: none;
   background-color: #87ceeb;
+  border: none;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -101,7 +102,6 @@ body.dark-mode .chat-box {
   max-width: 75%;
   word-wrap: break-word;
   line-height: 1.4;
-  display: inline-block;
 }
 
 .msg.utente {
@@ -120,34 +120,18 @@ body.dark-mode .msg.ai {
   color: #eee;
 }
 
-.msg.loader {
-  align-self: flex-start;
-  background-color: transparent;
-  color: inherit;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-style: italic;
+/* Loader - puntini animati */
+.loader-dots span::after {
+  content: "";
+  animation: dot-flash 1.2s infinite steps(1, end);
 }
 
-/* Loader */
-.loader {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #87ceeb;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: spin 1s linear infinite;
-}
-
-body.dark-mode .loader {
-  border: 4px solid #444;
-  border-top: 4px solid #87ceeb;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes dot-flash {
+  0% { content: ""; }
+  25% { content: "."; }
+  50% { content: ".."; }
+  75% { content: "..."; }
+  100% { content: ""; }
 }
 
 /* Dark mode toggle switch */
@@ -200,8 +184,14 @@ input:checked + .slider:before {
 
 /* Responsive */
 @media (max-width: 600px) {
-  input[type="text"] {
-    max-width: 100%;
+  .input-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input, button {
+    width: 100%;
+    font-size: 1rem;
   }
 
   .chat-box {
