@@ -38,22 +38,34 @@ main {
   padding: 2rem;
 }
 
-input, button {
+/* Input e bottone centrati, input più corto */
+main form#chatForm input[type="text"] {
+  width: 400px;
+  max-width: 90vw;
+  margin: 0 auto;
+  display: block;
   padding: 1rem;
   font-size: 1rem;
-  margin: 1rem;
   border-radius: 10px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
-button {
-  background-color: #87ceeb;
+main form#chatForm button {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 10px;
   border: none;
+  background-color: #87ceeb;
   cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   transition: all 0.3s ease;
 }
 
-button:hover {
+main form#chatForm button:hover {
   background-color: #00bfff;
   color: white;
   box-shadow: 0 0 10px #00bfff;
@@ -104,48 +116,21 @@ body.dark-mode .msg.ai {
   color: #eee;
 }
 
-/* Loader animato */
-.loader-dots {
+/* Loader */
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #00bfff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
   display: inline-block;
-  position: relative;
-  width: 40px;
-  height: 10px;
   vertical-align: middle;
 }
 
-.loader-dots span {
-  position: absolute;
-  top: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #87ceeb;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-
-.loader-dots span:nth-child(1) {
-  left: 0;
-  animation: loader1 0.6s infinite;
-}
-
-.loader-dots span:nth-child(2) {
-  left: 12px;
-  animation: loader2 0.6s infinite;
-}
-
-.loader-dots span:nth-child(3) {
-  left: 24px;
-  animation: loader2 0.6s infinite;
-}
-
-@keyframes loader1 {
-  0% { transform: scale(0); }
-  100% { transform: scale(1); }
-}
-
-@keyframes loader2 {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(12px); }
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
 }
 
 /* Dark mode toggle switch */
@@ -198,9 +183,12 @@ input:checked + .slider:before {
 
 /* Responsive */
 @media (max-width: 600px) {
-  input, button {
-    width: 90%;
-    font-size: 0.9rem;
+  main form#chatForm input[type="text"] {
+    width: 90vw;
+  }
+
+  main form#chatForm button {
+    width: 90vw;
   }
 
   .chat-box {
