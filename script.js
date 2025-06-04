@@ -1,19 +1,19 @@
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
-const chatBox = document.getElementById("chat-box");
 
-function aggiungiMessaggio(testo, mittente) {
+function aggiungiMessaggio(testo, mittente, isLoader = false) {
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
-  
-  if (mittente === "loader") {
-    msg.innerHTML = `<span class="loader"></span> ${testo}`;
+
+  if (isLoader) {
+    msg.innerHTML = `<span class="loader-dots"><span></span></span> ${testo}`;
+    msg.dataset.loader = "true";
   } else {
     msg.innerText = testo;
   }
 
-  chatBox.appendChild(msg);
-  chatBox.scrollTop = chatBox.scrollHeight;
+  document.getElementById("chat-box").appendChild(msg);
+  document.getElementById("chat-box").scrollTop = document.getElementById("chat-box").scrollHeight;
 }
 
 async function talkToMiczy() {
@@ -25,7 +25,7 @@ async function talkToMiczy() {
   }
 
   aggiungiMessaggio(input, "utente");
-  aggiungiMessaggio("Sto pensando...", "loader");
+  aggiungiMessaggio("Sto pensando", "ai", true);
 
   try {
     const response = await fetch("https://backend-miczy-ai.onrender.com/chat", {
@@ -35,21 +35,17 @@ async function talkToMiczy() {
     });
 
     const data = await response.json();
-
-    const loaderMsg = document.querySelector(".msg.loader");
+    const chatBox = document.getElementById("chat-box");
+    const loaderMsg = Array.from(chatBox.children).find(el => el.dataset.loader === "true");
     if (loaderMsg) loaderMsg.remove();
 
     aggiungiMessaggio(data.response || "Nessuna risposta ricevuta 😐", "ai");
-
   } catch (error) {
     console.error(error);
-    const loaderMsg = document.querySelector(".msg.loader");
-    if (loaderMsg) loaderMsg.remove();
     aggiungiMessaggio("Errore nel parlare con MiczyAI 😢", "ai");
   }
 
   inputField.value = "";
-  inputField.focus();
 }
 
 inputField.addEventListener("keydown", function(event) {
