@@ -2,14 +2,17 @@ const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 
+// Aggiunge un messaggio alla chat
 function aggiungiMessaggio(testo, mittente) {
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
   msg.innerText = testo;
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
+  salvaCronologiaChat(); // Salva ogni volta che si aggiunge un messaggio
 }
 
+// Aggiunge il loader
 function aggiungiLoader() {
   const loaderWrapper = document.createElement("div");
   loaderWrapper.className = "msg ai loader-wrapper";
@@ -25,11 +28,13 @@ function aggiungiLoader() {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// Rimuove il loader
 function rimuoviLoader() {
   const loader = document.getElementById("loader");
   if (loader) loader.remove();
 }
 
+// Gestisce la richiesta al backend
 async function talkToMiczy() {
   const input = inputField.value.trim();
   if (!input) return;
@@ -57,6 +62,7 @@ async function talkToMiczy() {
   inputField.value = "";
 }
 
+// Gestisce l'invio con il tasto Invio
 inputField.addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
     event.preventDefault();
@@ -64,6 +70,43 @@ inputField.addEventListener("keydown", function(event) {
   }
 });
 
+// Toggle modalità scura
 toggleDark.addEventListener("change", function () {
   document.body.classList.toggle("dark-mode");
 });
+
+// Salva la cronologia nel localStorage
+function salvaCronologiaChat() {
+  const messaggi = [...chatBox.querySelectorAll(".msg")].map(msg => {
+    return {
+      testo: msg.textContent,
+      mittente: msg.classList.contains("utente") ? "utente" : "ai"
+    };
+  });
+  localStorage.setItem("chatHistory", JSON.stringify(messaggi));
+}
+
+// Carica la cronologia salvata
+function caricaCronologiaChat() {
+  const salvata = localStorage.getItem("chatHistory");
+  if (salvata) {
+    const messaggi = JSON.parse(salvata);
+    messaggi.forEach(msg => {
+      aggiungiMessaggio(msg.testo, msg.mittente);
+    });
+  }
+}
+
+// Cancella la cronologia
+function cancellaCronologiaChat() {
+  localStorage.removeItem("chatHistory");
+  chatBox.innerHTML = "";
+}
+
+// Carica cronologia all'avvio
+window.onload = function () {
+  caricaCronologiaChat();
+};
+
+// Espone cancellaCronologia per uso HTML
+window.cancellaCronologiaChat = cancellaCronologiaChat;
