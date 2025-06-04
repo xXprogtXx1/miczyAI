@@ -1,4 +1,4 @@
-body {
+body { 
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(135deg, #ffd6e0, #d6f0ff);
   margin: 0;
@@ -47,6 +47,7 @@ main {
   margin-bottom: 1rem;
   width: 100%;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 #userInput {
@@ -56,6 +57,7 @@ main {
   border: 1px solid #ccc;
   width: 70%;
   max-width: 400px;
+  box-sizing: border-box;
 }
 
 button {
@@ -66,6 +68,7 @@ button {
   background-color: #87ceeb;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 button:hover {
@@ -88,8 +91,6 @@ button:hover {
   flex-direction: column;
   gap: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-
-  /* Nasconde scrollbar mantenendo lo scroll */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* IE 10+ */
 }
@@ -215,9 +216,14 @@ input:checked + .slider:before {
     align-items: center;
   }
 
-  #userInput, button {
+  #userInput,
+  button {
     width: 90%;
     font-size: 0.9rem;
+  }
+
+  button {
+    margin-top: 10px;
   }
 
   .chat-box {
