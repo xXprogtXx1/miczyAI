@@ -42,7 +42,7 @@ async function talkToMiczy() {
   const input = inputField.value.trim();
   if (!input) return;
 
-  // Aggiungo messaggio utente a UI e cronologia
+  // Aggiunge messaggio utente a UI e cronologia
   aggiungiMessaggio(input, "utente");
   chatHistory.push({ role: "user", content: input });
 
@@ -79,9 +79,10 @@ inputField.addEventListener("keydown", function(event) {
   }
 });
 
-// Toggle modalità scura
+// Toggle modalità scura e salvataggio preferenza
 toggleDark.addEventListener("change", function () {
   document.body.classList.toggle("dark-mode");
+  localStorage.setItem("darkMode", toggleDark.checked);
 });
 
 // Salva la cronologia nel localStorage in formato array di messaggi
@@ -94,7 +95,6 @@ function caricaCronologiaChat() {
   const salvata = localStorage.getItem("chatHistory");
   if (salvata) {
     chatHistory = JSON.parse(salvata);
-    // Pulisce chatBox per sicurezza
     chatBox.innerHTML = "";
     chatHistory.forEach(msg => {
       aggiungiMessaggio(msg.content, msg.role === "user" ? "utente" : "ai");
@@ -109,9 +109,15 @@ function cancellaCronologiaChat() {
   chatHistory = [];
 }
 
-// Carica cronologia all’avvio
+// Carica cronologia e modalità scura all’avvio
 window.onload = function () {
   caricaCronologiaChat();
+
+  const darkMode = localStorage.getItem("darkMode");
+  if (darkMode === "true") {
+    document.body.classList.add("dark-mode");
+    toggleDark.checked = true;
+  }
 };
 
 // Espone cancellaCronologia per uso HTML
