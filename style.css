@@ -1,5 +1,5 @@
 body {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: 'Roboto', sans-serif;
   background: linear-gradient(135deg, #ffd6e0, #d6f0ff);
   margin: 0;
   padding: 0;
@@ -16,6 +16,7 @@ header {
   padding: 2rem;
   background-color: #fff0f5;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  position: relative;
 }
 
 body.dark-mode header {
@@ -58,22 +59,47 @@ button:hover {
   box-shadow: 0 0 10px #00bfff;
 }
 
-#output {
-  margin-top: 2rem;
+/* Chat box */
+.chat-box {
+  margin: 2rem auto;
   padding: 1rem;
-  border-radius: 10px;
-  background-color: #f0f8ff;
-  min-height: 100px;
-  white-space: pre-wrap;
-  text-align: left;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  height: 300px;
+  background: #f0f8ff;
+  border-radius: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-body.dark-mode #output {
+body.dark-mode .chat-box {
   background-color: #2e2e2e;
   border: 1px solid #555;
+}
+
+.msg {
+  padding: 0.8rem 1.2rem;
+  border-radius: 20px;
+  max-width: 75%;
+  word-wrap: break-word;
+  line-height: 1.4;
+}
+
+.msg.utente {
+  align-self: flex-end;
+  background-color: #87ceeb;
+  color: white;
+}
+
+.msg.ai {
+  align-self: flex-start;
+  background-color: #dedede;
+}
+
+body.dark-mode .msg.ai {
+  background-color: #444;
+  color: #eee;
 }
 
 /* Dark mode toggle switch */
@@ -123,4 +149,16 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
-/* Forza nuova build GitHub Pages */
+
+/* Responsive */
+@media (max-width: 600px) {
+  input, button {
+    width: 90%;
+    font-size: 0.9rem;
+  }
+
+  .chat-box {
+    height: 250px;
+    padding: 0.5rem;
+  }
+}
