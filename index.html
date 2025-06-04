@@ -2,26 +2,46 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MiczyAI</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <div class="container">
-    <h1>MiczyAI 🤖</h1>
-    <label>
-      🌙 Modalità scura
-      <input type="checkbox" id="toggleDark"/>
+  <header>
+    <h1>MiczyAI</h1>
+    <p>L’intelligenza artificiale più intelligente... o forse no 🤖💭</p>
+    <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
+      <input type="checkbox" id="toggleDark" />
+      <span class="slider"></span>
     </label>
+  </header>
 
-    <div id="chat-box"></div>
+  <main>
+    <form id="chatForm" onsubmit="event.preventDefault(); talkToMiczy();">
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Scrivi qualcosa..."
+          autocomplete="off"
+          aria-label="Input messaggio utente"
+          required
+        />
+        <button type="submit" aria-label="Invia messaggio">Invia</button>
+      </div>
+    </form>
 
-    <textarea id="userInput" placeholder="Scrivi un messaggio..."></textarea>
-    <button onclick="cancellaCronologiaChat()">🗑️ Cancella chat</button>
-  </div>
+    <div id="chat-box" class="chat-box" role="log" aria-live="polite" aria-relevant="additions"></div>
 
-  <!-- Aggiungiamo Marked.js per Markdown -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Pulsante per cancellare la cronologia -->
+    <div class="chat-controls">
+      <button class="clear-btn" onclick="cancellaCronologiaChat()" aria-label="Cancella cronologia chat">
+        🗑️
+      </button>
+    </div>
+  </main>
+
   <script src="script.js"></script>
 </body>
 </html>
