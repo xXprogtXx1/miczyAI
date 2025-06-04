@@ -2,7 +2,10 @@ const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 
-// Aggiunge un messaggio alla chat
+// Cronologia dei messaggi (ruolo e contenuto)
+let chatHistory = [];
+
+// Aggiunge un messaggio alla chat e alla cronologia
 function aggiungiMessaggio(testo, mittente) {
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
@@ -34,24 +37,30 @@ function rimuoviLoader() {
   if (loader) loader.remove();
 }
 
-// Gestisce la richiesta al backend
+// Gestisce la richiesta al backend con cronologia messaggi
 async function talkToMiczy() {
   const input = inputField.value.trim();
   if (!input) return;
 
+  // Aggiungo messaggio utente a UI e cronologia
   aggiungiMessaggio(input, "utente");
+  chatHistory.push({ role: "user", content: input });
+
   aggiungiLoader();
 
   try {
     const response = await fetch("https://backend-miczy-ai.onrender.com/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: input })
+      body: JSON.stringify({ messages: chatHistory })
     });
 
     const data = await response.json();
     rimuoviLoader();
-    aggiungiMessaggio(data.response || "Nessuna risposta ricevuta 😐", "ai");
+
+    const risposta = data.response || "Nessuna risposta ricevuta 😐";
+    aggiungiMessaggio(risposta, "ai");
+    chatHistory.push({ role: "assistant", content: risposta });
 
   } catch (error) {
     console.error(error);
@@ -75,24 +84,20 @@ toggleDark.addEventListener("change", function () {
   document.body.classList.toggle("dark-mode");
 });
 
-// Salva la cronologia nel localStorage
+// Salva la cronologia nel localStorage in formato array di messaggi
 function salvaCronologiaChat() {
-  const messaggi = [...chatBox.querySelectorAll(".msg")].map(msg => {
-    return {
-      testo: msg.textContent,
-      mittente: msg.classList.contains("utente") ? "utente" : "ai"
-    };
-  });
-  localStorage.setItem("chatHistory", JSON.stringify(messaggi));
+  localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
 }
 
-// Carica la cronologia salvata
+// Carica la cronologia salvata da localStorage e la mostra in chat
 function caricaCronologiaChat() {
   const salvata = localStorage.getItem("chatHistory");
   if (salvata) {
-    const messaggi = JSON.parse(salvata);
-    messaggi.forEach(msg => {
-      aggiungiMessaggio(msg.testo, msg.mittente);
+    chatHistory = JSON.parse(salvata);
+    // Pulisce chatBox per sicurezza
+    chatBox.innerHTML = "";
+    chatHistory.forEach(msg => {
+      aggiungiMessaggio(msg.content, msg.role === "user" ? "utente" : "ai");
     });
   }
 }
@@ -101,9 +106,10 @@ function caricaCronologiaChat() {
 function cancellaCronologiaChat() {
   localStorage.removeItem("chatHistory");
   chatBox.innerHTML = "";
+  chatHistory = [];
 }
 
-// Carica cronologia all'avvio
+// Carica cronologia all’avvio
 window.onload = function () {
   caricaCronologiaChat();
 };
