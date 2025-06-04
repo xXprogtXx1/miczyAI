@@ -43,12 +43,10 @@ main {
 
 #chatForm {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
   margin-bottom: 1rem;
-  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
 }
 
 #userInput {
@@ -90,6 +88,14 @@ button:hover {
   flex-direction: column;
   gap: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* Nasconde scrollbar mantenendo lo scroll */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.chat-box::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 body.dark-mode .chat-box {
@@ -207,17 +213,11 @@ input:checked + .slider:before {
   #chatForm {
     flex-direction: column;
     align-items: center;
-    gap: 12px;
   }
 
-  #userInput {
+  #userInput, button {
     width: 90%;
-    font-size: 0.95rem;
-  }
-
-  button {
-    width: 90%;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .chat-box {
