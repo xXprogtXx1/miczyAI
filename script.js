@@ -1,30 +1,28 @@
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const sendButton = document.querySelector("button");
-const chatBox = document.getElementById("chat-box");
-
-// Carica preferenza dark mode
-if (localStorage.getItem("darkMode") === "enabled") {
-  document.body.classList.add("dark-mode");
-  toggleDark.checked = true;
-}
 
 function aggiungiMessaggio(testo, mittente, isLoader = false) {
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
+  
   if (isLoader) {
-    msg.classList.add("loader");
-    msg.innerHTML = `Sto pensando<span></span>`;
+    // Testo "Sto pensando..." + loader animato
+    msg.innerHTML = `Sto pensando... <span class="loader-dots">
+      <span></span><span></span><span></span>
+    </span>`;
   } else {
-    msg.textContent = testo;
+    msg.innerText = testo;
   }
-  chatBox.appendChild(msg);
-  chatBox.scrollTop = chatBox.scrollHeight;
-  return msg;
+
+  document.getElementById("chat-box").appendChild(msg);
+  document.getElementById("chat-box").scrollTop = document.getElementById("chat-box").scrollHeight;
+  return msg; // ritorno il messaggio per poterlo rimuovere
 }
 
 async function talkToMiczy() {
   const input = inputField.value.trim();
+
   if (!input) {
     aggiungiMessaggio("Inserisci qualcosa prima di inviare!", "ai");
     return;
@@ -32,7 +30,6 @@ async function talkToMiczy() {
 
   aggiungiMessaggio(input, "utente");
 
-  // Disabilita input e bottone mentre aspetti risposta
   inputField.disabled = true;
   sendButton.disabled = true;
 
@@ -79,5 +76,13 @@ toggleDark.addEventListener("change", function () {
     localStorage.setItem("darkMode", "enabled");
   } else {
     localStorage.removeItem("darkMode");
+  }
+});
+
+// Imposta modalità dark all’avvio in base a preferenza salvata
+window.addEventListener("DOMContentLoaded", () => {
+  if(localStorage.getItem("darkMode") === "enabled"){
+    document.body.classList.add("dark-mode");
+    toggleDark.checked = true;
   }
 });
