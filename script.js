@@ -1,16 +1,24 @@
 const inputField = document.getElementById("userInput");
-const output = document.getElementById("output");
 const toggleDark = document.getElementById("toggleDark");
+
+function aggiungiMessaggio(testo, mittente) {
+  const msg = document.createElement("div");
+  msg.className = `msg ${mittente}`;
+  msg.innerText = testo;
+  document.getElementById("chat-box").appendChild(msg);
+  document.getElementById("chat-box").scrollTop = document.getElementById("chat-box").scrollHeight;
+}
 
 async function talkToMiczy() {
   const input = inputField.value.trim();
 
   if (!input) {
-    output.innerText = "Inserisci qualcosa prima di inviare!";
+    aggiungiMessaggio("Inserisci qualcosa prima di inviare!", "ai");
     return;
   }
 
-  output.innerText = "Sto pensando...";
+  aggiungiMessaggio(input, "utente");
+  aggiungiMessaggio("Sto pensando...", "ai");
 
   try {
     const response = await fetch("https://backend-miczy-ai.onrender.com/chat", {
@@ -19,28 +27,18 @@ async function talkToMiczy() {
       body: JSON.stringify({ prompt: input })
     });
 
-    if (!response.ok) {
-      throw new Error(`Server ha risposto con codice ${response.status}`);
-    }
-
     const data = await response.json();
+    const risposte = document.querySelectorAll(".ai");
+    if (risposte.length) risposte[risposte.length - 1].remove();
 
-    if (!data.response) {
-      output.innerText = "Nessuna risposta ricevuta 😐";
-    } else {
-      output.innerText = data.response;
-    }
-
-    inputField.value = "";
+    aggiungiMessaggio(data.response || "Nessuna risposta ricevuta 😐", "ai");
 
   } catch (error) {
     console.error(error);
-    if (error.message.includes("Failed to fetch")) {
-      output.innerText = "Impossibile raggiungere il server, controlla la connessione.";
-    } else {
-      output.innerText = "Errore nel parlare con MiczyAI 😢";
-    }
+    aggiungiMessaggio("Errore nel parlare con MiczyAI 😢", "ai");
   }
+
+  inputField.value = "";
 }
 
 inputField.addEventListener("keydown", function(event) {
@@ -53,4 +51,3 @@ inputField.addEventListener("keydown", function(event) {
 toggleDark.addEventListener("change", function () {
   document.body.classList.toggle("dark-mode");
 });
-//test
