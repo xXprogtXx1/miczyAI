@@ -3,13 +3,20 @@ const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 
 // Aggiunge un messaggio alla chat
-function aggiungiMessaggio(testo, mittente) {
+function aggiungiMessaggio(testo, mittente, usaMarkdown = false) {
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
-  msg.innerText = testo;
+  msg.innerHTML = usaMarkdown ? marked.parse(testo) : escapeHTML(testo);
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
   salvaCronologiaChat(); // Salva ogni volta che si aggiunge un messaggio
+}
+
+// Escape HTML per i messaggi utente
+function escapeHTML(text) {
+  const div = document.createElement("div");
+  div.innerText = text;
+  return div.innerHTML;
 }
 
 // Aggiunge il loader
@@ -51,7 +58,7 @@ async function talkToMiczy() {
 
     const data = await response.json();
     rimuoviLoader();
-    aggiungiMessaggio(data.response || "Nessuna risposta ricevuta 😐", "ai");
+    aggiungiMessaggio(data.response || "Nessuna risposta ricevuta 😐", "ai", true);
 
   } catch (error) {
     console.error(error);
@@ -64,7 +71,7 @@ async function talkToMiczy() {
 
 // Gestisce l'invio con il tasto Invio
 inputField.addEventListener("keydown", function(event) {
-  if (event.key === "Enter") {
+  if (event.key === "Enter" && !event.shiftKey) {
     event.preventDefault();
     talkToMiczy();
   }
@@ -79,7 +86,7 @@ toggleDark.addEventListener("change", function () {
 function salvaCronologiaChat() {
   const messaggi = [...chatBox.querySelectorAll(".msg")].map(msg => {
     return {
-      testo: msg.textContent,
+      testo: msg.getAttribute("data-raw") || msg.innerText,
       mittente: msg.classList.contains("utente") ? "utente" : "ai"
     };
   });
@@ -92,7 +99,7 @@ function caricaCronologiaChat() {
   if (salvata) {
     const messaggi = JSON.parse(salvata);
     messaggi.forEach(msg => {
-      aggiungiMessaggio(msg.testo, msg.mittente);
+      aggiungiMessaggio(msg.testo, msg.mittente, msg.mittente === "ai");
     });
   }
 }
