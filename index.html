@@ -19,15 +19,17 @@
 
   <main>
     <form id="chatForm" onsubmit="event.preventDefault(); talkToMiczy();">
-      <input
-        type="text"
-        id="userInput"
-        placeholder="Scrivi qualcosa..."
-        autocomplete="off"
-        aria-label="Input messaggio utente"
-        required
-      />
-      <button type="submit" aria-label="Invia messaggio">Invia</button>
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Scrivi qualcosa..."
+          autocomplete="off"
+          aria-label="Input messaggio utente"
+          required
+        />
+        <button type="submit" aria-label="Invia messaggio">Invia</button>
+      </div>
     </form>
     <div id="chat-box" class="chat-box" role="log" aria-live="polite" aria-relevant="additions"></div>
   </main>
