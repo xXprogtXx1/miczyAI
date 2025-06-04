@@ -1,34 +1,69 @@
-document.getElementById("send-button").addEventListener("click", async () => {
-  const userInput = document.getElementById("user-input").value;
-  const responseDiv = document.getElementById("response");
+const inputField = document.getElementById("userInput");
+const toggleDark = document.getElementById("toggleDark");
+const chatBox = document.getElementById("chat-box");
 
-  if (!userInput.trim()) {
-    responseDiv.innerText = "Per favore scrivi qualcosa.";
-    return;
-  }
+function aggiungiMessaggio(testo, mittente) {
+  const msg = document.createElement("div");
+  msg.className = `msg ${mittente}`;
+  msg.innerText = testo;
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
 
-  responseDiv.innerText = "Attendere...";
+function aggiungiLoader() {
+  const loaderWrapper = document.createElement("div");
+  loaderWrapper.className = "msg ai loader-wrapper";
+  loaderWrapper.setAttribute("id", "loader");
+  loaderWrapper.innerHTML = `
+    <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  `;
+  chatBox.appendChild(loaderWrapper);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function rimuoviLoader() {
+  const loader = document.getElementById("loader");
+  if (loader) loader.remove();
+}
+
+async function talkToMiczy() {
+  const input = inputField.value.trim();
+  if (!input) return;
+
+  aggiungiMessaggio(input, "utente");
+  aggiungiLoader();
 
   try {
-    const res = await fetch("https://miczyai-backend.replit.app/api/chat", {
+    const response = await fetch("https://backend-miczy-ai.onrender.com/chat", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message: userInput }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: input })
     });
 
-    if (!res.ok) throw new Error("Errore nella richiesta");
+    const data = await response.json();
+    rimuoviLoader();
+    aggiungiMessaggio(data.response || "Nessuna risposta ricevuta 😐", "ai");
 
-    const data = await res.json();
-    responseDiv.innerText = data.response || "Nessuna risposta ricevuta.";
   } catch (error) {
-    console.error("Errore:", error);
-    responseDiv.innerText = "Errore nel contattare il server.";
+    console.error(error);
+    rimuoviLoader();
+    aggiungiMessaggio("Errore nel parlare con MiczyAI 😢", "ai");
+  }
+
+  inputField.value = "";
+}
+
+inputField.addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    talkToMiczy();
   }
 });
 
-// Dark mode toggle
-document.getElementById("toggle-dark").addEventListener("click", () => {
+toggleDark.addEventListener("change", function () {
   document.body.classList.toggle("dark-mode");
 });
