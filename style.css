@@ -77,24 +77,6 @@ button:hover {
   box-shadow: 0 0 10px #00bfff;
 }
 
-/* Pulsante clear (🗑️) */
-.chat-controls {
-  margin-top: 1rem;
-}
-
-.clear-btn {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.clear-btn:hover {
-  transform: scale(1.2);
-  color: red;
-}
-
 /* Chat box */
 .chat-box {
   margin: 0 auto;
@@ -247,9 +229,5 @@ input:checked + .slider:before {
   .chat-box {
     height: 250px;
     padding: 0.5rem;
-  }
-
-  .clear-btn {
-    font-size: 1.8rem;
   }
 }
