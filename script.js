@@ -1,23 +1,19 @@
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
-const sendButton = document.querySelector("button");
+const chatBox = document.getElementById("chat-box");
 
-function aggiungiMessaggio(testo, mittente, isLoader = false) {
+function aggiungiMessaggio(testo, mittente) {
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
   
-  if (isLoader) {
-    // Testo "Sto pensando..." + loader animato
-    msg.innerHTML = `Sto pensando... <span class="loader-dots">
-      <span></span><span></span><span></span>
-    </span>`;
+  if (mittente === "loader") {
+    msg.innerHTML = `<span class="loader"></span> ${testo}`;
   } else {
     msg.innerText = testo;
   }
 
-  document.getElementById("chat-box").appendChild(msg);
-  document.getElementById("chat-box").scrollTop = document.getElementById("chat-box").scrollHeight;
-  return msg; // ritorno il messaggio per poterlo rimuovere
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 async function talkToMiczy() {
@@ -29,12 +25,7 @@ async function talkToMiczy() {
   }
 
   aggiungiMessaggio(input, "utente");
-
-  inputField.disabled = true;
-  sendButton.disabled = true;
-
-  // Aggiungi loader
-  const loaderMsg = aggiungiMessaggio("", "ai", true);
+  aggiungiMessaggio("Sto pensando...", "loader");
 
   try {
     const response = await fetch("https://backend-miczy-ai.onrender.com/chat", {
@@ -45,20 +36,19 @@ async function talkToMiczy() {
 
     const data = await response.json();
 
-    // Rimuovi loader
+    const loaderMsg = document.querySelector(".msg.loader");
     if (loaderMsg) loaderMsg.remove();
 
     aggiungiMessaggio(data.response || "Nessuna risposta ricevuta 😐", "ai");
 
   } catch (error) {
     console.error(error);
+    const loaderMsg = document.querySelector(".msg.loader");
     if (loaderMsg) loaderMsg.remove();
     aggiungiMessaggio("Errore nel parlare con MiczyAI 😢", "ai");
   }
 
   inputField.value = "";
-  inputField.disabled = false;
-  sendButton.disabled = false;
   inputField.focus();
 }
 
@@ -71,18 +61,4 @@ inputField.addEventListener("keydown", function(event) {
 
 toggleDark.addEventListener("change", function () {
   document.body.classList.toggle("dark-mode");
-  // Salva preferenza dark mode
-  if(document.body.classList.contains("dark-mode")){
-    localStorage.setItem("darkMode", "enabled");
-  } else {
-    localStorage.removeItem("darkMode");
-  }
-});
-
-// Imposta modalità dark all’avvio in base a preferenza salvata
-window.addEventListener("DOMContentLoaded", () => {
-  if(localStorage.getItem("darkMode") === "enabled"){
-    document.body.classList.add("dark-mode");
-    toggleDark.checked = true;
-  }
 });
