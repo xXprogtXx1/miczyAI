@@ -15,7 +15,7 @@ body.dark-mode {
 header {
   padding: 2rem;
   background-color: #fff0f5;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
@@ -36,33 +36,34 @@ p {
 
 main {
   padding: 2rem;
-}
-
-form {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
-  flex-wrap: wrap;
 }
 
-input, button {
+#chatForm {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+#userInput {
   padding: 1rem;
   font-size: 1rem;
   border-radius: 10px;
   border: 1px solid #ccc;
-}
-
-input {
-  flex: 1 1 300px;
-  max-width: 70%;
+  width: 70%;
+  max-width: 400px;
 }
 
 button {
-  background-color: #87ceeb;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
   border: none;
+  background-color: #87ceeb;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -75,7 +76,7 @@ button:hover {
 
 /* Chat box */
 .chat-box {
-  margin: 2rem auto 0 auto;
+  margin: 0 auto;
   padding: 1.2rem;
   max-width: 600px;
   width: 90%;
@@ -118,7 +119,7 @@ body.dark-mode .msg.ai {
   color: #eee;
 }
 
-/* Loader animation */
+/* Loader (dots bounce) */
 .loader {
   display: flex;
   gap: 5px;
@@ -151,12 +152,7 @@ body.dark-mode .msg.ai {
   }
 }
 
-/* Dark mode loader */
-body.dark-mode .loader div {
-  background-color: #ccc;
-}
-
-/* Toggle dark mode switch */
+/* Dark mode toggle switch */
 .switch {
   position: absolute;
   top: 1rem;
@@ -204,19 +200,16 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
+/* Responsive */
 @media (max-width: 600px) {
-  input, button {
+  #chatForm {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #userInput, button {
     width: 90%;
     font-size: 0.9rem;
-  }
-
-  form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  input {
-    max-width: 100%;
   }
 
   .chat-box {
