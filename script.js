@@ -1,8 +1,7 @@
 const inputField = document.getElementById("userInput");
 const output = document.getElementById("output");
-const darkToggle = document.getElementById("darkModeToggle");
+const toggleDark = document.getElementById("toggleDark");
 
-// Funzione per chiamare API backend
 async function talkToMiczy() {
   const input = inputField.value.trim();
 
@@ -44,7 +43,6 @@ async function talkToMiczy() {
   }
 }
 
-// Event listener per invio con Invio (enter)
 inputField.addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
     event.preventDefault();
@@ -52,22 +50,6 @@ inputField.addEventListener("keydown", function(event) {
   }
 });
 
-// Toggle dark mode e salva preferenza su localStorage
-darkToggle.addEventListener("change", () => {
-  if (darkToggle.checked) {
-    document.body.classList.add("dark");
-    localStorage.setItem("darkMode", "true");
-  } else {
-    document.body.classList.remove("dark");
-    localStorage.setItem("darkMode", "false");
-  }
-});
-
-// Al caricamento pagina applica preferenza dark mode salvata
-window.addEventListener("DOMContentLoaded", () => {
-  const darkModeSetting = localStorage.getItem("darkMode");
-  if (darkModeSetting === "true") {
-    darkToggle.checked = true;
-    document.body.classList.add("dark");
-  }
+toggleDark.addEventListener("change", function () {
+  document.body.classList.toggle("dark-mode");
 });
