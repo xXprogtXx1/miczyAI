@@ -83,7 +83,7 @@ async function talkToMiczy() {
 
   // 🔒 Disabilita il pulsante durante l'elaborazione
   submitButton.disabled = true;
-  submitButton.textContent = "Attendi...";
+  submitButton.textContent = "mhhh...";
 
   aggiungiMessaggio(input, "utente");
   chatHistory.push({ role: "user", content: input });
