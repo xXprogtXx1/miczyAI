@@ -16,17 +16,19 @@ const sottotitoli = [
   "Errori? Feature, non bug."
 ];
 
-// Effetto scrittura a macchina
+// Effetto scrittura a macchina (corretto per spazi)
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
-  elemento.innerText = "";
+  elemento.textContent = ""; // Reset
   let i = 0;
+
   function scrivi() {
     if (i < testo.length) {
-      elemento.innerText += testo.charAt(i);
+      elemento.textContent += testo[i];
       i++;
       setTimeout(scrivi, velocita);
     }
   }
+
   scrivi();
 }
 
