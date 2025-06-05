@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="MiczyAI - Il tuo assistente virtuale intelligente. Chatta con un'IA avanzata sviluppata da Miczy.">
-    <title>MiczyAI</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="logo.png" type="image/png" />
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <img src="logo.png" alt="Logo di MiczyAI" class="logo" />
-        <h1 id="mainTitle">MiczyAI</h1>
-        <button id="toggleDark" aria-label="Toggle tema">🌙</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MiczyAI - Chat intelligente... o forse no</title>
+  <meta name="description" content="MiczyAI è la tua IA personale: chatta, chiedi, esplora e divertiti con l'AI più... creativa!" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="miczy-favicon.png">
+</head>
+<body>
+  <header>
+    <h1>MiczyAI</h1>
+    <p id="subtitle"></p> <!-- Sottotitolo dinamico -->
+    <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
+      <input type="checkbox" id="toggleDark" />
+      <span class="slider"></span>
+    </label>
+  </header>
+
+  <main>
+    <form id="chatForm" onsubmit="event.preventDefault(); talkToMiczy();">
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Scrivi qualcosa..."
+          autocomplete="off"
+          aria-label="Input messaggio utente"
+          required
+        />
+        <button type="submit" aria-label="Invia messaggio">Invia</button>
       </div>
+    </form>
 
-      <div class="language-selector">
-        <button id="languageToggle">EN</button>
-      </div>
+    <div id="chat-box" class="chat-box" role="log" aria-live="polite" aria-relevant="additions"></div>
 
-      <div id="subtitle" class="subtitle"></div>
-
-      <div class="chatbox" id="chat-box">
-        <!-- Messaggi saranno qui -->
-      </div>
-
-      <form id="chatForm" class="input-area">
-        <input type="text" id="userInput" placeholder="Scrivi qualcosa..." autocomplete="off" required />
-        <button type="submit" id="sendButton">Invia</button>
-      </form>
-
-      <p class="footer">MiczyAI © 2024 - Creato da Miczy</p>
+    <!-- Pulsante per cancellare la cronologia -->
+    <div class="chat-controls">
+      <button class="clear-btn" onclick="cancellaCronologiaChat()" aria-label="Cancella cronologia chat">
+        🗑️
+      </button>
     </div>
+  </main>
 
-    <script src="script.js"></script>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
