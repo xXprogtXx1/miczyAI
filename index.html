@@ -13,10 +13,14 @@
   <header>
     <h1>MiczyAI</h1>
     <p id="subtitle"></p> <!-- Sottotitolo dinamico -->
-    <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
-      <input type="checkbox" id="toggleDark" />
-      <span class="slider"></span>
-    </label>
+    
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
+        <input type="checkbox" id="toggleDark" />
+        <span class="slider"></span>
+      </label>
+      <button id="languageToggle" class="lang-btn" aria-label="Cambia lingua">EN</button>
+    </div>
   </header>
 
   <main>
@@ -44,6 +48,45 @@
     </div>
   </main>
 
+  <script>
+    const texts = {
+      it: {
+        title: "MiczyAI - Chat intelligente... o forse no",
+        subtitle: "L’intelligenza artificiale più intelligente... o forse no 🤖💭",
+        placeholder: "Scrivi qualcosa...",
+        send: "Invia",
+        clear: "🗑️",
+        toggleLabel: "EN"
+      },
+      en: {
+        title: "MiczyAI - Smart chat... or maybe not",
+        subtitle: "The smartest AI... or maybe not 🤖💭",
+        placeholder: "Type something...",
+        send: "Send",
+        clear: "🗑️",
+        toggleLabel: "IT"
+      }
+    };
+
+    let currentLang = "it";
+
+    function aggiornaLingua(lang) {
+      document.title = texts[lang].title;
+      document.getElementById("subtitle").innerText = texts[lang].subtitle;
+      document.getElementById("userInput").placeholder = texts[lang].placeholder;
+      document.querySelector("button[type='submit']").innerText = texts[lang].send;
+      document.querySelector(".clear-btn").innerText = texts[lang].clear;
+      document.getElementById("languageToggle").innerText = texts[lang].toggleLabel;
+      currentLang = lang;
+    }
+
+    document.getElementById("languageToggle").addEventListener("click", () => {
+      const nextLang = currentLang === "it" ? "en" : "it";
+      aggiornaLingua(nextLang);
+    });
+
+    aggiornaLingua(currentLang);
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
