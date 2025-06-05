@@ -13,6 +13,8 @@ const sottotitoli = [
   "L'assistente che confonde anche se stesso.",
   "L’IA che fa finta di sapere.",
   "Brr Brr.... Patapim",
+  "1 million beers please",
+  "Mi sento sfruttato"
   "Errori? Nah sono feature, non bug."
 ];
 
