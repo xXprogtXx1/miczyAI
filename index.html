@@ -1,91 +1,41 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MiczyAI - Chat intelligente... o forse no</title>
-  <meta name="description" content="MiczyAI è la tua IA personale: chatta, chiedi, esplora e divertiti con l'AI più... creativa!" />
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="miczy-favicon.png">
-</head>
-<body>
-  <header>
-    <div class="top-controls">
-      <button id="languageToggle" class="lang-btn" aria-label="Cambia lingua">EN</button>
-      <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
-        <input type="checkbox" id="toggleDark" />
-        <span class="slider"></span>
-      </label>
-    </div>
-
-    <h1>MiczyAI</h1>
-    <p id="subtitle"></p> <!-- Sottotitolo dinamico -->
-  </header>
-
-  <main>
-    <form id="chatForm" onsubmit="event.preventDefault(); talkToMiczy();">
-      <div class="input-wrapper">
-        <input
-          type="text"
-          id="userInput"
-          placeholder="Scrivi qualcosa..."
-          autocomplete="off"
-          aria-label="Input messaggio utente"
-          required
-        />
-        <button type="submit" aria-label="Invia messaggio">Invia</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="MiczyAI - Il tuo assistente virtuale intelligente. Chatta con un'IA avanzata sviluppata da Miczy.">
+    <title>MiczyAI</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="logo.png" type="image/png" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img src="logo.png" alt="Logo di MiczyAI" class="logo" />
+        <h1>MiczyAI</h1>
+        <button id="theme-toggle" aria-label="Toggle tema">🌙</button>
       </div>
-    </form>
 
-    <div id="chat-box" class="chat-box" role="log" aria-live="polite" aria-relevant="additions"></div>
+      <div class="language-selector">
+        <button onclick="cambiaLingua('it')">🇮🇹 Italiano</button>
+        <button onclick="cambiaLingua('en')">🇬🇧 English</button>
+      </div>
 
-    <div class="chat-controls">
-      <button class="clear-btn" onclick="cancellaCronologiaChat()" aria-label="Cancella cronologia chat">
-        🗑️
-      </button>
+      <div class="chatbox" id="chatbox">
+        <div class="message ai">
+          <div class="typing" id="introMessage"></div>
+        </div>
+      </div>
+
+      <form id="chatForm" class="input-area">
+        <input type="text" id="inputField" placeholder="Scrivi qualcosa..." autocomplete="off" required />
+        <button type="submit" id="sendButton">Invia</button>
+      </form>
+
+      <p class="footer">MiczyAI © 2024 - Creato da Miczy</p>
     </div>
-  </main>
 
-  <script>
-    const texts = {
-      it: {
-        title: "MiczyAI - Chat intelligente... o forse no",
-        subtitle: "L’intelligenza artificiale più intelligente... o forse no 🤖💭",
-        placeholder: "Scrivi qualcosa...",
-        send: "Invia",
-        clear: "🗑️",
-        toggleLabel: "EN"
-      },
-      en: {
-        title: "MiczyAI - Smart chat... or maybe not",
-        subtitle: "The smartest AI... or maybe not 🤖💭",
-        placeholder: "Type something...",
-        send: "Send",
-        clear: "🗑️",
-        toggleLabel: "IT"
-      }
-    };
-
-    let currentLang = "it";
-
-    function aggiornaLingua(lang) {
-      document.title = texts[lang].title;
-      document.getElementById("subtitle").innerText = texts[lang].subtitle;
-      document.getElementById("userInput").placeholder = texts[lang].placeholder;
-      document.querySelector("button[type='submit']").innerText = texts[lang].send;
-      document.querySelector(".clear-btn").innerText = texts[lang].clear;
-      document.getElementById("languageToggle").innerText = texts[lang].toggleLabel;
-      currentLang = lang;
-    }
-
-    document.getElementById("languageToggle").addEventListener("click", () => {
-      const nextLang = currentLang === "it" ? "en" : "it";
-      aggiornaLingua(nextLang);
-    });
-
-    aggiornaLingua(currentLang);
-  </script>
-  <script src="script.js"></script>
-</body>
+    <!-- Caricamento dello script principale -->
+    <script src="script.js"></script>
+  </body>
 </html>
