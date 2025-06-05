@@ -125,12 +125,12 @@ button:hover {
   flex-direction: column;
   gap: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .chat-box::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 body.dark-mode .chat-box {
@@ -187,12 +187,8 @@ body.dark-mode .msg.ai {
 }
 
 @keyframes bounce {
-  0%, 80%, 100% {
-    transform: scale(0);
-  }
-  40% {
-    transform: scale(1);
-  }
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
 }
 
 /* Dark mode toggle switch */
