@@ -4,16 +4,16 @@ const chatBox = document.getElementById("chat-box");
 
 // Frasi sarcastiche per il sottotitolo
 const sottotitoli = [
-  "Più intelligente di te? Forse del tostapane.",
+  "Più intelligente di te? Nah sai più tu che io.",
   "IA brillante... quando ha voglia.",
   "Finta umiltà, vera confusione.",
   "Risposte? Ci provo, ok?",
   "Sembra sveglio. Sembra.",
-  "Programmata per... qualcosa.",
+  "Programmata per... qualcosa ma devo ancora capire che cosa.",
   "L'assistente che confonde anche se stesso.",
   "L’IA che fa finta di sapere.",
   "Non rispondo a domande esistenziali.",
-  "Errori? Feature, non bug."
+  "Errori? Nah sono feature, non bug."
 ];
 
 // Effetto scrittura a macchina con spazi corretti
