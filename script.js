@@ -70,7 +70,7 @@ function aggiornaLingua(lang) {
     }
   };
 
-  document.title = texts[lang].title;
+  document.title = texts[lang].title; // ← AGGIUNTA QUI
   scriviTestoGradualmente(document.getElementById("subtitle"), texts[lang].subtitle, 40);
   inputField.placeholder = texts[lang].placeholder;
   document.querySelector("button[type='submit']").innerText = texts[lang].send;
