@@ -32,6 +32,22 @@ h1 {
 p {
   color: #666;
   font-size: 1.2rem;
+  margin: 0;
+}
+
+/* Scrittura a macchina per #subtitle */
+#subtitle {
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #ff69b4;
+  animation: blink-caret 0.75s step-end infinite;
+  display: inline-block;
+  max-width: 100%;
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #ff69b4; }
 }
 
 main {
