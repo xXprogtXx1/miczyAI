@@ -16,14 +16,15 @@ const sottotitoli = [
   "Errori? Feature, non bug."
 ];
 
-// Effetto scrittura a macchina (corretto per spazi)
+// Effetto scrittura a macchina con spazi corretti
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
-  elemento.textContent = ""; // Reset
+  elemento.innerHTML = "";
   let i = 0;
 
   function scrivi() {
     if (i < testo.length) {
-      elemento.textContent += testo[i];
+      const char = testo[i] === " " ? "&nbsp;" : testo[i];
+      elemento.innerHTML += char;
       i++;
       setTimeout(scrivi, velocita);
     }
@@ -156,5 +157,4 @@ window.onload = function () {
   }
 };
 
-// Espone funzione al bottone HTML
 window.cancellaCronologiaChat = cancellaCronologiaChat;
