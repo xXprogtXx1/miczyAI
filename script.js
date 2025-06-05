@@ -39,7 +39,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const sottotitoloElemento = document.getElementById("subtitle");
   const fraseCasuale = sottotitoli[Math.floor(Math.random() * sottotitoli.length)];
   scriviTestoGradualmente(sottotitoloElemento, fraseCasuale, 40);
-  document.title = `MiczyAI — ${fraseCasuale}`;
+  document.title = `MiczyAI - ${fraseCasuale}`; // Cambia solo al reload
 });
 
 // Cronologia messaggi
