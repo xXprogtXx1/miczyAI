@@ -12,30 +12,28 @@
     <div class="container">
       <div class="header">
         <img src="logo.png" alt="Logo di MiczyAI" class="logo" />
-        <h1>MiczyAI</h1>
-        <button id="theme-toggle" aria-label="Toggle tema">🌙</button>
+        <h1 id="mainTitle">MiczyAI</h1>
+        <button id="toggleDark" aria-label="Toggle tema">🌙</button>
       </div>
 
       <div class="language-selector">
-        <button onclick="cambiaLingua('it')">🇮🇹 Italiano</button>
-        <button onclick="cambiaLingua('en')">🇬🇧 English</button>
+        <button id="languageToggle">EN</button>
       </div>
 
-      <div class="chatbox" id="chatbox">
-        <div class="message ai">
-          <div class="typing" id="introMessage"></div>
-        </div>
+      <div id="subtitle" class="subtitle"></div>
+
+      <div class="chatbox" id="chat-box">
+        <!-- Messaggi saranno qui -->
       </div>
 
       <form id="chatForm" class="input-area">
-        <input type="text" id="inputField" placeholder="Scrivi qualcosa..." autocomplete="off" required />
+        <input type="text" id="userInput" placeholder="Scrivi qualcosa..." autocomplete="off" required />
         <button type="submit" id="sendButton">Invia</button>
       </form>
 
       <p class="footer">MiczyAI © 2024 - Creato da Miczy</p>
     </div>
 
-    <!-- Caricamento dello script principale -->
     <script src="script.js"></script>
   </body>
 </html>
