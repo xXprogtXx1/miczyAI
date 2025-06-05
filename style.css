@@ -1,4 +1,4 @@
-body { 
+body {
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(135deg, #ffd6e0, #d6f0ff);
   margin: 0;
@@ -35,6 +35,10 @@ p {
   margin: 0;
 }
 
+body.dark-mode p {
+  color: #ccc;
+}
+
 /* Scrittura a macchina per #subtitle */
 #subtitle {
   white-space: nowrap;
@@ -48,6 +52,17 @@ p {
 @keyframes blink-caret {
   from, to { border-color: transparent; }
   50% { border-color: #ff69b4; }
+}
+
+/* Controlli in alto a destra */
+.top-controls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  z-index: 10;
 }
 
 main {
@@ -193,12 +208,10 @@ body.dark-mode .msg.ai {
 
 /* Dark mode toggle switch */
 .switch {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
   display: inline-block;
   width: 50px;
   height: 24px;
+  position: relative;
 }
 
 .switch input {
