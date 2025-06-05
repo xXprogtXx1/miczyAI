@@ -2,7 +2,7 @@ const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 
-// Frasi sarcastiche per il sottotitolo
+// Frasi sarcastiche per il sottotitolo e <title>
 const sottotitoli = [
   "Sai più tu che io.",
   "IA brillante... quando ha voglia.",
@@ -16,11 +16,10 @@ const sottotitoli = [
   "Errori? Nah sono feature, non bug."
 ];
 
-// Effetto scrittura a macchina con spazi corretti
+// Scrittura a macchina con spazi non collassati
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   elemento.innerHTML = "";
   let i = 0;
-
   function scrivi() {
     if (i < testo.length) {
       const char = testo[i] === " " ? "&nbsp;" : testo[i];
@@ -29,21 +28,21 @@ function scriviTestoGradualmente(elemento, testo, velocita = 50) {
       setTimeout(scrivi, velocita);
     }
   }
-
   scrivi();
 }
 
-// Imposta sottotitolo all'avvio
+// All’avvio: sottotitolo e titolo casuale
 window.addEventListener("DOMContentLoaded", () => {
   const sottotitoloElemento = document.getElementById("subtitle");
   const fraseCasuale = sottotitoli[Math.floor(Math.random() * sottotitoli.length)];
   scriviTestoGradualmente(sottotitoloElemento, fraseCasuale, 40);
+  document.title = `MiczyAI — ${fraseCasuale}`;
 });
 
-// Cronologia dei messaggi
+// Cronologia messaggi
 let chatHistory = [];
 
-// Aggiunge un messaggio alla chat e alla cronologia
+// Aggiunta messaggio
 function aggiungiMessaggio(testo, mittente) {
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
@@ -53,7 +52,7 @@ function aggiungiMessaggio(testo, mittente) {
   salvaCronologiaChat();
 }
 
-// Aggiunge il loader
+// Loader animazione
 function aggiungiLoader() {
   const loaderWrapper = document.createElement("div");
   loaderWrapper.className = "msg ai loader-wrapper";
@@ -69,20 +68,18 @@ function aggiungiLoader() {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// Rimuove il loader
 function rimuoviLoader() {
   const loader = document.getElementById("loader");
   if (loader) loader.remove();
 }
 
-// Gestisce la richiesta al backend con cronologia
+// Invio messaggio al backend
 async function talkToMiczy() {
   const input = inputField.value.trim();
   if (!input) return;
 
   aggiungiMessaggio(input, "utente");
   chatHistory.push({ role: "user", content: input });
-
   aggiungiLoader();
 
   try {
@@ -108,7 +105,7 @@ async function talkToMiczy() {
   inputField.value = "";
 }
 
-// Invio con Invio
+// Invio con Enter
 inputField.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
@@ -116,18 +113,17 @@ inputField.addEventListener("keydown", function (event) {
   }
 });
 
-// Toggle dark mode + salva
+// Toggle dark mode + salvataggio
 toggleDark.addEventListener("change", function () {
   document.body.classList.toggle("dark-mode");
   localStorage.setItem("darkMode", toggleDark.checked);
 });
 
-// Salvataggio cronologia
+// Salva e carica cronologia
 function salvaCronologiaChat() {
   localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
 }
 
-// Caricamento cronologia
 function caricaCronologiaChat() {
   const salvata = localStorage.getItem("chatHistory");
   if (salvata) {
@@ -139,17 +135,14 @@ function caricaCronologiaChat() {
   }
 }
 
-// Cancella cronologia
 function cancellaCronologiaChat() {
   localStorage.removeItem("chatHistory");
   chatBox.innerHTML = "";
   chatHistory = [];
 }
 
-// All'avvio
 window.onload = function () {
   caricaCronologiaChat();
-
   const darkMode = localStorage.getItem("darkMode");
   if (darkMode === "true") {
     document.body.classList.add("dark-mode");
