@@ -1,6 +1,7 @@
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
+const submitButton = document.querySelector("#chatForm button");
 
 // Frasi sarcastiche per il sottotitolo e <title>
 const sottotitoli = [
@@ -14,7 +15,7 @@ const sottotitoli = [
   "L’IA che fa finta di sapere.",
   "Brr Brr.... Patapim",
   "1 million beers please",
-  "Mi sento sfruttato"
+  "Mi sento sfruttato",
   "Errori? Nah sono feature, non bug."
 ];
 
@@ -80,6 +81,10 @@ async function talkToMiczy() {
   const input = inputField.value.trim();
   if (!input) return;
 
+  // 🔒 Disabilita il pulsante durante l'elaborazione
+  submitButton.disabled = true;
+  submitButton.textContent = "Attendi...";
+
   aggiungiMessaggio(input, "utente");
   chatHistory.push({ role: "user", content: input });
   aggiungiLoader();
@@ -104,6 +109,9 @@ async function talkToMiczy() {
     aggiungiMessaggio("Errore nel parlare con MiczyAI 😢", "ai");
   }
 
+  // ✅ Riabilita il pulsante e ripristina il testo
+  submitButton.disabled = false;
+  submitButton.textContent = "Invia";
   inputField.value = "";
 }
 
