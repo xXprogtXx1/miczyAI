@@ -2,7 +2,42 @@ const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 
-// Cronologia dei messaggi (ruolo e contenuto)
+// Frasi sarcastiche per il sottotitolo
+const sottotitoli = [
+  "Più intelligente di te? Forse del tostapane.",
+  "IA brillante... quando ha voglia.",
+  "Finta umiltà, vera confusione.",
+  "Risposte? Ci provo, ok?",
+  "Sembra sveglio. Sembra.",
+  "Programmata per... qualcosa.",
+  "L'assistente che confonde anche se stesso.",
+  "L’IA che fa finta di sapere.",
+  "Non rispondo a domande esistenziali.",
+  "Errori? Feature, non bug."
+];
+
+// Effetto scrittura a macchina
+function scriviTestoGradualmente(elemento, testo, velocita = 50) {
+  elemento.innerText = "";
+  let i = 0;
+  function scrivi() {
+    if (i < testo.length) {
+      elemento.innerText += testo.charAt(i);
+      i++;
+      setTimeout(scrivi, velocita);
+    }
+  }
+  scrivi();
+}
+
+// Imposta sottotitolo all'avvio
+window.addEventListener("DOMContentLoaded", () => {
+  const sottotitoloElemento = document.getElementById("subtitle");
+  const fraseCasuale = sottotitoli[Math.floor(Math.random() * sottotitoli.length)];
+  scriviTestoGradualmente(sottotitoloElemento, fraseCasuale, 40);
+});
+
+// Cronologia dei messaggi
 let chatHistory = [];
 
 // Aggiunge un messaggio alla chat e alla cronologia
@@ -12,7 +47,7 @@ function aggiungiMessaggio(testo, mittente) {
   msg.innerText = testo;
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
-  salvaCronologiaChat(); // Salva ogni volta che si aggiunge un messaggio
+  salvaCronologiaChat();
 }
 
 // Aggiunge il loader
@@ -37,12 +72,11 @@ function rimuoviLoader() {
   if (loader) loader.remove();
 }
 
-// Gestisce la richiesta al backend con cronologia messaggi
+// Gestisce la richiesta al backend con cronologia
 async function talkToMiczy() {
   const input = inputField.value.trim();
   if (!input) return;
 
-  // Aggiunge messaggio utente a UI e cronologia
   aggiungiMessaggio(input, "utente");
   chatHistory.push({ role: "user", content: input });
 
@@ -71,26 +105,26 @@ async function talkToMiczy() {
   inputField.value = "";
 }
 
-// Gestisce l'invio con il tasto Invio
-inputField.addEventListener("keydown", function(event) {
+// Invio con Invio
+inputField.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
     talkToMiczy();
   }
 });
 
-// Toggle modalità scura e salvataggio preferenza
+// Toggle dark mode + salva
 toggleDark.addEventListener("change", function () {
   document.body.classList.toggle("dark-mode");
   localStorage.setItem("darkMode", toggleDark.checked);
 });
 
-// Salva la cronologia nel localStorage in formato array di messaggi
+// Salvataggio cronologia
 function salvaCronologiaChat() {
   localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
 }
 
-// Carica la cronologia salvata da localStorage e la mostra in chat
+// Caricamento cronologia
 function caricaCronologiaChat() {
   const salvata = localStorage.getItem("chatHistory");
   if (salvata) {
@@ -102,14 +136,14 @@ function caricaCronologiaChat() {
   }
 }
 
-// Cancella la cronologia
+// Cancella cronologia
 function cancellaCronologiaChat() {
   localStorage.removeItem("chatHistory");
   chatBox.innerHTML = "";
   chatHistory = [];
 }
 
-// Carica cronologia e modalità scura all’avvio
+// All'avvio
 window.onload = function () {
   caricaCronologiaChat();
 
@@ -120,5 +154,5 @@ window.onload = function () {
   }
 };
 
-// Espone cancellaCronologia per uso HTML
+// Espone funzione al bottone HTML
 window.cancellaCronologiaChat = cancellaCronologiaChat;
