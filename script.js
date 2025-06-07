@@ -94,7 +94,7 @@ chatForm.addEventListener("submit", async e => {
   chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
-    const res = await fetch("https://miczyai-backend.miczyspark.repl.co/chat", {
+    const res = await fetch("https://backend-miczy-ai.onrender.com/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt: input })
