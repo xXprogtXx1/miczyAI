@@ -265,3 +265,35 @@ input:checked + .slider:before {
     font-size: 1.8rem;
   }
 }
+
+/* Highlight.js Copy Button Styles */
+pre {
+  position: relative;
+  padding-top: 2.5rem; /* lascia spazio per il pulsante */
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+  background: #ff69b4;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.3s ease;
+  user-select: none;
+  z-index: 10;
+}
+
+.copy-btn:hover {
+  opacity: 1;
+}
+
+body.dark-mode .copy-btn {
+  background: #ff85c1;
+  color: #222;
+}
