@@ -1,4 +1,3 @@
-// script.js
 const chatBox = document.getElementById("chatBox");
 const userInput = document.getElementById("userInput");
 const chatForm = document.getElementById("chatForm");
@@ -6,7 +5,6 @@ const clearBtn = document.getElementById("clearBtn");
 const darkModeToggle = document.getElementById("darkModeToggle");
 const subtitle = document.getElementById("subtitle");
 
-// Scrittura a macchina del sottotitolo
 const subtitleText = "La tua intelligenza artificiale personale";
 let subtitleIndex = 0;
 function typeSubtitle() {
@@ -18,16 +16,18 @@ function typeSubtitle() {
 }
 typeSubtitle();
 
-// Caricamento cronologia dalla localStorage
+// Caricamento cronologia e dark mode dallo storage
 window.onload = () => {
   const savedMessages = JSON.parse(localStorage.getItem("chatMessages")) || [];
   savedMessages.forEach(msg => aggiungiMessaggio(msg.testo, msg.tipo));
-  if (document.body.classList.contains("dark-mode")) {
+
+  const darkMode = localStorage.getItem("darkMode");
+  if (darkMode === "true") {
+    document.body.classList.add("dark-mode");
     darkModeToggle.checked = true;
   }
 };
 
-// Salvataggio cronologia nella localStorage
 function salvaCronologia() {
   const messaggi = Array.from(chatBox.getElementsByClassName("msg")).map(msg => ({
     testo: msg.innerHTML,
@@ -36,7 +36,6 @@ function salvaCronologia() {
   localStorage.setItem("chatMessages", JSON.stringify(messaggi));
 }
 
-// Aggiunta messaggio in chat
 function aggiungiMessaggio(testo, tipo) {
   const msg = document.createElement("div");
   msg.classList.add("msg", tipo);
@@ -44,12 +43,10 @@ function aggiungiMessaggio(testo, tipo) {
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
 
-  // Evidenziazione codice con Highlight.js
   msg.querySelectorAll("pre code").forEach(block => {
     hljs.highlightElement(block);
   });
 
-  // Aggiunta pulsante copia
   msg.querySelectorAll('pre').forEach(pre => {
     const btn = document.createElement('button');
     btn.innerText = '📋';
@@ -83,7 +80,6 @@ function aggiungiMessaggio(testo, tipo) {
   salvaCronologia();
 }
 
-// Invio messaggio utente
 chatForm.addEventListener("submit", async e => {
   e.preventDefault();
   const input = userInput.value.trim();
@@ -112,14 +108,13 @@ chatForm.addEventListener("submit", async e => {
   }
 });
 
-// Pulizia chat
 clearBtn.addEventListener("click", () => {
   chatBox.innerHTML = "";
   localStorage.removeItem("chatMessages");
 });
 
-// Toggle modalità scura
 darkModeToggle.addEventListener("change", () => {
   document.body.classList.toggle("dark-mode");
+  localStorage.setItem("darkMode", darkModeToggle.checked);
   salvaCronologia();
 });
