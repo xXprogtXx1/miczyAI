@@ -127,6 +127,7 @@ button:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   scrollbar-width: none;
   -ms-overflow-style: none;
+  position: relative; /* per copy button */
 }
 
 .chat-box::-webkit-scrollbar {
@@ -160,6 +161,34 @@ body.dark-mode .chat-box {
 body.dark-mode .msg.ai {
   background-color: #444;
   color: #eee;
+}
+
+/* Pulsante copia codice */
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 5px;
+  background: #eee;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.copy-btn:hover {
+  background-color: #ddd;
+}
+
+body.dark-mode .copy-btn {
+  background: #555;
+  color: #eee;
+}
+
+body.dark-mode .copy-btn:hover {
+  background-color: #666;
 }
 
 /* Loader (dots bounce) */
@@ -264,36 +293,4 @@ input:checked + .slider:before {
   .clear-btn {
     font-size: 1.8rem;
   }
-}
-
-/* Highlight.js Copy Button Styles */
-pre {
-  position: relative;
-  padding-top: 2.5rem; /* lascia spazio per il pulsante */
-}
-
-.copy-btn {
-  position: absolute;
-  top: 0.3rem;
-  right: 0.3rem;
-  background: #ff69b4;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  font-size: 0.85rem;
-  border-radius: 6px;
-  cursor: pointer;
-  opacity: 0.75;
-  transition: opacity 0.3s ease;
-  user-select: none;
-  z-index: 10;
-}
-
-.copy-btn:hover {
-  opacity: 1;
-}
-
-body.dark-mode .copy-btn {
-  background: #ff85c1;
-  color: #222;
 }
