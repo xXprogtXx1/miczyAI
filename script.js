@@ -3,7 +3,6 @@ const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 const submitButton = document.querySelector("#chatForm button");
 
-// Frasi sarcastiche per il sottotitolo e <title>
 const sottotitoli = [
   "Sai più tu che io.",
   "IA brillante... quando ha voglia.",
@@ -19,7 +18,6 @@ const sottotitoli = [
   "Errori? Nah sono feature, non bug."
 ];
 
-// Scrittura a macchina con spazi non collassati
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   elemento.innerHTML = "";
   let i = 0;
@@ -34,37 +32,34 @@ function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   scrivi();
 }
 
-// All’avvio: sottotitolo e titolo casuale
 window.addEventListener("DOMContentLoaded", () => {
   const sottotitoloElemento = document.getElementById("subtitle");
   const fraseCasuale = sottotitoli[Math.floor(Math.random() * sottotitoli.length)];
   scriviTestoGradualmente(sottotitoloElemento, fraseCasuale, 40);
-  //document.title = `MiczyAI - ${fraseCasuale}`; // Cambia solo al reload
 });
 
-// Cronologia messaggi
 let chatHistory = [];
 
-// Aggiunta messaggio
 function aggiungiMessaggio(testo, mittente) {
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
-  msg.innerText = testo;
+  if (mittente === "ai") {
+    msg.innerHTML = marked.parse(testo);
+  } else {
+    msg.textContent = testo;
+  }
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
   salvaCronologiaChat();
 }
 
-// Loader animazione
 function aggiungiLoader() {
   const loaderWrapper = document.createElement("div");
   loaderWrapper.className = "msg ai loader-wrapper";
   loaderWrapper.setAttribute("id", "loader");
   loaderWrapper.innerHTML = `
     <div class="loader">
-      <div></div>
-      <div></div>
-      <div></div>
+      <div></div><div></div><div></div>
     </div>
   `;
   chatBox.appendChild(loaderWrapper);
@@ -76,12 +71,10 @@ function rimuoviLoader() {
   if (loader) loader.remove();
 }
 
-// Invio messaggio al backend
 async function talkToMiczy() {
   const input = inputField.value.trim();
   if (!input) return;
 
-  // 🔒 Disabilita il pulsante durante l'elaborazione
   submitButton.disabled = true;
   submitButton.textContent = "mhhh...";
 
@@ -109,13 +102,11 @@ async function talkToMiczy() {
     aggiungiMessaggio("Errore nel parlare con MiczyAI 😢", "ai");
   }
 
-  // ✅ Riabilita il pulsante e ripristina il testo
   submitButton.disabled = false;
   submitButton.textContent = "Invia";
   inputField.value = "";
 }
 
-// Invio con Enter
 inputField.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
@@ -123,13 +114,11 @@ inputField.addEventListener("keydown", function (event) {
   }
 });
 
-// Toggle dark mode + salvataggio
 toggleDark.addEventListener("change", function () {
   document.body.classList.toggle("dark-mode");
   localStorage.setItem("darkMode", toggleDark.checked);
 });
 
-// Salva e carica cronologia
 function salvaCronologiaChat() {
   localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
 }
