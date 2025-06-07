@@ -2,47 +2,34 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MiczyAI - Chat intelligente... o forse no</title>
-  <meta name="description" content="MiczyAI è la tua IA personale: chatta, chiedi, esplora e divertiti con l'AI più... creativa!" />
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="miczy-favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MiczyAI</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/github-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/common.min.js"></script>
 </head>
 <body>
   <header>
     <h1>MiczyAI</h1>
     <p id="subtitle"></p>
-    <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
-      <input type="checkbox" id="toggleDark" />
+    <label class="switch">
+      <input type="checkbox" id="darkModeToggle">
       <span class="slider"></span>
     </label>
   </header>
 
   <main>
-    <form id="chatForm" onsubmit="event.preventDefault(); talkToMiczy();">
-      <div class="input-wrapper">
-        <input type="text" id="userInput" placeholder="Scrivi qualcosa..." autocomplete="off" required />
-        <button type="submit">Invia</button>
-      </div>
+    <form id="chatForm">
+      <input type="text" id="userInput" placeholder="Scrivi qualcosa..." autocomplete="off" />
+      <button type="submit">Invia</button>
     </form>
-
-    <div id="chat-box" class="chat-box" role="log" aria-live="polite" aria-relevant="additions"></div>
-
     <div class="chat-controls">
-      <button class="clear-btn" onclick="cancellaCronologiaChat()" aria-label="Cancella cronologia chat">🗑️</button>
+      <button class="clear-btn" id="clearBtn">🗑️</button>
     </div>
+    <div class="chat-box" id="chatBox"></div>
   </main>
 
-  <!-- Highlight.js -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-  <script>hljs.highlightAll();</script>
-
-  <!-- Markdown parser -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-  <!-- Script personalizzato -->
   <script src="script.js"></script>
 </body>
 </html>
