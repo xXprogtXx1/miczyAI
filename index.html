@@ -3,32 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MiczyAI Chatbot</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>MiczyAI - Chat intelligente... o forse no</title>
+  <meta name="description" content="MiczyAI è la tua IA personale: chatta, chiedi, esplora e divertiti con l'AI più... creativa!" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="miczy-favicon.png">
 </head>
 <body>
   <header>
-    <h1>MiczyAI Chatbot</h1>
-    <select id="languageSelect" aria-label="Seleziona lingua">
-      <option value="it">Italiano</option>
-      <option value="en">English</option>
-    </select>
-    <p id="subtitle">Caricamento...</p>
-    <label for="toggleDark" class="dark-mode-label">
+    <h1>MiczyAI</h1>
+    <p id="subtitle"></p>
+    <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
       <input type="checkbox" id="toggleDark" />
-      Dark Mode
+      <span class="slider"></span>
     </label>
   </header>
 
   <main>
-    <div id="chat-box" aria-live="polite" aria-label="Chat conversation"></div>
-    <form id="chatForm" autocomplete="off" aria-label="Modulo chat">
-      <input type="text" id="userInput" placeholder="Scrivi qualcosa..." aria-label="Campo di input" />
-      <button type="submit">Invia</button>
+    <form id="chatForm" onsubmit="event.preventDefault(); talkToMiczy();">
+      <div class="input-wrapper">
+        <input type="text" id="userInput" placeholder="Scrivi qualcosa..." autocomplete="off" required />
+        <button type="submit">Invia</button>
+      </div>
     </form>
-    <button id="clearChat" aria-label="Cancella cronologia chat">Cancella Cronologia</button>
+
+    <div id="chat-box" class="chat-box" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+    <div class="chat-controls">
+      <button class="clear-btn" onclick="cancellaCronologiaChat()" aria-label="Cancella cronologia chat">🗑️</button>
+    </div>
   </main>
 
+  <!-- Markdown parser -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="script.js"></script>
 </body>
