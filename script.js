@@ -2,12 +2,8 @@ const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 const submitButton = document.querySelector("#chatForm button");
-const languageSelect = document.getElementById("languageSelect");
-const clearChatBtn = document.getElementById("clearChat");
 
-let chatHistory = [];
-
-const sottotitoliIT = [
+const sottotitoli = [
   "Sai più tu che io.",
   "IA brillante... quando ha voglia.",
   "Finta umiltà, vera confusione.",
@@ -21,24 +17,6 @@ const sottotitoliIT = [
   "Mi sento sfruttato",
   "Errori? Nah sono feature, non bug."
 ];
-
-const sottotitoliEN = [
-  "You know more than me.",
-  "Brilliant AI... when it feels like it.",
-  "Fake humility, real confusion.",
-  "Answers? I'll try, ok?",
-  "Looks awake. Sort of.",
-  "Programmed for... something",
-  "The assistant that confuses even itself.",
-  "The AI that pretends to know.",
-  "Brr Brr... Patapim",
-  "1 million beers please",
-  "I feel exploited",
-  "Errors? Nah, they're features, not bugs."
-];
-
-const placeholderIT = "Scrivi qualcosa...";
-const placeholderEN = "Type something...";
 
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   elemento.innerHTML = "";
@@ -54,43 +32,13 @@ function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   scrivi();
 }
 
-function aggiornaSottotitolo() {
-  const lang = languageSelect.value;
-  const sottotitoli = (lang === "it") ? sottotitoliIT : sottotitoliEN;
+window.addEventListener("DOMContentLoaded", () => {
   const sottotitoloElemento = document.getElementById("subtitle");
   const fraseCasuale = sottotitoli[Math.floor(Math.random() * sottotitoli.length)];
   scriviTestoGradualmente(sottotitoloElemento, fraseCasuale, 40);
-}
-
-function aggiornaPlaceholder() {
-  inputField.placeholder = languageSelect.value === "it" ? placeholderIT : placeholderEN;
-}
-
-function aggiornaTestoLingua() {
-  aggiornaSottotitolo();
-  aggiornaPlaceholder();
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  // Carica lingua da localStorage o default "it"
-  const savedLang = localStorage.getItem("language") || "it";
-  languageSelect.value = savedLang;
-
-  aggiornaTestoLingua();
-
-  caricaCronologiaChat();
-
-  const darkMode = localStorage.getItem("darkMode");
-  if (darkMode === "true") {
-    document.body.classList.add("dark-mode");
-    toggleDark.checked = true;
-  }
 });
 
-languageSelect.addEventListener("change", () => {
-  localStorage.setItem("language", languageSelect.value);
-  aggiornaTestoLingua();
-});
+let chatHistory = [];
 
 function aggiungiMessaggio(testo, mittente) {
   const msg = document.createElement("div");
@@ -128,7 +76,7 @@ async function talkToMiczy() {
   if (!input) return;
 
   submitButton.disabled = true;
-  submitButton.textContent = languageSelect.value === "it" ? "mhhh..." : "hmmm...";
+  submitButton.textContent = "mhhh...";
 
   aggiungiMessaggio(input, "utente");
   chatHistory.push({ role: "user", content: input });
@@ -144,19 +92,19 @@ async function talkToMiczy() {
     const data = await response.json();
     rimuoviLoader();
 
-    const risposta = data.response || (languageSelect.value === "it" ? "Nessuna risposta ricevuta 😐" : "No response received 😐");
-    chatHistory.push({ role: "assistant", content: risposta });
-    salvaCronologiaChat();
+    const risposta = data.response || "Nessuna risposta ricevuta 😐";
+    chatHistory.push({ role: "assistant", content: risposta }); // ✅ Aggiunto prima del salvataggio
+    salvaCronologiaChat(); // ✅ Ora salva anche la risposta dell'AI
     aggiungiMessaggio(risposta, "ai");
 
   } catch (error) {
     console.error(error);
     rimuoviLoader();
-    aggiungiMessaggio(languageSelect.value === "it" ? "Errore nel parlare con MiczyAI 😢" : "Error talking to MiczyAI 😢", "ai");
+    aggiungiMessaggio("Errore nel parlare con MiczyAI 😢", "ai");
   }
 
   submitButton.disabled = false;
-  submitButton.textContent = languageSelect.value === "it" ? "Invia" : "Send";
+  submitButton.textContent = "Invia";
   inputField.value = "";
 }
 
@@ -193,11 +141,13 @@ function cancellaCronologiaChat() {
   chatHistory = [];
 }
 
-clearChatBtn.addEventListener("click", () => {
-  cancellaCronologiaChat();
-});
+window.onload = function () {
+  caricaCronologiaChat();
+  const darkMode = localStorage.getItem("darkMode");
+  if (darkMode === "true") {
+    document.body.classList.add("dark-mode");
+    toggleDark.checked = true;
+  }
+};
 
-document.getElementById("chatForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  talkToMiczy();
-});
+window.cancellaCronologiaChat = cancellaCronologiaChat;
