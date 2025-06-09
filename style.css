@@ -1,3 +1,5 @@
+/* --- Tutto il tuo CSS originale resta intatto --- */
+
 body { 
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(135deg, #ffd6e0, #d6f0ff);
@@ -191,11 +193,11 @@ body.dark-mode .msg.ai {
   40% { transform: scale(1); }
 }
 
-/* Dark mode toggle switch */
+/* --- 🌙 Dark mode toggle switch --- */
 .switch {
   position: absolute;
   top: 1rem;
-  right: 1rem;
+  right: 5.5rem; /* Spazio lasciato per il select */
   display: inline-block;
   width: 50px;
   height: 24px;
@@ -239,6 +241,25 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
+/* 🌐 Select lingua */
+#languageSelect {
+  position: absolute;
+  top: 1rem;
+  right: 0.5rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+body.dark-mode #languageSelect {
+  background: #444;
+  color: #fff;
+  border: 1px solid #666;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   #chatForm {
@@ -263,5 +284,15 @@ input:checked + .slider:before {
 
   .clear-btn {
     font-size: 1.8rem;
+  }
+
+  .switch {
+    right: 5rem;
+  }
+
+  #languageSelect {
+    right: 0.5rem;
+    font-size: 0.85rem;
+    padding: 3px 6px;
   }
 }
