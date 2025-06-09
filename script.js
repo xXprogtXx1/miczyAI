@@ -93,7 +93,8 @@ async function talkToMiczy() {
     rimuoviLoader();
 
     const risposta = data.response || "Nessuna risposta ricevuta 😐";
-    chatHistory.push({ role: "assistant", content: risposta }); // 👈 Ora viene salvata prima
+    chatHistory.push({ role: "assistant", content: risposta }); // ✅ Aggiunto prima del salvataggio
+    salvaCronologiaChat(); // ✅ Ora salva anche la risposta dell'AI
     aggiungiMessaggio(risposta, "ai");
 
   } catch (error) {
