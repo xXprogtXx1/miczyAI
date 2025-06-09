@@ -2,21 +2,39 @@ const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 const submitButton = document.querySelector("#chatForm button");
+const languageSelect = document.getElementById("languageSelect");
+const sottotitoloElemento = document.getElementById("subtitle");
 
-const sottotitoli = [
-  "Sai più tu che io.",
-  "IA brillante... quando ha voglia.",
-  "Finta umiltà, vera confusione.",
-  "Risposte? Ci provo, ok?",
-  "Sembra sveglio. Sembra.",
-  "Programmata per... qualcosa",
-  "L'assistente che confonde anche se stesso.",
-  "L’IA che fa finta di sapere.",
-  "Brr Brr.... Patapim",
-  "1 million beers please",
-  "Mi sento sfruttato",
-  "Errori? Nah sono feature, non bug."
-];
+const sottotitoli = {
+  it: [
+    "Sai più tu che io.",
+    "IA brillante... quando ha voglia.",
+    "Finta umiltà, vera confusione.",
+    "Risposte? Ci provo, ok?",
+    "Sembra sveglio. Sembra.",
+    "Programmata per... qualcosa",
+    "L'assistente che confonde anche se stesso.",
+    "L’IA che fa finta di sapere.",
+    "Brr Brr.... Patapim",
+    "1 million beers please",
+    "Mi sento sfruttato",
+    "Errori? Nah sono feature, non bug."
+  ],
+  en: [
+    "You know more than I do.",
+    "Brilliant AI... when it wants to be.",
+    "Fake humility, real confusion.",
+    "Answers? I’ll try, ok?",
+    "Seems smart. Seems.",
+    "Programmed for... something",
+    "The assistant that confuses itself.",
+    "The AI pretending to know.",
+    "Brr Brr.... Patapim",
+    "1 million beers please",
+    "I feel exploited",
+    "Bugs? Nah, they’re features."
+  ]
+};
 
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   elemento.innerHTML = "";
@@ -32,10 +50,23 @@ function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   scrivi();
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  const sottotitoloElemento = document.getElementById("subtitle");
-  const fraseCasuale = sottotitoli[Math.floor(Math.random() * sottotitoli.length)];
+function impostaSottotitolo(lang) {
+  const frasi = sottotitoli[lang] || sottotitoli.it;
+  const fraseCasuale = frasi[Math.floor(Math.random() * frasi.length)];
   scriviTestoGradualmente(sottotitoloElemento, fraseCasuale, 40);
+  document.title = lang === "en" ? "MiczyAI - Smart(ish) Chatbot" : "MiczyAI - Chat intelligente... o forse no";
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  const langSalvata = localStorage.getItem("lang") || "it";
+  languageSelect.value = langSalvata;
+  impostaSottotitolo(langSalvata);
+});
+
+languageSelect.addEventListener("change", () => {
+  const nuovaLingua = languageSelect.value;
+  localStorage.setItem("lang", nuovaLingua);
+  impostaSottotitolo(nuovaLingua);
 });
 
 let chatHistory = [];
