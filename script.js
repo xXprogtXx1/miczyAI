@@ -93,8 +93,8 @@ async function talkToMiczy() {
     rimuoviLoader();
 
     const risposta = data.response || "Nessuna risposta ricevuta 😐";
-    chatHistory.push({ role: "assistant", content: risposta }); // ✅ Aggiunto prima del salvataggio
-    salvaCronologiaChat(); // ✅ Ora salva anche la risposta dell'AI
+    chatHistory.push({ role: "assistant", content: risposta });
+    salvaCronologiaChat();
     aggiungiMessaggio(risposta, "ai");
 
   } catch (error) {
@@ -107,6 +107,8 @@ async function talkToMiczy() {
   submitButton.textContent = "Invia";
   inputField.value = "";
 }
+
+submitButton.addEventListener("click", talkToMiczy);
 
 inputField.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
