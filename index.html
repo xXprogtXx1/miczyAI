@@ -13,17 +13,20 @@
   <header>
     <h1>MiczyAI</h1>
     <p id="subtitle"></p>
-    <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
-      <input type="checkbox" id="toggleDark" />
-      <span class="slider"></span>
-    </label>
+    <div class="top-controls">
+      <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
+        <input type="checkbox" id="toggleDark" />
+        <span class="slider"></span>
+      </label>
+      <button id="toggleLang" aria-label="Cambia lingua">IT</button>
+    </div>
   </header>
 
   <main>
     <form id="chatForm" onsubmit="event.preventDefault(); talkToMiczy();">
       <div class="input-wrapper">
         <input type="text" id="userInput" placeholder="Scrivi qualcosa..." autocomplete="off" required />
-        <button type="submit">Invia</button>
+        <button type="submit" id="sendBtn">Invia</button>
       </div>
     </form>
 
@@ -34,7 +37,6 @@
     </div>
   </main>
 
-  <!-- Markdown parser -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="script.js"></script>
 </body>
