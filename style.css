@@ -265,3 +265,31 @@ input:checked + .slider:before {
     font-size: 1.8rem;
   }
 }
+.top-controls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#toggleLang {
+  background-color: #87ceeb;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#toggleLang:hover {
+  background-color: #00bfff;
+  color: white;
+}
+
+body.dark-mode #toggleLang {
+  background-color: #444;
+  color: #eee;
+}
