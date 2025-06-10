@@ -2,21 +2,42 @@ const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 const submitButton = document.querySelector("#chatForm button");
+const subtitleElement = document.getElementById("subtitle");
+const toggleLang = document.getElementById("toggleLang");
+const sendBtn = document.getElementById("sendBtn");
 
-const sottotitoli = [
-  "Sai più tu che io.",
-  "IA brillante... quando ha voglia.",
-  "Finta umiltà, vera confusione.",
-  "Risposte? Ci provo, ok?",
-  "Sembra sveglio. Sembra.",
-  "Programmata per... qualcosa",
-  "L'assistente che confonde anche se stesso.",
-  "L’IA che fa finta di sapere.",
-  "Brr Brr.... Patapim",
-  "1 million beers please",
-  "Mi sento sfruttato",
-  "Errori? Nah sono feature, non bug."
-];
+let lingua = localStorage.getItem("lang") || "it";
+
+const sottotitoli = {
+  it: [
+    "Sai più tu che io.",
+    "IA brillante... quando ha voglia.",
+    "Finta umiltà, vera confusione.",
+    "Risposte? Ci provo, ok?",
+    "Sembra sveglio. Sembra.",
+    "Programmata per... qualcosa",
+    "L'assistente che confonde anche se stesso.",
+    "L’IA che fa finta di sapere.",
+    "Brr Brr.... Patapim",
+    "1 million beers please",
+    "Mi sento sfruttato",
+    "Errori? Nah sono feature, non bug."
+  ],
+  en: [
+    "You know more than I do.",
+    "Brilliant AI... when it feels like it.",
+    "Fake humility, real confusion.",
+    "Answers? I'll try, ok?",
+    "Seems smart. Just seems.",
+    "Programmed for... something",
+    "The assistant that confuses even itself.",
+    "The AI that pretends to know.",
+    "Brr Brr... Patapim",
+    "1 million beers please",
+    "I feel exploited",
+    "Errors? Nah, they’re features, not bugs."
+  ]
+};
 
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   elemento.innerHTML = "";
@@ -32,10 +53,13 @@ function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   scrivi();
 }
 
+function mostraSottotitolo() {
+  const fraseCasuale = sottotitoli[lingua][Math.floor(Math.random() * sottotitoli[lingua].length)];
+  scriviTestoGradualmente(subtitleElement, fraseCasuale, 40);
+}
+
 window.addEventListener("DOMContentLoaded", () => {
-  const sottotitoloElemento = document.getElementById("subtitle");
-  const fraseCasuale = sottotitoli[Math.floor(Math.random() * sottotitoli.length)];
-  scriviTestoGradualmente(sottotitoloElemento, fraseCasuale, 40);
+  mostraSottotitolo();
 });
 
 let chatHistory = [];
@@ -43,11 +67,7 @@ let chatHistory = [];
 function aggiungiMessaggio(testo, mittente) {
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
-  if (mittente === "ai") {
-    msg.innerHTML = marked.parse(testo);
-  } else {
-    msg.textContent = testo;
-  }
+  msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
   salvaCronologiaChat();
@@ -76,7 +96,7 @@ async function talkToMiczy() {
   if (!input) return;
 
   submitButton.disabled = true;
-  submitButton.textContent = "mhhh...";
+  submitButton.textContent = lingua === "it" ? "mhhh..." : "hmmm...";
 
   aggiungiMessaggio(input, "utente");
   chatHistory.push({ role: "user", content: input });
@@ -92,33 +112,46 @@ async function talkToMiczy() {
     const data = await response.json();
     rimuoviLoader();
 
-    const risposta = data.response || "Nessuna risposta ricevuta 😐";
-    chatHistory.push({ role: "assistant", content: risposta }); // ✅ Aggiunto prima del salvataggio
-    salvaCronologiaChat(); // ✅ Ora salva anche la risposta dell'AI
+    const risposta = data.response || (lingua === "it" ? "Nessuna risposta ricevuta 😐" : "No response received 😐");
+    chatHistory.push({ role: "assistant", content: risposta });
+    salvaCronologiaChat();
     aggiungiMessaggio(risposta, "ai");
 
   } catch (error) {
     console.error(error);
     rimuoviLoader();
-    aggiungiMessaggio("Errore nel parlare con MiczyAI 😢", "ai");
+    aggiungiMessaggio(lingua === "it" ? "Errore nel parlare con MiczyAI 😢" : "Error talking to MiczyAI 😢", "ai");
   }
 
   submitButton.disabled = false;
-  submitButton.textContent = "Invia";
+  submitButton.textContent = lingua === "it" ? "Invia" : "Send";
   inputField.value = "";
 }
 
-inputField.addEventListener("keydown", function (event) {
+inputField.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
     talkToMiczy();
   }
 });
 
-toggleDark.addEventListener("change", function () {
+toggleDark.addEventListener("change", () => {
   document.body.classList.toggle("dark-mode");
   localStorage.setItem("darkMode", toggleDark.checked);
 });
+
+toggleLang.addEventListener("click", () => {
+  lingua = lingua === "it" ? "en" : "it";
+  localStorage.setItem("lang", lingua);
+  aggiornaLinguaUI();
+});
+
+function aggiornaLinguaUI() {
+  toggleLang.textContent = lingua.toUpperCase();
+  inputField.placeholder = lingua === "it" ? "Scrivi qualcosa..." : "Type something...";
+  sendBtn.textContent = lingua === "it" ? "Invia" : "Send";
+  mostraSottotitolo();
+}
 
 function salvaCronologiaChat() {
   localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
@@ -141,13 +174,14 @@ function cancellaCronologiaChat() {
   chatHistory = [];
 }
 
-window.onload = function () {
+window.onload = () => {
   caricaCronologiaChat();
   const darkMode = localStorage.getItem("darkMode");
   if (darkMode === "true") {
     document.body.classList.add("dark-mode");
     toggleDark.checked = true;
   }
+  aggiornaLinguaUI();
 };
 
 window.cancellaCronologiaChat = cancellaCronologiaChat;
