@@ -2,11 +2,8 @@ const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 const submitButton = document.querySelector("#chatForm button");
-const toggleLangBtn = document.getElementById("toggleLang");
-const subtitleElement = document.getElementById("subtitle");
-const sendBtn = document.getElementById("sendBtn");
 
-const sottotitoliIT = [
+const sottotitoli = [
   "Sai più tu che io.",
   "IA brillante... quando ha voglia.",
   "Finta umiltà, vera confusione.",
@@ -20,35 +17,6 @@ const sottotitoliIT = [
   "Mi sento sfruttato",
   "Errori? Nah sono feature, non bug."
 ];
-
-const sottotitoliEN = [
-  "You know better than me.",
-  "Brilliant AI... when it feels like it.",
-  "Fake humility, real confusion.",
-  "Answers? I'll try, okay?",
-  "Looks smart. Sort of.",
-  "Programmed for... something.",
-  "The assistant that confuses even itself.",
-  "The AI pretending to know.",
-  "Brr Brr.... Patapim",
-  "1 million beers please",
-  "I feel exploited",
-  "Errors? Nah, they're features, not bugs."
-];
-
-// Testi placeholder e bottone in IT e EN
-const testiUI = {
-  it: {
-    placeholder: "Scrivi qualcosa...",
-    sendButton: "Invia"
-  },
-  en: {
-    placeholder: "Type something...",
-    sendButton: "Send"
-  }
-};
-
-let currentLang = "it";
 
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   elemento.innerHTML = "";
@@ -65,49 +33,9 @@ function scriviTestoGradualmente(elemento, testo, velocita = 50) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  aggiornaLinguaUI(currentLang);
-  caricaCronologiaChat();
-  // Scrivi sottotitolo casuale nella lingua corrente
-  const sottotitoli = currentLang === "it" ? sottotitoliIT : sottotitoliEN;
+  const sottotitoloElemento = document.getElementById("subtitle");
   const fraseCasuale = sottotitoli[Math.floor(Math.random() * sottotitoli.length)];
-  scriviTestoGradualmente(subtitleElement, fraseCasuale, 40);
-
-  // Carica modalità scura da localStorage
-  const darkMode = localStorage.getItem("darkMode");
-  if (darkMode === "true") {
-    document.body.classList.add("dark-mode");
-    toggleDark.checked = true;
-  }
-
-  // Carica lingua da localStorage
-  const savedLang = localStorage.getItem("language");
-  if (savedLang) {
-    currentLang = savedLang;
-    aggiornaLinguaUI(currentLang);
-  }
-});
-
-// Cambia lingua e aggiorna UI
-function aggiornaLinguaUI(lang) {
-  currentLang = lang;
-  // Aggiorna placeholder input
-  inputField.placeholder = testiUI[lang].placeholder;
-  // Aggiorna testo bottone invio
-  sendBtn.textContent = testiUI[lang].sendButton;
-  // Aggiorna pulsante lingua (mostra lingua *opposta* da selezionare)
-  toggleLangBtn.textContent = lang === "it" ? "EN" : "IT";
-
-  // Cambia sottotitolo casuale in nuova lingua
-  const sottotitoli = lang === "it" ? sottotitoliIT : sottotitoliEN;
-  const fraseCasuale = sottotitoli[Math.floor(Math.random() * sottotitoli.length)];
-  scriviTestoGradualmente(subtitleElement, fraseCasuale, 40);
-
-  localStorage.setItem("language", lang);
-}
-
-toggleLangBtn.addEventListener("click", () => {
-  const nuovaLang = currentLang === "it" ? "en" : "it";
-  aggiornaLinguaUI(nuovaLang);
+  scriviTestoGradualmente(sottotitoloElemento, fraseCasuale, 40);
 });
 
 let chatHistory = [];
@@ -148,7 +76,7 @@ async function talkToMiczy() {
   if (!input) return;
 
   submitButton.disabled = true;
-  submitButton.textContent = currentLang === "it" ? "mhhh..." : "hmm...";
+  submitButton.textContent = "mhhh...";
 
   aggiungiMessaggio(input, "utente");
   chatHistory.push({ role: "user", content: input });
@@ -164,19 +92,19 @@ async function talkToMiczy() {
     const data = await response.json();
     rimuoviLoader();
 
-    const risposta = data.response || (currentLang === "it" ? "Nessuna risposta ricevuta 😐" : "No response received 😐");
-    chatHistory.push({ role: "assistant", content: risposta }); 
-    salvaCronologiaChat(); 
+    const risposta = data.response || "Nessuna risposta ricevuta 😐";
+    chatHistory.push({ role: "assistant", content: risposta }); // ✅ Aggiunto prima del salvataggio
+    salvaCronologiaChat(); // ✅ Ora salva anche la risposta dell'AI
     aggiungiMessaggio(risposta, "ai");
 
   } catch (error) {
     console.error(error);
     rimuoviLoader();
-    aggiungiMessaggio(currentLang === "it" ? "Errore nel parlare con MiczyAI 😢" : "Error talking to MiczyAI 😢", "ai");
+    aggiungiMessaggio("Errore nel parlare con MiczyAI 😢", "ai");
   }
 
   submitButton.disabled = false;
-  submitButton.textContent = testiUI[currentLang].sendButton;
+  submitButton.textContent = "Invia";
   inputField.value = "";
 }
 
@@ -215,7 +143,11 @@ function cancellaCronologiaChat() {
 
 window.onload = function () {
   caricaCronologiaChat();
-  // modalità scura e lingua ora caricate su DOMContentLoaded
+  const darkMode = localStorage.getItem("darkMode");
+  if (darkMode === "true") {
+    document.body.classList.add("dark-mode");
+    toggleDark.checked = true;
+  }
 };
 
 window.cancellaCronologiaChat = cancellaCronologiaChat;
