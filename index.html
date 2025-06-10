@@ -7,18 +7,19 @@
   <meta name="description" content="MiczyAI è la tua IA personale: chatta, chiedi, esplora e divertiti con l'AI più... creativa!" />
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="miczy-favicon.png">
+  <link rel="icon" type="image/png" href="miczy-favicon.png" />
 </head>
 <body>
   <header>
     <h1>MiczyAI</h1>
     <p id="subtitle"></p>
-    <div class="top-controls">
+
+    <div class="toggles-wrapper">
       <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
         <input type="checkbox" id="toggleDark" />
         <span class="slider"></span>
       </label>
-      <button id="toggleLang" aria-label="Cambia lingua">IT</button>
+      <button id="toggleLang" aria-label="Cambia lingua">EN</button>
     </div>
   </header>
 
@@ -26,7 +27,7 @@
     <form id="chatForm" onsubmit="event.preventDefault(); talkToMiczy();">
       <div class="input-wrapper">
         <input type="text" id="userInput" placeholder="Scrivi qualcosa..." autocomplete="off" required />
-        <button type="submit" id="sendBtn">Invia</button>
+        <button type="submit">Invia</button>
       </div>
     </form>
 
@@ -37,6 +38,7 @@
     </div>
   </main>
 
+  <!-- Markdown parser -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="script.js"></script>
 </body>
