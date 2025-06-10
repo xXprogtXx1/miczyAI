@@ -14,12 +14,16 @@
     <h1>MiczyAI</h1>
     <p id="subtitle"></p>
 
-    <div class="toggles-wrapper">
+    <!-- Contenitore toggle dark mode + switch lingua -->
+    <div id="toggles-wrapper" style="position: absolute; top: 1rem; right: 1rem; display: flex; align-items: center; gap: 15px;">
+      <!-- Dark mode toggle -->
       <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
         <input type="checkbox" id="toggleDark" />
         <span class="slider"></span>
       </label>
-      <button id="toggleLang" aria-label="Cambia lingua">EN</button>
+
+      <!-- Language toggle -->
+      <button id="toggleLang" aria-label="Cambia lingua IT/EN" title="Cambia lingua IT/EN" class="lang-btn">EN</button>
     </div>
   </header>
 
@@ -27,7 +31,7 @@
     <form id="chatForm" onsubmit="event.preventDefault(); talkToMiczy();">
       <div class="input-wrapper">
         <input type="text" id="userInput" placeholder="Scrivi qualcosa..." autocomplete="off" required />
-        <button type="submit">Invia</button>
+        <button type="submit" id="sendBtn">Invia</button>
       </div>
     </form>
 
