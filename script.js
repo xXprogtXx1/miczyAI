@@ -41,25 +41,24 @@ window.addEventListener("DOMContentLoaded", () => {
 let chatHistory = [];
 
 function aggiungiMessaggio(testo, mittente) {
-  const msgWrapper = document.createElement("div");
-  msgWrapper.className = `msg-wrapper ${mittente}`;
+  const wrapper = document.createElement("div");
+  wrapper.className = `msg-wrapper ${mittente}`;
 
   const avatar = document.createElement("div");
   avatar.className = "avatar";
-  avatar.innerHTML = mittente === "ai" ? "🤖" : "🧑";
+  avatar.textContent = mittente === "ai" ? "🤖" : "🧑";
 
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
   msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
 
-  msgWrapper.appendChild(avatar);
-  msgWrapper.appendChild(msg);
+  wrapper.appendChild(avatar);
+  wrapper.appendChild(msg);
 
-  chatBox.appendChild(msgWrapper);
+  chatBox.appendChild(wrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
   salvaCronologiaChat();
 }
-
 function aggiungiLoader() {
   const loaderWrapper = document.createElement("div");
   loaderWrapper.className = "msg ai loader-wrapper";
