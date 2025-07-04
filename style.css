@@ -66,6 +66,29 @@ main {
   flex-wrap: wrap;
 }
 
+.msg-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 100%;
+}
+
+.msg-wrapper.utente {
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+  padding-right: 10px; /* ✅ Aggiunto per spingere verso destra */
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 #userInput {
   padding: 1rem;
   font-size: 1rem;
@@ -138,45 +161,23 @@ body.dark-mode .chat-box {
   border: 1px solid #555;
 }
 
-/* Messaggi */
-.msg-wrapper {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  max-width: 100%;
-}
-
-.msg-wrapper.utente {
-  justify-content: flex-end;
-  flex-direction: row-reverse;
-}
-
-.avatar {
-  width: 32px;
-  height: 32px;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 .msg {
-  padding: 0.6rem 1rem;
+  padding: 0.8rem 1.2rem;
   border-radius: 20px;
   max-width: 75%;
   word-wrap: break-word;
   line-height: 1.4;
-  display: inline-block;
-  text-align: left;
 }
 
 .msg.utente {
   background-color: #87ceeb;
   color: white;
+  margin-left: auto;       /* ✅ Spinge verso destra */
+  margin-right: 0.5rem;    /* ✅ Margine dalla fine */
 }
 
 .msg.ai {
+  align-self: flex-start;
   background-color: #dedede;
 }
 
@@ -185,7 +186,7 @@ body.dark-mode .msg.ai {
   color: #eee;
 }
 
-/* Loader */
+/* Loader (dots bounce) */
 .loader {
   display: flex;
   gap: 5px;
