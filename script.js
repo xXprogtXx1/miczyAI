@@ -59,6 +59,7 @@ function aggiungiMessaggio(testo, mittente) {
   chatBox.scrollTop = chatBox.scrollHeight;
   salvaCronologiaChat();
 }
+
 function aggiungiLoader() {
   const loaderWrapper = document.createElement("div");
   loaderWrapper.className = "msg ai loader-wrapper";
@@ -99,8 +100,8 @@ async function talkToMiczy() {
     rimuoviLoader();
 
     const risposta = data.response || "Nessuna risposta ricevuta 😐";
-    chatHistory.push({ role: "assistant", content: risposta }); // ✅ Aggiunto prima del salvataggio
-    salvaCronologiaChat(); // ✅ Ora salva anche la risposta dell'AI
+    chatHistory.push({ role: "assistant", content: risposta });
+    salvaCronologiaChat();
     aggiungiMessaggio(risposta, "ai");
 
   } catch (error) {
