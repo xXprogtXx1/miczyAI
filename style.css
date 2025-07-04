@@ -66,6 +66,28 @@ main {
   flex-wrap: wrap;
 }
 
+.msg-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 100%;
+}
+
+.msg-wrapper.utente {
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 #userInput {
   padding: 1rem;
   font-size: 1rem;
