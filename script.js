@@ -85,16 +85,19 @@ function aggiungiMessaggio(testo, mittente) {
   msg.className = `msg ${mittente}`;
   msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
 
-  // ✅ Se AI, aggiungi timestamp + copia sotto il messaggio
+  wrapper.appendChild(avatar);
+  wrapper.appendChild(msg);
+
+  const timestamp = document.createElement("div");
+  timestamp.className = "msg-meta";
+  timestamp.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+  chatBox.appendChild(wrapper);
+  chatBox.appendChild(timestamp);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // Se AI, salva anche risposta + aggiungi bottone copia
   if (mittente === "ai") {
-    const meta = document.createElement("div");
-    meta.className = "msg-meta";
-
-    const timestamp = document.createElement("span");
-    timestamp.className = "timestamp";
-    const ora = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    timestamp.textContent = ora;
-
     const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
     copyBtn.textContent = "📋";
@@ -105,25 +108,9 @@ function aggiungiMessaggio(testo, mittente) {
         setTimeout(() => copyBtn.textContent = "📋", 1000);
       });
     };
-
-    meta.appendChild(timestamp);
-    meta.appendChild(copyBtn);
-    msg.appendChild(meta);
+    timestamp.appendChild(copyBtn);
   }
 
-  // ✅ Se utente, solo messaggio
-  if (mittente === "utente") {
-    const timestamp = document.createElement("div");
-    timestamp.className = "msg-meta";
-    const ora = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    timestamp.textContent = ora;
-    msg.appendChild(timestamp);
-  }
-
-  wrapper.appendChild(avatar);
-  wrapper.appendChild(msg);
-  chatBox.appendChild(wrapper);
-  chatBox.scrollTop = chatBox.scrollHeight;
   salvaCronologiaChat();
 }
 
