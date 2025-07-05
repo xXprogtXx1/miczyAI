@@ -55,13 +55,11 @@ function aggiungiMessaggio(testo, mittente) {
   const bottomRow = document.createElement("div");
   bottomRow.className = "msg-meta";
 
-  // Timestamp
   const timestamp = document.createElement("span");
   timestamp.className = "timestamp";
   const ora = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   timestamp.textContent = ora;
 
-  // Pulsante copia solo per AI
   if (mittente === "ai") {
     const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
@@ -80,11 +78,17 @@ function aggiungiMessaggio(testo, mittente) {
 
   bottomRow.appendChild(timestamp);
   msg.appendChild(bottomRow);
-  wrapper.appendChild(avatar);
-  wrapper.appendChild(msg);
+
+  if (mittente === "utente") {
+    wrapper.appendChild(msg);
+    wrapper.appendChild(avatar);
+  } else {
+    wrapper.appendChild(avatar);
+    wrapper.appendChild(msg);
+  }
+
   chatBox.appendChild(wrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
-
   salvaCronologiaChat();
 }
 
