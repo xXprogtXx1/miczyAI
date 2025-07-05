@@ -1,4 +1,5 @@
-body { 
+/* === style.css aggiornato === */
+body {
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(135deg, #ffd6e0, #d6f0ff);
   margin: 0;
@@ -35,7 +36,6 @@ p {
   margin: 0;
 }
 
-/* Scrittura a macchina per #subtitle */
 #subtitle {
   white-space: nowrap;
   overflow: hidden;
@@ -76,7 +76,7 @@ main {
 .msg-wrapper.utente {
   justify-content: flex-end;
   flex-direction: row-reverse;
-  padding-right: 10px; /* ✅ Aggiunto per spingere verso destra */
+  padding-right: 8%;
 }
 
 .avatar {
@@ -116,7 +116,6 @@ button:hover {
   box-shadow: 0 0 10px #00bfff;
 }
 
-/* Pulsante clear (🗑️) */
 .chat-controls {
   margin-top: 1rem;
 }
@@ -134,7 +133,6 @@ button:hover {
   color: red;
 }
 
-/* Chat box */
 .chat-box {
   margin: 0 auto;
   padding: 1.2rem;
@@ -167,13 +165,13 @@ body.dark-mode .chat-box {
   max-width: 75%;
   word-wrap: break-word;
   line-height: 1.4;
+  position: relative;
 }
 
 .msg.utente {
+  align-self: flex-end;
   background-color: #87ceeb;
   color: white;
-  margin-left: auto;       /* ✅ Spinge verso destra */
-  margin-right: 0.5rem;    /* ✅ Margine dalla fine */
 }
 
 .msg.ai {
@@ -186,7 +184,30 @@ body.dark-mode .msg.ai {
   color: #eee;
 }
 
-/* Loader (dots bounce) */
+.copy-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 8px;
+  padding: 0.2rem;
+  transition: transform 0.2s;
+}
+
+.copy-btn:hover {
+  transform: scale(1.2);
+  color: #2196f3;
+}
+
+.timestamp {
+  display: block;
+  font-size: 0.75rem;
+  color: gray;
+  margin-top: 5px;
+  text-align: right;
+  opacity: 0.6;
+}
+
 .loader {
   display: flex;
   gap: 5px;
@@ -215,7 +236,6 @@ body.dark-mode .msg.ai {
   40% { transform: scale(1); }
 }
 
-/* Dark mode toggle switch */
 .switch {
   position: absolute;
   top: 1rem;
@@ -263,7 +283,6 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* Responsive */
 @media (max-width: 600px) {
   #chatForm {
     flex-direction: column;
