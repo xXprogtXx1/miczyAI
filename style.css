@@ -190,14 +190,6 @@ body.dark-mode .msg.utente {
   color: white;
 }
 
-.timestamp {
-  font-size: 0.75rem;
-  opacity: 0.6;
-  position: absolute;
-  bottom: -18px;
-  right: 10px;
-}
-
 .loader {
   display: flex;
   gap: 5px;
