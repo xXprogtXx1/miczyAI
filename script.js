@@ -1,3 +1,4 @@
+// === script.js aggiornato con copia e timestamp ===
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
@@ -50,11 +51,37 @@ function aggiungiMessaggio(testo, mittente) {
 
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
-  msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
+
+  if (mittente === "ai") {
+    const parsed = document.createElement("div");
+    parsed.innerHTML = marked.parse(testo);
+    parsed.className = "msg-content";
+
+    const copyBtn = document.createElement("button");
+    copyBtn.className = "copy-btn";
+    copyBtn.innerText = "📋";
+    copyBtn.title = "Copia";
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(testo);
+      copyBtn.innerText = "✅";
+      setTimeout(() => (copyBtn.innerText = "📋"), 1500);
+    };
+
+    msg.appendChild(parsed);
+    msg.appendChild(copyBtn);
+  } else {
+    msg.textContent = testo;
+  }
+
+  const time = document.createElement("span");
+  const now = new Date();
+  const ora = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  time.className = "timestamp";
+  time.textContent = ora;
+  msg.appendChild(time);
 
   wrapper.appendChild(avatar);
   wrapper.appendChild(msg);
-
   chatBox.appendChild(wrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
   salvaCronologiaChat();
