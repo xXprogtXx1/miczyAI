@@ -113,6 +113,10 @@ function aggiungiMessaggio(testo, mittente) {
   const ora = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   timestamp.textContent = ora;
 
+  // ✅ Sempre aggiungiamo timestamp
+  msg.appendChild(timestamp);
+
+  // ✅ Se AI, aggiungiamo anche il pulsante copia
   if (mittente === "ai") {
     const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
@@ -129,7 +133,6 @@ function aggiungiMessaggio(testo, mittente) {
     timestamp.appendChild(copyBtn);
   }
 
-  msg.appendChild(timestamp);
   wrapper.appendChild(avatar);
   wrapper.appendChild(msg);
   chatBox.appendChild(wrapper);
