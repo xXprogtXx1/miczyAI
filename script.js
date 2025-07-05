@@ -52,15 +52,13 @@ function aggiungiMessaggio(testo, mittente) {
   msg.className = `msg ${mittente}`;
   msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
 
-  const metaRow = document.createElement("div");
-  metaRow.className = "msg-meta";
+  const bottomRow = document.createElement("div");
+  bottomRow.className = "msg-meta";
 
   const timestamp = document.createElement("span");
   timestamp.className = "timestamp";
   const ora = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   timestamp.textContent = ora;
-
-  metaRow.appendChild(timestamp);
 
   if (mittente === "ai") {
     const copyBtn = document.createElement("span");
@@ -75,8 +73,11 @@ function aggiungiMessaggio(testo, mittente) {
       });
     };
 
-    metaRow.appendChild(copyBtn);
+    bottomRow.appendChild(copyBtn);
   }
+
+  bottomRow.appendChild(timestamp);
+  msg.appendChild(bottomRow);
 
   if (mittente === "utente") {
     wrapper.appendChild(msg);
@@ -86,11 +87,8 @@ function aggiungiMessaggio(testo, mittente) {
     wrapper.appendChild(msg);
   }
 
-  wrapper.appendChild(metaRow); // 👈 Aggiunto sotto al wrapper, non dentro msg
-
   chatBox.appendChild(wrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
-
   salvaCronologiaChat();
 }
 
