@@ -1,4 +1,4 @@
-// miczyAI - script.js completo con supporto lingua dinamica EN/IT
+// miczyAI - script.js completo aggiornato con supporto lingua EN/IT e fix sottotitoli
 
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
@@ -7,6 +7,7 @@ const submitButton = document.querySelector("#chatForm button");
 
 let linguaCorrente = "IT";
 let chatHistory = [];
+let scriviTimeout;
 
 const traduzioni = {
   IT: {
@@ -60,16 +61,19 @@ const sottotitoliEN = [
 ];
 
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
+  clearTimeout(scriviTimeout);
   elemento.innerHTML = "";
   let i = 0;
+
   function scrivi() {
     if (i < testo.length) {
       const char = testo[i] === " " ? "&nbsp;" : testo[i];
       elemento.innerHTML += char;
       i++;
-      setTimeout(scrivi, velocita);
+      scriviTimeout = setTimeout(scrivi, velocita);
     }
   }
+
   scrivi();
 }
 
