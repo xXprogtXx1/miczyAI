@@ -322,3 +322,25 @@ input:checked + .slider:before {
 body.dark-mode .copy-btn {
   color: inherit;
 }
+
+#lang-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 4.5rem; /* appena a sinistra dello switch */
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#lang-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode #lang-toggle {
+  border-color: #666;
+  color: #f0f0f0;
+}
