@@ -192,9 +192,14 @@ body.dark-mode .msg.utente {
 .timestamp {
   font-size: 0.75rem;
   opacity: 0.6;
+  color: #333; /* 👈 aggiunto */
   position: absolute;
   bottom: -18px;
   right: 10px;
+}
+
+body.dark-mode .timestamp {
+  color: #ccc; /* opzionale per maggiore contrasto in dark */
 }
 
 .loader {
