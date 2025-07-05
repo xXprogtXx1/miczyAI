@@ -1,5 +1,3 @@
-// miczyAI - script.js completo aggiornato con supporto lingua EN/IT e fix sottotitoli
-
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
@@ -31,40 +29,23 @@ const traduzioni = {
 };
 
 const sottotitoliIT = [
-  "Sai più tu che io.",
-  "IA brillante... quando ha voglia.",
-  "Finta umiltà, vera confusione.",
-  "Risposte? Ci provo, ok?",
-  "Sembra sveglio. Sembra.",
-  "Programmata per... qualcosa",
-  "L'assistente che confonde anche se stesso.",
-  "L’IA che fa finta di sapere.",
-  "Brr Brr.... Patapim",
-  "1 million beers please",
-  "Mi sento sfruttato",
-  "Errori? Nah sono feature, non bug."
+  "Sai più tu che io.", "IA brillante... quando ha voglia.", "Finta umiltà, vera confusione.",
+  "Risposte? Ci provo, ok?", "Sembra sveglio. Sembra.", "Programmata per... qualcosa",
+  "L'assistente che confonde anche se stesso.", "L’IA che fa finta di sapere.",
+  "Brr Brr.... Patapim", "1 million beers please", "Mi sento sfruttato", "Errori? Nah sono feature, non bug."
 ];
 
 const sottotitoliEN = [
-  "You know more than I do.",
-  "Brilliant AI... when it feels like it.",
-  "Fake humility, real confusion.",
-  "Answers? I’ll try, OK?",
-  "Looks smart. Looks.",
-  "Programmed for... something.",
-  "The assistant that confuses even itself.",
-  "The AI that pretends to know.",
-  "Brr Brr.... Patapim",
-  "1 million beers please",
-  "I feel exploited",
-  "Bugs? Nah, features!"
+  "You know more than I do.", "Brilliant AI... when it feels like it.", "Fake humility, real confusion.",
+  "Answers? I’ll try, OK?", "Looks smart. Looks.", "Programmed for... something.",
+  "The assistant that confuses even itself.", "The AI that pretends to know.",
+  "Brr Brr.... Patapim", "1 million beers please", "I feel exploited", "Bugs? Nah, features!"
 ];
 
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   clearTimeout(scriviTimeout);
   elemento.innerHTML = "";
   let i = 0;
-
   function scrivi() {
     if (i < testo.length) {
       const char = testo[i] === " " ? "&nbsp;" : testo[i];
@@ -73,23 +54,19 @@ function scriviTestoGradualmente(elemento, testo, velocita = 50) {
       scriviTimeout = setTimeout(scrivi, velocita);
     }
   }
-
   scrivi();
 }
 
 function cambiaLingua(lang) {
   linguaCorrente = lang;
   const isEN = lang === "EN";
-
   inputField.placeholder = traduzioni[lang].placeholder;
   submitButton.textContent = traduzioni[lang].invia;
-
   document.title = traduzioni[lang].titolo;
   const metaDescription = document.querySelector('meta[name="description"]');
   if (metaDescription) {
     metaDescription.setAttribute("content", traduzioni[lang].descrizione);
   }
-
   const sottotitoloElemento = document.getElementById("subtitle");
   const frasi = isEN ? sottotitoliEN : sottotitoliIT;
   const fraseCasuale = frasi[Math.floor(Math.random() * frasi.length)];
@@ -108,15 +85,16 @@ function aggiungiMessaggio(testo, mittente) {
   msg.className = `msg ${mittente}`;
   msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
 
+  const meta = document.createElement("div");
+  meta.className = "msg-meta";
+
   const timestamp = document.createElement("span");
   timestamp.className = "timestamp";
   const ora = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   timestamp.textContent = ora;
 
-  // ✅ Sempre aggiungiamo timestamp
-  msg.appendChild(timestamp);
+  meta.appendChild(timestamp);
 
-  // ✅ Se AI, aggiungiamo anche il pulsante copia
   if (mittente === "ai") {
     const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
@@ -125,14 +103,13 @@ function aggiungiMessaggio(testo, mittente) {
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(testo).then(() => {
         copyBtn.textContent = "✅";
-        setTimeout(() => {
-          copyBtn.textContent = "📋";
-        }, 1000);
+        setTimeout(() => copyBtn.textContent = "📋", 1000);
       });
     };
-    timestamp.appendChild(copyBtn);
+    meta.appendChild(copyBtn);
   }
 
+  msg.appendChild(meta);
   wrapper.appendChild(avatar);
   wrapper.appendChild(msg);
   chatBox.appendChild(wrapper);
@@ -151,11 +128,7 @@ function aggiungiLoader() {
 
   const loader = document.createElement("div");
   loader.className = "msg ai";
-  loader.innerHTML = `
-    <div class="loader">
-      <div></div><div></div><div></div>
-    </div>
-  `;
+  loader.innerHTML = `<div class="loader"><div></div><div></div><div></div></div>`;
 
   loaderWrapper.appendChild(avatar);
   loaderWrapper.appendChild(loader);
