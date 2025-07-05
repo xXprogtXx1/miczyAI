@@ -1,3 +1,5 @@
+// ✅ JS aggiornato con emoji utente a destra e timestamp sotto il messaggio
+
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
@@ -88,15 +90,13 @@ function aggiungiMessaggio(testo, mittente) {
   wrapper.appendChild(avatar);
   wrapper.appendChild(msg);
 
-  const timestamp = document.createElement("div");
-  timestamp.className = "msg-meta";
+  const meta = document.createElement("div");
+  meta.className = "msg-meta";
+  const timestamp = document.createElement("span");
+  timestamp.className = "timestamp";
   timestamp.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  meta.appendChild(timestamp);
 
-  chatBox.appendChild(wrapper);
-  chatBox.appendChild(timestamp);
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  // Se AI, salva anche risposta + aggiungi bottone copia
   if (mittente === "ai") {
     const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
@@ -108,8 +108,12 @@ function aggiungiMessaggio(testo, mittente) {
         setTimeout(() => copyBtn.textContent = "📋", 1000);
       });
     };
-    timestamp.appendChild(copyBtn);
+    meta.appendChild(copyBtn);
   }
+
+  chatBox.appendChild(wrapper);
+  chatBox.appendChild(meta);
+  chatBox.scrollTop = chatBox.scrollHeight;
 
   salvaCronologiaChat();
 }
