@@ -1,9 +1,35 @@
+// miczyAI - script.js completo con supporto lingua dinamica EN/IT
+
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 const submitButton = document.querySelector("#chatForm button");
 
-const sottotitoli = [
+let linguaCorrente = "IT";
+let chatHistory = [];
+
+const traduzioni = {
+  IT: {
+    placeholder: "Scrivi qualcosa...",
+    invia: "Invia",
+    errore: "Errore nel parlare con MiczyAI 😢",
+    nessunaRisposta: "Nessuna risposta ricevuta 😐",
+    copia: "Copia risposta",
+    titolo: "MiczyAI - Chat intelligente... o forse no",
+    descrizione: "MiczyAI è la tua IA personale: chatta, chiedi, esplora e divertiti con l'AI più... creativa!"
+  },
+  EN: {
+    placeholder: "Type something...",
+    invia: "Send",
+    errore: "Error talking to MiczyAI 😢",
+    nessunaRisposta: "No response received 😐",
+    copia: "Copy response",
+    titolo: "MiczyAI - Smart chat... or maybe not",
+    descrizione: "MiczyAI is your personal AI: chat, ask, explore and have fun with the most... creative assistant!"
+  }
+};
+
+const sottotitoliIT = [
   "Sai più tu che io.",
   "IA brillante... quando ha voglia.",
   "Finta umiltà, vera confusione.",
@@ -16,6 +42,21 @@ const sottotitoli = [
   "1 million beers please",
   "Mi sento sfruttato",
   "Errori? Nah sono feature, non bug."
+];
+
+const sottotitoliEN = [
+  "You know more than I do.",
+  "Brilliant AI... when it feels like it.",
+  "Fake humility, real confusion.",
+  "Answers? I’ll try, OK?",
+  "Looks smart. Looks.",
+  "Programmed for... something.",
+  "The assistant that confuses even itself.",
+  "The AI that pretends to know.",
+  "Brr Brr.... Patapim",
+  "1 million beers please",
+  "I feel exploited",
+  "Bugs? Nah, features!"
 ];
 
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
@@ -32,13 +73,24 @@ function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   scrivi();
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  const sottotitoloElemento = document.getElementById("subtitle");
-  const fraseCasuale = sottotitoli[Math.floor(Math.random() * sottotitoli.length)];
-  scriviTestoGradualmente(sottotitoloElemento, fraseCasuale, 40);
-});
+function cambiaLingua(lang) {
+  linguaCorrente = lang;
+  const isEN = lang === "EN";
 
-let chatHistory = [];
+  inputField.placeholder = traduzioni[lang].placeholder;
+  submitButton.textContent = traduzioni[lang].invia;
+
+  document.title = traduzioni[lang].titolo;
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute("content", traduzioni[lang].descrizione);
+  }
+
+  const sottotitoloElemento = document.getElementById("subtitle");
+  const frasi = isEN ? sottotitoliEN : sottotitoliIT;
+  const fraseCasuale = frasi[Math.floor(Math.random() * frasi.length)];
+  scriviTestoGradualmente(sottotitoloElemento, fraseCasuale, 40);
+}
 
 function aggiungiMessaggio(testo, mittente) {
   const wrapper = document.createElement("div");
@@ -52,39 +104,32 @@ function aggiungiMessaggio(testo, mittente) {
   msg.className = `msg ${mittente}`;
   msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
 
-  const bottomRow = document.createElement("div");
-  bottomRow.className = "msg-meta";
-
-  // Timestamp
   const timestamp = document.createElement("span");
   timestamp.className = "timestamp";
   const ora = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   timestamp.textContent = ora;
 
-  // Pulsante copia solo per AI
   if (mittente === "ai") {
     const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
-    copyBtn.innerText = "📋";
-    copyBtn.title = "Copia risposta";
-
+    copyBtn.textContent = "📋";
+    copyBtn.title = traduzioni[linguaCorrente].copia;
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(testo).then(() => {
-        copyBtn.innerText = "✅";
-        setTimeout(() => (copyBtn.innerText = "📋"), 1000);
+        copyBtn.textContent = "✅";
+        setTimeout(() => {
+          copyBtn.textContent = "📋";
+        }, 1000);
       });
     };
-
-    bottomRow.appendChild(copyBtn);
+    timestamp.appendChild(copyBtn);
   }
 
-  bottomRow.appendChild(timestamp);
-  msg.appendChild(bottomRow);
+  msg.appendChild(timestamp);
   wrapper.appendChild(avatar);
   wrapper.appendChild(msg);
   chatBox.appendChild(wrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
-
   salvaCronologiaChat();
 }
 
@@ -137,7 +182,7 @@ async function talkToMiczy() {
     const data = await response.json();
     rimuoviLoader();
 
-    const risposta = data.response || "Nessuna risposta ricevuta 😐";
+    const risposta = data.response || traduzioni[linguaCorrente].nessunaRisposta;
     chatHistory.push({ role: "assistant", content: risposta });
     salvaCronologiaChat();
     aggiungiMessaggio(risposta, "ai");
@@ -145,11 +190,11 @@ async function talkToMiczy() {
   } catch (error) {
     console.error(error);
     rimuoviLoader();
-    aggiungiMessaggio("Errore nel parlare con MiczyAI 😢", "ai");
+    aggiungiMessaggio(traduzioni[linguaCorrente].errore, "ai");
   }
 
   submitButton.disabled = false;
-  submitButton.textContent = "Invia";
+  submitButton.textContent = traduzioni[linguaCorrente].invia;
   inputField.value = "";
 }
 
@@ -193,6 +238,27 @@ window.onload = function () {
     document.body.classList.add("dark-mode");
     toggleDark.checked = true;
   }
+
+  const switchContainer = document.querySelector("header");
+
+  const langBtn = document.createElement("button");
+  langBtn.id = "lang-toggle";
+  langBtn.textContent = "EN";
+  langBtn.setAttribute("aria-label", "Cambia lingua");
+
+  langBtn.onclick = () => {
+    const current = langBtn.textContent;
+    const newLang = current === "EN" ? "IT" : "EN";
+    langBtn.textContent = newLang;
+    cambiaLingua(newLang);
+    localStorage.setItem("lang", newLang);
+  };
+
+  switchContainer.appendChild(langBtn);
+
+  const savedLang = localStorage.getItem("lang") || "IT";
+  langBtn.textContent = savedLang;
+  cambiaLingua(savedLang);
 };
 
 window.cancellaCronologiaChat = cancellaCronologiaChat;
