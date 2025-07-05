@@ -65,30 +65,6 @@ main {
   flex-wrap: wrap;
 }
 
-.msg-wrapper {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  max-width: 100%;
-  position: relative;
-}
-
-.msg-wrapper.utente {
-  justify-content: flex-end;
-  flex-direction: row-reverse;
-  padding-left: 20%;
-}
-
-.avatar {
-  width: 32px;
-  height: 32px;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 #userInput {
   padding: 1rem;
   font-size: 1rem;
@@ -159,6 +135,31 @@ body.dark-mode .chat-box {
   border: 1px solid #555;
 }
 
+.msg-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  max-width: 100%;
+}
+
+.msg-wrapper.ai {
+  justify-content: flex-start;
+}
+
+.msg-wrapper.utente {
+  justify-content: flex-end;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 .msg {
   padding: 0.8rem 1.2rem;
   border-radius: 20px;
@@ -169,29 +170,31 @@ body.dark-mode .chat-box {
 }
 
 .msg.utente {
-  align-self: flex-end;
   background-color: #87ceeb;
   color: white;
 }
 
 .msg.ai {
-  align-self: flex-start;
   background-color: #dedede;
-  color: #333;
+  color: #000;
 }
 
 body.dark-mode .msg.ai {
-  background-color: #555;
-  color: #f1f1f1;
+  background-color: #444;
+  color: #eee;
+}
+
+body.dark-mode .msg.utente {
+  background-color: #2196f3;
+  color: white;
 }
 
 .timestamp {
-  display: block;
   font-size: 0.75rem;
-  color: #999;
-  margin-top: 4px;
-  text-align: right;
-  opacity: 0.8;
+  opacity: 0.6;
+  position: absolute;
+  bottom: -18px;
+  right: 10px;
 }
 
 .loader {
