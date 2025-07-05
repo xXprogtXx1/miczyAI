@@ -326,7 +326,7 @@ body.dark-mode .copy-btn {
 #lang-toggle {
   position: absolute;
   top: 1rem;
-  right: 4.5rem; /* appena a sinistra dello switch */
+  left: 1rem; /* cambia da 'right' a 'left' */
   background: none;
   border: 1px solid #ccc;
   border-radius: 8px;
