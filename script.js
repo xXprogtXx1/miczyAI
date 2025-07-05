@@ -52,16 +52,18 @@ function aggiungiMessaggio(testo, mittente) {
   msg.className = `msg ${mittente}`;
   msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
 
+  const bottomRow = document.createElement("div");
+  bottomRow.className = "msg-meta";
+
   // Timestamp
   const timestamp = document.createElement("span");
   timestamp.className = "timestamp";
   const ora = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   timestamp.textContent = ora;
-  msg.appendChild(timestamp);
 
-  // Pulsante copia per AI
+  // Pulsante copia solo per AI
   if (mittente === "ai") {
-    const copyBtn = document.createElement("button");
+    const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
     copyBtn.innerText = "📋";
     copyBtn.title = "Copia risposta";
@@ -73,9 +75,11 @@ function aggiungiMessaggio(testo, mittente) {
       });
     };
 
-    msg.appendChild(copyBtn);
+    bottomRow.appendChild(copyBtn);
   }
 
+  bottomRow.appendChild(timestamp);
+  msg.appendChild(bottomRow);
   wrapper.appendChild(avatar);
   wrapper.appendChild(msg);
   chatBox.appendChild(wrapper);
