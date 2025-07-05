@@ -1,4 +1,3 @@
-// === script.js aggiornato con copia e timestamp ===
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
@@ -51,34 +50,13 @@ function aggiungiMessaggio(testo, mittente) {
 
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
+  msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
 
-  if (mittente === "ai") {
-    const parsed = document.createElement("div");
-    parsed.innerHTML = marked.parse(testo);
-    parsed.className = "msg-content";
-
-    const copyBtn = document.createElement("button");
-    copyBtn.className = "copy-btn";
-    copyBtn.innerText = "📋";
-    copyBtn.title = "Copia";
-    copyBtn.onclick = () => {
-      navigator.clipboard.writeText(testo);
-      copyBtn.innerText = "✅";
-      setTimeout(() => (copyBtn.innerText = "📋"), 1500);
-    };
-
-    msg.appendChild(parsed);
-    msg.appendChild(copyBtn);
-  } else {
-    msg.textContent = testo;
-  }
-
-  const time = document.createElement("span");
-  const now = new Date();
-  const ora = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  time.className = "timestamp";
-  time.textContent = ora;
-  msg.appendChild(time);
+  const timestamp = document.createElement("span");
+  timestamp.className = "timestamp";
+  const ora = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  timestamp.textContent = ora;
+  msg.appendChild(timestamp);
 
   wrapper.appendChild(avatar);
   wrapper.appendChild(msg);
@@ -89,13 +67,23 @@ function aggiungiMessaggio(testo, mittente) {
 
 function aggiungiLoader() {
   const loaderWrapper = document.createElement("div");
-  loaderWrapper.className = "msg ai loader-wrapper";
+  loaderWrapper.className = "msg-wrapper ai";
   loaderWrapper.setAttribute("id", "loader");
-  loaderWrapper.innerHTML = `
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = "🤖";
+
+  const loader = document.createElement("div");
+  loader.className = "msg ai";
+  loader.innerHTML = `
     <div class="loader">
       <div></div><div></div><div></div>
     </div>
   `;
+
+  loaderWrapper.appendChild(avatar);
+  loaderWrapper.appendChild(loader);
   chatBox.appendChild(loaderWrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
