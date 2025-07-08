@@ -65,7 +65,7 @@ function aggiungiMessaggio(testo, mittente) {
     copyBtn.className = "copy-btn";
     copyBtn.innerText = "⧉"; // icona di copia alternativa
     copyBtn.title = "Copia risposta";
-    copyBtn.setAttribute("data-tooltip", "Copia risposta"); // tooltip iniziale
+    copyBtn.setAttribute("data-tooltip", "Copia risposta");
 
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(testo).then(() => {
@@ -78,20 +78,20 @@ function aggiungiMessaggio(testo, mittente) {
       });
     };
 
-    bottomRow.appendChild(copyBtn);   // prima il pulsante
-    bottomRow.appendChild(timestamp); // poi l'orario
+    bottomRow.appendChild(copyBtn);
+    bottomRow.appendChild(timestamp);
   } else {
     bottomRow.appendChild(timestamp);
   }
 
-  msg.appendChild(bottomRow);
-
   if (mittente === "utente") {
     wrapper.appendChild(msg);
+    wrapper.appendChild(bottomRow);
     wrapper.appendChild(avatar);
   } else {
     wrapper.appendChild(avatar);
     wrapper.appendChild(msg);
+    wrapper.appendChild(bottomRow);
   }
 
   chatBox.appendChild(wrapper);
