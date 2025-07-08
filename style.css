@@ -138,16 +138,17 @@ body.dark-mode .chat-box {
 .msg-wrapper {
   display: flex;
   align-items: flex-end;
-  gap: 10px;
+  flex-direction: column;
+  gap: 2px;
   max-width: 100%;
 }
 
 .msg-wrapper.ai {
-  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .msg-wrapper.utente {
-  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .avatar {
@@ -167,7 +168,6 @@ body.dark-mode .chat-box {
   word-wrap: break-word;
   line-height: 1.4;
   position: relative;
-  margin-bottom: 4px;
 }
 
 .msg.utente {
@@ -206,14 +206,18 @@ body.dark-mode .timestamp {
   gap: 8px;
   font-size: 0.75rem;
   opacity: 0.6;
-  margin-top: -4px;
-  margin-bottom: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  justify-content: flex-end;
+  padding: 0 10px;
+  width: fit-content;
+  max-width: 75%;
 }
 
 .msg-wrapper.ai .msg-meta {
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.msg-wrapper.utente .msg-meta {
+  margin-right: auto;
   justify-content: flex-start;
 }
 
