@@ -206,7 +206,9 @@ body.dark-mode .timestamp {
   gap: 8px;
   font-size: 0.75rem;
   opacity: 0.6;
-  margin-top: 6px;
+  margin-top: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .copy-btn {
