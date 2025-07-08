@@ -196,7 +196,59 @@ body.dark-mode .msg.utente {
 }
 
 body.dark-mode .timestamp {
-  color: #ccc; /* opzionale per maggiore contrasto in dark */
+  color: #ccc;
+}
+
+.msg-meta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-top: 6px;
+}
+
+.copy-btn {
+  cursor: pointer;
+  font-size: 1rem;
+  opacity: 0.6;
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+.copy-btn:hover {
+  opacity: 1;
+}
+
+.copy-btn:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  right: 50%;
+  transform: translateX(50%);
+  background: #333;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.copy-btn:hover::after {
+  opacity: 1;
+}
+
+body.dark-mode .copy-btn {
+  color: inherit;
+}
+
+body.dark-mode .copy-btn:hover::after {
+  background: #eee;
+  color: #111;
 }
 
 .loader {
@@ -298,61 +350,4 @@ input:checked + .slider:before {
   .clear-btn {
     font-size: 1.8rem;
   }
-}
-
-.msg-meta {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
-  opacity: 0.6;
-  margin-top: 6px;
-  position: absolute;
-  right: 10px;
-  bottom: -18px;
-}
-
-.copy-btn {
-  cursor: pointer;
-  font-size: 1rem;
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
-}
-
-.copy-btn:hover {
-  opacity: 1;
-}
-
-body.dark-mode .copy-btn {
-  color: inherit;
-}
-
-.copy-btn {
-  cursor: pointer;
-  font-size: 1rem;
-  opacity: 0.6;
-  position: relative; /* necessario per il tooltip */
-  transition: opacity 0.3s ease;
-}
-
-.copy-btn:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 120%;
-  right: 50%;
-  transform: translateX(50%);
-  background: #333;
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 0.7rem;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-}
-
-.copy-btn:hover::after {
-  opacity: 1;
 }
