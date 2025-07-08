@@ -63,18 +63,23 @@ function aggiungiMessaggio(testo, mittente) {
   if (mittente === "ai") {
     const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
-    copyBtn.innerText = "📋";
+    copyBtn.innerText = "⧉"; // icona di copia alternativa
     copyBtn.title = "Copia risposta";
+    copyBtn.setAttribute("data-tooltip", "Copia risposta"); // tooltip iniziale
 
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(testo).then(() => {
         copyBtn.innerText = "✅";
-        setTimeout(() => (copyBtn.innerText = "📋"), 1000);
+        copyBtn.setAttribute("data-tooltip", "Copiato!");
+        setTimeout(() => {
+          copyBtn.innerText = "⧉";
+          copyBtn.setAttribute("data-tooltip", "Copia risposta");
+        }, 1000);
       });
     };
 
-    bottomRow.appendChild(copyBtn);   // 📋 PRIMA
-    bottomRow.appendChild(timestamp); // 🕒 DOPO
+    bottomRow.appendChild(copyBtn);   // prima il pulsante
+    bottomRow.appendChild(timestamp); // poi l'orario
   } else {
     bottomRow.appendChild(timestamp);
   }
