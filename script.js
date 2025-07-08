@@ -73,10 +73,12 @@ function aggiungiMessaggio(testo, mittente) {
       });
     };
 
-    bottomRow.appendChild(copyBtn);
+    bottomRow.appendChild(copyBtn);   // 📋 PRIMA
+    bottomRow.appendChild(timestamp); // 🕒 DOPO
+  } else {
+    bottomRow.appendChild(timestamp);
   }
 
-  bottomRow.appendChild(timestamp);
   msg.appendChild(bottomRow);
 
   if (mittente === "utente") {
