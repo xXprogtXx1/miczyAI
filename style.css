@@ -212,12 +212,12 @@ body.dark-mode .timestamp {
 }
 
 .msg-wrapper.ai .msg-meta {
-  margin-left: 25px;
+  margin-left: 35px;
   justify-content: flex-end;
 }
 
 .msg-wrapper.utente .msg-meta {
-  margin-right: 25px;
+  margin-right: 35px;
   justify-content: flex-start;
 }
 
