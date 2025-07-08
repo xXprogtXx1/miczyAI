@@ -161,12 +161,13 @@ body.dark-mode .chat-box {
 }
 
 .msg {
-  padding: 0.8rem 1.2rem 1.6rem; 
+  padding: 0.8rem 1.2rem;
   border-radius: 20px;
   max-width: 75%;
   word-wrap: break-word;
   line-height: 1.4;
   position: relative;
+  margin-bottom: 4px;
 }
 
 .msg.utente {
@@ -201,14 +202,19 @@ body.dark-mode .timestamp {
 
 .msg-meta {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   gap: 8px;
   font-size: 0.75rem;
   opacity: 0.6;
-  margin-top: 4px;
+  margin-top: -4px;
+  margin-bottom: 10px;
   padding-left: 10px;
   padding-right: 10px;
+  justify-content: flex-end;
+}
+
+.msg-wrapper.ai .msg-meta {
+  justify-content: flex-start;
 }
 
 .copy-btn {
