@@ -84,19 +84,18 @@ function aggiungiMessaggio(testo, mittente) {
     bottomRow.appendChild(timestamp);
   }
 
-  // Contenitore msg + timestamp sotto
   const msgContainer = document.createElement("div");
   msgContainer.className = "msg-container";
   msgContainer.appendChild(msg);
   msgContainer.appendChild(bottomRow);
 
-  // Riga messaggio + avatar
   const msgRow = document.createElement("div");
   msgRow.className = "msg-row";
 
+  // Allineamento corretto emoji
   if (mittente === "utente") {
     msgRow.appendChild(msgContainer);
-    msgRow.appendChild(avatar);
+    msgRow.appendChild(avatar); // avatar a destra
   } else {
     msgRow.appendChild(avatar);
     msgRow.appendChild(msgContainer);
