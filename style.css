@@ -1,4 +1,3 @@
-/* === STILE GENERALE === */
 body {
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(135deg, #ffd6e0, #d6f0ff);
@@ -50,7 +49,6 @@ p {
   50% { border-color: #ff69b4; }
 }
 
-/* === LAYOUT === */
 main {
   padding: 2rem;
   display: flex;
@@ -111,7 +109,6 @@ button:hover {
   color: red;
 }
 
-/* === CHAT BOX === */
 .chat-box {
   margin: 0 auto;
   padding: 1.2rem;
@@ -153,24 +150,6 @@ body.dark-mode .chat-box {
   align-items: flex-end;
 }
 
-/* === MESSAGGI === */
-.msg-row {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  max-width: 100%;
-}
-
-.msg-wrapper.utente .msg-row {
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-}
-
-.msg-wrapper.ai .msg-row {
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
 .avatar {
   width: 32px;
   height: 32px;
@@ -179,6 +158,25 @@ body.dark-mode .chat-box {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.msg-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+}
+
+.msg-wrapper.utente .msg-row {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.msg-wrapper.ai .msg-row {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .msg {
@@ -210,7 +208,6 @@ body.dark-mode .msg.utente {
   color: white;
 }
 
-/* === METADATI === */
 .timestamp {
   font-size: 0.75rem;
   opacity: 0.6;
@@ -232,19 +229,18 @@ body.dark-mode .timestamp {
   max-width: 75%;
 }
 
-/* ✅ Timestamp utente A SINISTRA */
 .msg-wrapper.utente .msg-meta {
   margin-left: 0;
+  margin-right: auto;
   justify-content: flex-start;
 }
 
-/* ✅ Timestamp AI A DESTRA */
 .msg-wrapper.ai .msg-meta {
   margin-left: auto;
+  margin-right: 0;
   justify-content: flex-end;
 }
 
-/* === PULSANTE COPIA === */
 .copy-btn {
   cursor: pointer;
   font-size: 1rem;
@@ -287,7 +283,6 @@ body.dark-mode .copy-btn:hover::after {
   color: #111;
 }
 
-/* === LOADER === */
 .loader {
   display: flex;
   gap: 5px;
@@ -316,7 +311,6 @@ body.dark-mode .copy-btn:hover::after {
   40% { transform: scale(1); }
 }
 
-/* === DARK MODE SWITCH === */
 .switch {
   position: absolute;
   top: 1rem;
@@ -364,7 +358,6 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* === RESPONSIVE === */
 @media (max-width: 600px) {
   #chatForm {
     flex-direction: column;
