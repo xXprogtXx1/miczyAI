@@ -7,16 +7,16 @@
   <meta name="description" content="MiczyAI è la tua IA personale: chatta, chiedi, esplora e divertiti con l'AI più... creativa!" />
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="miczy-favicon.png">
+  <link rel="icon" type="image/png" href="miczy-favicon.png" />
 </head>
 <body>
   <header>
-    <!-- 🔁 Toggle lingua -->
+    <!-- Toggle lingua -->
     <div id="language-toggle">
       <button id="langBtn">EN</button>
     </div>
 
-    <h1>MiczyAI</h1>
+    <h1 id="mainTitle">MiczyAI</h1>
     <p id="subtitle"></p>
 
     <label class="switch" for="toggleDark" aria-label="Attiva/disattiva modalità scura">
@@ -28,15 +28,33 @@
   <main>
     <form id="chatForm" onsubmit="event.preventDefault(); talkToMiczy();">
       <div class="input-wrapper">
-        <input type="text" id="userInput" placeholder="Scrivi qualcosa..." autocomplete="off" required />
-        <button type="submit">Invia</button>
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Scrivi qualcosa..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit" id="submitBtn">Invia</button>
       </div>
     </form>
 
-    <div id="chat-box" class="chat-box" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <div
+      id="chat-box"
+      class="chat-box"
+      role="log"
+      aria-live="polite"
+      aria-relevant="additions"
+    ></div>
 
     <div class="chat-controls">
-      <button class="clear-btn" onclick="cancellaCronologiaChat()" aria-label="Cancella cronologia chat">🗑️</button>
+      <button
+        class="clear-btn"
+        onclick="cancellaCronologiaChat()"
+        aria-label="Cancella cronologia chat"
+      >
+        🗑️
+      </button>
     </div>
   </main>
 
