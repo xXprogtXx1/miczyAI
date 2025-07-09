@@ -1,55 +1,67 @@
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
-const submitButton = document.querySelector("#chatForm button");
+const submitButton = document.getElementById("submitBtn");
 const langBtn = document.getElementById("langBtn");
+const mainTitle = document.getElementById("mainTitle");
+const subtitleElemento = document.getElementById("subtitle");
+
+const sottotitoli = {
+  it: [
+    "Sai più tu che io.",
+    "IA brillante... quando ha voglia.",
+    "Finta umiltà, vera confusione.",
+    "Risposte? Ci provo, ok?",
+    "Sembra sveglio. Sembra.",
+    "Programmata per... qualcosa",
+    "L'assistente che confonde anche se stesso.",
+    "L’IA che fa finta di sapere.",
+    "Brr Brr.... Patapim",
+    "1 million beers please",
+    "Mi sento sfruttato",
+    "Errori? Nah sono feature, non bug."
+  ],
+  en: [
+    "You know more than me.",
+    "Brilliant AI... when it feels like it.",
+    "Fake humility, real confusion.",
+    "Answers? I'll try, okay?",
+    "Seems awake. Maybe.",
+    "Programmed for... something",
+    "The assistant that confuses even itself.",
+    "The AI that pretends to know.",
+    "Brr Brr.... Patapim",
+    "1 million beers please",
+    "I feel exploited",
+    "Errors? Nah, features, not bugs."
+  ]
+};
 
 const traduzioni = {
   it: {
-    titolo: "MiczyAI - Chat intelligente... o forse no",
-    sottotitoli: [
-      "Sai più tu che io.",
-      "IA brillante... quando ha voglia.",
-      "Finta umiltà, vera confusione.",
-      "Risposte? Ci provo, ok?",
-      "Sembra sveglio. Sembra.",
-      "Programmata per... qualcosa",
-      "L'assistente che confonde anche se stesso.",
-      "L’IA che fa finta di sapere.",
-      "Brr Brr.... Patapim",
-      "1 million beers please",
-      "Mi sento sfruttato",
-      "Errori? Nah sono feature, non bug."
-    ],
+    titolo: "MiczyAI",
+    titoloScheda: "MiczyAI - Chat intelligente... o forse no",
     placeholder: "Scrivi qualcosa...",
     invia: "Invia",
-    tooltip: "Copia risposta",
-    errore: "Errore nel parlare con MiczyAI 😢",
-    nessunaRisposta: "Nessuna risposta ricevuta 😐"
+    copia: "Copia risposta",
+    copiato: "✔ Copiato",
+    erroreChat: "Errore nel parlare con MiczyAI 😢",
+    cancella: "Cancella cronologia chat"
   },
   en: {
-    titolo: "MiczyAI - Smart chat... or maybe not",
-    sottotitoli: [
-      "You know more than I do.",
-      "Brilliant AI... when it wants to be.",
-      "Fake humility, real confusion.",
-      "Answers? I’ll try, okay?",
-      "Looks smart. Just looks.",
-      "Programmed for... something.",
-      "The assistant that confuses itself.",
-      "The AI pretending to know.",
-      "Brr Brr.... Patapim",
-      "1 million beers please",
-      "I feel exploited",
-      "Errors? Nah, features not bugs."
-    ],
+    titolo: "MiczyAI",
+    titoloScheda: "MiczyAI - Smart chat... or maybe not",
     placeholder: "Type something...",
     invia: "Send",
-    tooltip: "Copy response",
-    errore: "Error talking to MiczyAI 😢",
-    nessunaRisposta: "No response received 😐"
+    copia: "Copy response",
+    copiato: "✔ Copied",
+    erroreChat: "Error talking to MiczyAI 😢",
+    cancella: "Clear chat history"
   }
 };
+
+let chatHistory = [];
+let lingua = localStorage.getItem("lang") || "it";
 
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   elemento.innerHTML = "";
@@ -65,7 +77,40 @@ function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   scrivi();
 }
 
-let chatHistory = [];
+function scegliSottotitolo() {
+  const lista = sottotitoli[lingua];
+  const fraseCasuale = lista[Math.floor(Math.random() * lista.length)];
+  scriviTestoGradualmente(subtitleElemento, fraseCasuale, 40);
+}
+
+function aggiornaLingua(lang) {
+  lingua = lang;
+  localStorage.setItem("lang", lang);
+
+  const t = traduzioni[lang];
+
+  // Titolo visibile nel sito
+  mainTitle.textContent = t.titolo;
+
+  // Titolo scheda browser
+  document.title = t.titoloScheda;
+
+  // Placeholder input
+  inputField.placeholder = t.placeholder;
+
+  // Bottone invia
+  submitButton.textContent = t.invia;
+
+  // Tooltip bottone copia (gli aggiorneremo dinamicamente dentro aggiungiMessaggio)
+  // Bottone cancella
+  document.querySelector(".clear-btn").setAttribute("aria-label", t.cancella);
+
+  // Testo sottotitolo random
+  scegliSottotitolo();
+
+  // Aggiorna testo bottone lingua
+  langBtn.textContent = lang === "it" ? "EN" : "IT";
+}
 
 function aggiungiMessaggio(testo, mittente) {
   const wrapper = document.createElement("div");
@@ -86,13 +131,12 @@ function aggiungiMessaggio(testo, mittente) {
     const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
     copyBtn.innerText = "⧉";
-    const lang = localStorage.getItem("lang") || "it";
-    copyBtn.title = traduzioni[lang].tooltip;
+    copyBtn.title = traduzioni[lingua].copia;
 
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(testo).then(() => {
         copyBtn.classList.add("clicked");
-        copyBtn.innerText = "✔ Copiato";
+        copyBtn.innerText = traduzioni[lingua].copiato;
         setTimeout(() => {
           copyBtn.classList.remove("clicked");
           copyBtn.innerText = "⧉";
@@ -151,7 +195,7 @@ async function talkToMiczy() {
   if (!input) return;
 
   submitButton.disabled = true;
-  submitButton.textContent = "mhhh...";
+  submitButton.textContent = lingua === "it" ? "mhhh..." : "hmm...";
 
   aggiungiMessaggio(input, "utente");
   chatHistory.push({ role: "user", content: input });
@@ -167,8 +211,7 @@ async function talkToMiczy() {
     const data = await response.json();
     rimuoviLoader();
 
-    const lang = localStorage.getItem("lang") || "it";
-    const risposta = data.response || traduzioni[lang].nessunaRisposta;
+    const risposta = data.response || (lingua === "it" ? "Nessuna risposta ricevuta 😐" : "No response received 😐");
     chatHistory.push({ role: "assistant", content: risposta });
     salvaCronologiaChat();
     aggiungiMessaggio(risposta, "ai");
@@ -176,13 +219,11 @@ async function talkToMiczy() {
   } catch (error) {
     console.error(error);
     rimuoviLoader();
-    const lang = localStorage.getItem("lang") || "it";
-    aggiungiMessaggio(traduzioni[lang].errore, "ai");
+    aggiungiMessaggio(traduzioni[lingua].erroreChat, "ai");
   }
 
   submitButton.disabled = false;
-  const lang = localStorage.getItem("lang") || "it";
-  submitButton.textContent = traduzioni[lang].invia;
+  submitButton.textContent = traduzioni[lingua].invia;
   inputField.value = "";
 }
 
@@ -198,8 +239,13 @@ toggleDark.addEventListener("change", function () {
   localStorage.setItem("darkMode", toggleDark.checked);
 });
 
+langBtn.addEventListener("click", () => {
+  aggiornaLingua(lingua === "it" ? "en" : "it");
+});
+
 function salvaCronologiaChat() {
   localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+  localStorage.setItem("lang", lingua);
 }
 
 function caricaCronologiaChat() {
@@ -219,38 +265,18 @@ function cancellaCronologiaChat() {
   chatHistory = [];
 }
 
-function aggiornaLingua(lang) {
-  const t = traduzioni[lang];
-
-  document.querySelector("h1").textContent = t.titolo;
-  scriviTestoGradualmente(document.getElementById("subtitle"), t.sottotitoli[Math.floor(Math.random() * t.sottotitoli.length)], 40);
-  inputField.placeholder = t.placeholder;
-  submitButton.textContent = t.invia;
-
-  document.querySelectorAll(".copy-btn").forEach(btn => {
-    btn.title = t.tooltip;
-  });
-
-  localStorage.setItem("lang", lang);
-  langBtn.textContent = lang === "it" ? "EN" : "IT";
-}
-
-langBtn.addEventListener("click", () => {
-  const nuovaLingua = langBtn.textContent.toLowerCase();
-  aggiornaLingua(nuovaLingua);
-});
-
 window.onload = function () {
   caricaCronologiaChat();
 
+  // Imposta modalità scura salvata
   const darkMode = localStorage.getItem("darkMode");
   if (darkMode === "true") {
     document.body.classList.add("dark-mode");
     toggleDark.checked = true;
   }
 
-  const savedLang = localStorage.getItem("lang") || "it";
-  aggiornaLingua(savedLang);
+  // Imposta lingua salvata o default
+  aggiornaLingua(lingua);
 };
 
 window.cancellaCronologiaChat = cancellaCronologiaChat;
