@@ -137,9 +137,8 @@ body.dark-mode .chat-box {
 
 .msg-wrapper {
   display: flex;
-  align-items: flex-end;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
   max-width: 100%;
 }
 
@@ -362,4 +361,21 @@ input:checked + .slider:before {
   .clear-btn {
     font-size: 1.8rem;
   }
+}
+
+.msg-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 100%;
+}
+
+.msg-wrapper.utente .msg-row {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.msg-wrapper.ai .msg-row {
+  flex-direction: row;
+  justify-content: flex-start;
 }
