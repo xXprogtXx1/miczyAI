@@ -55,10 +55,6 @@ function aggiungiMessaggio(testo, mittente) {
   const bottomRow = document.createElement("div");
   bottomRow.className = "msg-meta";
 
-  const timestamp = document.createElement("span");
-  timestamp.className = "timestamp";
-  const ora = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  timestamp.textContent = ora;
 
   if (mittente === "ai") {
     const copyBtn = document.createElement("span");
@@ -76,7 +72,6 @@ function aggiungiMessaggio(testo, mittente) {
     bottomRow.appendChild(copyBtn);
   }
 
-  bottomRow.appendChild(timestamp);
   msg.appendChild(bottomRow);
 
   if (mittente === "utente") {
