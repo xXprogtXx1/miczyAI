@@ -46,7 +46,7 @@ function aggiungiMessaggio(testo, mittente) {
 
   const avatar = document.createElement("div");
   avatar.className = "avatar";
-  avatar.textContent = mittente === "ai" ? "🤖" : "👤";
+  avatar.textContent = mittente === "ai" ? "🤖" : "🧑";
 
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
@@ -63,45 +63,30 @@ function aggiungiMessaggio(testo, mittente) {
   if (mittente === "ai") {
     const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
-    copyBtn.innerText = "⧉";
+    copyBtn.innerText = "📋";
     copyBtn.title = "Copia risposta";
-    copyBtn.setAttribute("data-tooltip", "Copia risposta");
 
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(testo).then(() => {
         copyBtn.innerText = "✅";
-        copyBtn.setAttribute("data-tooltip", "Copiato!");
-        setTimeout(() => {
-          copyBtn.innerText = "⧉";
-          copyBtn.setAttribute("data-tooltip", "Copia risposta");
-        }, 1000);
+        setTimeout(() => (copyBtn.innerText = "📋"), 1000);
       });
     };
 
     bottomRow.appendChild(copyBtn);
-    bottomRow.appendChild(timestamp);
-  } else {
-    bottomRow.appendChild(timestamp);
   }
 
-  const msgContainer = document.createElement("div");
-  msgContainer.className = "msg-container";
-  msgContainer.appendChild(msg);
-  msgContainer.appendChild(bottomRow);
+  bottomRow.appendChild(timestamp);
+  msg.appendChild(bottomRow);
 
-  const msgRow = document.createElement("div");
-  msgRow.className = "msg-row";
-
-  // Allineamento corretto emoji
   if (mittente === "utente") {
-    msgRow.appendChild(msgContainer);
-    msgRow.appendChild(avatar); // avatar a destra
+    wrapper.appendChild(msg);
+    wrapper.appendChild(avatar);
   } else {
-    msgRow.appendChild(avatar);
-    msgRow.appendChild(msgContainer);
+    wrapper.appendChild(avatar);
+    wrapper.appendChild(msg);
   }
 
-  wrapper.appendChild(msgRow);
   chatBox.appendChild(wrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
   salvaCronologiaChat();
