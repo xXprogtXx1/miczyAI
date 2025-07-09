@@ -46,7 +46,7 @@ function aggiungiMessaggio(testo, mittente) {
 
   const avatar = document.createElement("div");
   avatar.className = "avatar";
-  avatar.textContent = mittente === "ai" ? "🤖" : "🧑";
+  avatar.textContent = mittente === "ai" ? "🤖" : "👤";
 
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
