@@ -59,7 +59,7 @@ function aggiungiMessaggio(testo, mittente) {
   if (mittente === "ai") {
     const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
-    copyBtn.innerText = "📋";
+    copyBtn.innerText = "⧉";
     copyBtn.title = "Copia risposta";
 
     copyBtn.onclick = () => {
