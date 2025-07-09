@@ -64,8 +64,8 @@ function aggiungiMessaggio(testo, mittente) {
 
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(testo).then(() => {
-        copyBtn.innerText = "✅";
-        setTimeout(() => (copyBtn.innerText = "📋"), 1000);
+        copyBtn.innerText = "✔ Copiato";
+        setTimeout(() => (copyBtn.innerText = "⧉ "), 1000);
       });
     };
 
