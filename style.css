@@ -150,6 +150,33 @@ body.dark-mode .chat-box {
   align-items: flex-end;
 }
 
+.msg-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 100%;
+}
+
+.msg-wrapper.utente .msg-row {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.msg-wrapper.ai .msg-row {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.msg-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.msg-wrapper.utente .msg-container {
+  align-items: flex-end;
+}
+
 .avatar {
   width: 32px;
   height: 32px;
@@ -208,16 +235,6 @@ body.dark-mode .timestamp {
   padding: 0 10px;
   width: fit-content;
   max-width: 75%;
-}
-
-.msg-wrapper.ai .msg-meta {
-  margin-left: auto;
-  justify-content: flex-end;
-}
-
-.msg-wrapper.utente .msg-meta {
-  margin-right: auto;
-  justify-content: flex-start;
 }
 
 .copy-btn {
@@ -361,21 +378,4 @@ input:checked + .slider:before {
   .clear-btn {
     font-size: 1.8rem;
   }
-}
-
-.msg-row {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  max-width: 100%;
-}
-
-.msg-wrapper.utente .msg-row {
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-}
-
-.msg-wrapper.ai .msg-row {
-  flex-direction: row;
-  justify-content: flex-start;
 }
