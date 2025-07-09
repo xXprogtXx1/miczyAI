@@ -320,3 +320,28 @@ input:checked + .slider:before {
 body.dark-mode .copy-btn {
   color: inherit;
 }
+
+#language-toggle {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+#langBtn {
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#langBtn:hover {
+  background-color: #d0d0d0;
+}
+
+body.dark-mode #langBtn {
+  background-color: #555;
+  color: white;
+}
