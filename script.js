@@ -63,7 +63,7 @@ function aggiungiMessaggio(testo, mittente) {
   if (mittente === "ai") {
     const copyBtn = document.createElement("span");
     copyBtn.className = "copy-btn";
-    copyBtn.innerText = "⧉"; // icona di copia alternativa
+    copyBtn.innerText = "⧉";
     copyBtn.title = "Copia risposta";
     copyBtn.setAttribute("data-tooltip", "Copia risposta");
 
@@ -84,22 +84,25 @@ function aggiungiMessaggio(testo, mittente) {
     bottomRow.appendChild(timestamp);
   }
 
- const msgRow = document.createElement("div");
-msgRow.className = "msg-row";
+  // Contenitore msg + timestamp sotto
+  const msgContainer = document.createElement("div");
+  msgContainer.className = "msg-container";
+  msgContainer.appendChild(msg);
+  msgContainer.appendChild(bottomRow);
 
-if (mittente === "utente") {
-  msgRow.appendChild(msg);
-  msgRow.appendChild(avatar);
-  wrapper.classList.add("utente");
-} else {
-  msgRow.appendChild(avatar);
-  msgRow.appendChild(msg);
-  wrapper.classList.add("ai");
-}
+  // Riga messaggio + avatar
+  const msgRow = document.createElement("div");
+  msgRow.className = "msg-row";
 
-wrapper.appendChild(msgRow);
-wrapper.appendChild(bottomRow);
+  if (mittente === "utente") {
+    msgRow.appendChild(msgContainer);
+    msgRow.appendChild(avatar);
+  } else {
+    msgRow.appendChild(avatar);
+    msgRow.appendChild(msgContainer);
+  }
 
+  wrapper.appendChild(msgRow);
   chatBox.appendChild(wrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
   salvaCronologiaChat();
