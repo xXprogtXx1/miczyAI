@@ -84,15 +84,21 @@ function aggiungiMessaggio(testo, mittente) {
     bottomRow.appendChild(timestamp);
   }
 
-  if (mittente === "utente") {
-    wrapper.appendChild(msg);
-    wrapper.appendChild(bottomRow);
-    wrapper.appendChild(avatar);
-  } else {
-    wrapper.appendChild(avatar);
-    wrapper.appendChild(msg);
-    wrapper.appendChild(bottomRow);
-  }
+ const msgRow = document.createElement("div");
+msgRow.className = "msg-row";
+
+if (mittente === "utente") {
+  msgRow.appendChild(msg);
+  msgRow.appendChild(avatar);
+  wrapper.classList.add("utente");
+} else {
+  msgRow.appendChild(avatar);
+  msgRow.appendChild(msg);
+  wrapper.classList.add("ai");
+}
+
+wrapper.appendChild(msgRow);
+wrapper.appendChild(bottomRow);
 
   chatBox.appendChild(wrapper);
   chatBox.scrollTop = chatBox.scrollHeight;
