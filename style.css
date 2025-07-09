@@ -162,7 +162,7 @@ body.dark-mode .chat-box {
 
 .msg-row {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 8px;
   max-width: 100%;
 }
@@ -170,13 +170,13 @@ body.dark-mode .chat-box {
 .msg-wrapper.utente .msg-row {
   flex-direction: row-reverse;
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .msg-wrapper.ai .msg-row {
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .msg {
@@ -226,19 +226,20 @@ body.dark-mode .timestamp {
   opacity: 0.6;
   padding: 0 10px;
   width: fit-content;
-  max-width: 75%;
+  max-width: 70%; /* leggermente più stretta */
 }
 
 .msg-wrapper.utente .msg-meta {
-  margin-left: 0;
-  margin-right: auto;
-  justify-content: flex-start;
+  margin-left: auto;
+  margin-right: 0;
+  justify-content: flex-end;
 }
 
 .msg-wrapper.ai .msg-meta {
   margin-left: auto;
   margin-right: 0;
   justify-content: flex-end;
+  padding-right: 8px;
 }
 
 .copy-btn {
