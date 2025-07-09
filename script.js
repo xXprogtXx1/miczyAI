@@ -63,11 +63,15 @@ function aggiungiMessaggio(testo, mittente) {
     copyBtn.title = "Copia risposta";
 
     copyBtn.onclick = () => {
-      navigator.clipboard.writeText(testo).then(() => {
-        copyBtn.innerText = "✔ Copiato";
-        setTimeout(() => (copyBtn.innerText = "⧉ "), 1000);
-      });
-    };
+  navigator.clipboard.writeText(testo).then(() => {
+    copyBtn.classList.add("clicked");
+    copyBtn.innerText = "✔ Copiato";
+    setTimeout(() => {
+      copyBtn.classList.remove("clicked");
+      copyBtn.innerText = "⧉"; 
+    }, 1000);
+  });
+};
 
     bottomRow.appendChild(copyBtn);
   }
