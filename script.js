@@ -129,8 +129,6 @@ function aggiornaLingua(lang) {
   // Bottone invia
   submitButton.textContent = t.invia;
 
-  // Tooltip bottone copia (aggiorniamo dinamicamente dentro aggiungiMessaggio)
-
   // Bottone cancella
   document.querySelector(".clear-btn").setAttribute("aria-label", t.cancella);
 
@@ -138,7 +136,7 @@ function aggiornaLingua(lang) {
   scegliSottotitolo();
 
   // Aggiorna testo bottone lingua
-  if(langBtn) langBtn.textContent = lang === "it" ? "EN" : "IT";
+  if (langBtn) langBtn.textContent = lang === "it" ? "EN" : "IT";
 }
 
 function aggiungiMessaggio(testo, mittente) {
@@ -151,6 +149,7 @@ function aggiungiMessaggio(testo, mittente) {
 
   const msg = document.createElement("div");
   msg.className = `msg ${mittente}`;
+  // Per i messaggi AI usiamo marked, per l'utente testo semplice
   msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
 
   const bottomRow = document.createElement("div");
@@ -191,6 +190,7 @@ function aggiungiMessaggio(testo, mittente) {
   salvaCronologiaChat();
 }
 
+// Funzione per mostrare il loader
 function aggiungiLoader() {
   const loaderWrapper = document.createElement("div");
   loaderWrapper.className = "msg-wrapper ai";
@@ -214,9 +214,65 @@ function aggiungiLoader() {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// Rimuove il loader
 function rimuoviLoader() {
   const loader = document.getElementById("loader");
   if (loader) loader.remove();
+}
+
+// Funzione che simula la scrittura graduale della risposta AI
+function scriviRispostaGraduale(testo) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "msg-wrapper ai";
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = "🤖";
+
+  const msg = document.createElement("div");
+  msg.className = "msg ai";
+
+  // Crea il container per i pulsanti/copia, che verrà aggiunto al termine
+  const bottomRow = document.createElement("div");
+  bottomRow.className = "msg-meta";
+
+  const copyBtn = document.createElement("span");
+  copyBtn.className = "copy-btn";
+  copyBtn.innerText = "⧉";
+  copyBtn.title = traduzioni[lingua].copia;
+
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(testo).then(() => {
+      copyBtn.classList.add("clicked");
+      copyBtn.innerText = traduzioni[lingua].copiato;
+      setTimeout(() => {
+        copyBtn.classList.remove("clicked");
+        copyBtn.innerText = "⧉";
+      }, 1000);
+    });
+  };
+
+  bottomRow.appendChild(copyBtn);
+
+  // Aggiungo inizialmente avatar e msg (senza testo)
+  wrapper.appendChild(avatar);
+  wrapper.appendChild(msg);
+  chatBox.appendChild(wrapper);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i < testo.length) {
+      // Aggiungo progressivamente il testo, utilizzando marked per formattazione
+      msg.innerHTML = marked.parse(testo.slice(0, i + 1));
+      // Riaggiungo il bottomRow (i pulsanti) dopo l'aggiornamento del contenuto
+      if (!msg.contains(bottomRow)) msg.appendChild(bottomRow);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      i++;
+    } else {
+      clearInterval(interval);
+    }
+  }, 15); // Regola la velocità di scrittura (ms per carattere)
 }
 
 async function talkToMiczy() {
@@ -243,7 +299,8 @@ async function talkToMiczy() {
     const risposta = data.response || (lingua === "it" ? "Nessuna risposta ricevuta 😐" : "No response received 😐");
     chatHistory.push({ role: "assistant", content: risposta });
     salvaCronologiaChat();
-    aggiungiMessaggio(risposta, "ai");
+    // Invece di mostrare subito la risposta, la scriviamo gradualmente:
+    scriviRispostaGraduale(risposta);
 
   } catch (error) {
     console.error(error);
