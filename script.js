@@ -358,3 +358,26 @@ window.onload = function () {
 };
 
 window.cancellaCronologiaChat = cancellaCronologiaChat;
+
+window.onload = function () {
+  caricaCronologiaChat();
+
+  const darkMode = localStorage.getItem("darkMode");
+  if (darkMode === "true") {
+    document.body.classList.add("dark-mode");
+    toggleDark.checked = true;
+  }
+
+  // ✅ Collega il pulsante "cancella cronologia"
+  const clearBtn = document.querySelector(".clear-btn");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      const conferma = confirm(
+        lingua === "it"
+          ? "Sei sicuro di voler cancellare la cronologia?"
+          : "Are you sure you want to clear the chat history?"
+      );
+      if (conferma) cancellaCronologiaChat();
+    });
+  }
+};
