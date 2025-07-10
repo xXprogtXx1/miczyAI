@@ -373,6 +373,6 @@ body.dark-mode #langBtn:hover {
 
 @media (max-width: 600px) {
   #langBtn {
-    top: 6px;
+    top: 7px;
   }
 }
