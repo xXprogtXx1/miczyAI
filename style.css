@@ -327,9 +327,6 @@ body.dark-mode .copy-btn {
   left: 1rem;
 }
 
-#langBtn:hover {
-  background-color: #d0d0d0;
-}
 
 body.dark-mode #langBtn {
   background-color: #555;
