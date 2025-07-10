@@ -406,7 +406,7 @@ body::after {
 
 @keyframes float {
   0%   { transform: translateY(0px) translateX(0px); }
-  50%  { transform: translateY(-40px) translateX(30px); }
+  50%  { transform: translateY(-100px) translateX(60px); }
   100% { transform: translateY(0px) translateX(0px); }
 }
 
@@ -426,7 +426,7 @@ html::before {
   background: #ffa07a;
   border-radius: 50%;
   filter: blur(50px);
-  opacity: 0.2;
+  opacity: 0.4;
   top: 50%;
   left: 0%;
   animation: floatAlt 60s ease-in-out infinite;
@@ -442,7 +442,7 @@ html::after {
   background: #32cd32;
   border-radius: 50%;
   filter: blur(50px);
-  opacity: 0.2;
+  opacity: 0.4;
   bottom: 15%;
   right: 5%;
   animation: floatAlt 90s ease-in-out infinite;
@@ -451,18 +451,7 @@ html::after {
 }
 
 @keyframes floatAlt {
-  0%   { transform: translateY(0) translateX(0); }
-  50%  { transform: translateY(-30px) translateX(20px); }
-  100% { transform: translateY(0) translateX(0); }
-}
-
-body::before {
-  animation: testMove 5s linear infinite !important;
-  background: red !important;
-}
-
-@keyframes testMove {
-  0%   { transform: translateX(0); }
-  50%  { transform: translateX(100px); }
-  100% { transform: translateX(0); }
+  0%   { transform: translateY(0px) translateX(0px); }
+  50%  { transform: translateY(-80px) translateX(40px); }
+  100% { transform: translateY(0px) translateX(0px); }
 }
