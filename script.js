@@ -234,25 +234,52 @@ function scriviRispostaGraduale(testo) {
 
   // Crea il container per i pulsanti/copia, che verrà aggiunto al termine
   const bottomRow = document.createElement("div");
-  bottomRow.className = "msg-meta";
+bottomRow.className = "msg-meta";
 
-  const copyBtn = document.createElement("span");
-  copyBtn.className = "copy-btn";
-  copyBtn.innerText = "⧉";
-  copyBtn.title = traduzioni[lingua].copia;
+// PULSANTE COPIA
+const copyBtn = document.createElement("span");
+copyBtn.className = "copy-btn";
+copyBtn.innerText = "⧉";
+copyBtn.title = traduzioni[lingua].copia;
+copyBtn.onclick = () => {
+  navigator.clipboard.writeText(testo).then(() => {
+    copyBtn.classList.add("clicked");
+    copyBtn.innerText = traduzioni[lingua].copiato;
+    setTimeout(() => {
+      copyBtn.classList.remove("clicked");
+      copyBtn.innerText = "⧉";
+    }, 1000);
+  });
+};
+bottomRow.appendChild(copyBtn);
 
-  copyBtn.onclick = () => {
-    navigator.clipboard.writeText(testo).then(() => {
-      copyBtn.classList.add("clicked");
-      copyBtn.innerText = traduzioni[lingua].copiato;
-      setTimeout(() => {
-        copyBtn.classList.remove("clicked");
-        copyBtn.innerText = "⧉";
-      }, 1000);
-    });
-  };
+// PULSANTE ESPORTA
+const exportBtn = document.createElement("span");
+exportBtn.className = "copy-btn";
+exportBtn.innerText = "💾";
+exportBtn.title = lingua === "it" ? "Esporta questa risposta" : "Export this reply";
+exportBtn.onclick = () => {
+  const blob = new Blob([testo], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "miczy_response.txt";
+  a.click();
+  URL.revokeObjectURL(url);
+};
+bottomRow.appendChild(exportBtn);
 
-  bottomRow.appendChild(copyBtn);
+// PULSANTE LETTURA VOCALE
+const speakBtn = document.createElement("span");
+speakBtn.className = "copy-btn";
+speakBtn.innerText = "🔊";
+speakBtn.title = lingua === "it" ? "Leggi ad alta voce" : "Read aloud";
+speakBtn.onclick = () => {
+  const utterance = new SpeechSynthesisUtterance(testo);
+  utterance.lang = lingua === "it" ? "it-IT" : "en-US";
+  speechSynthesis.speak(utterance);
+};
+bottomRow.appendChild(speakBtn);
 
   // Aggiungo inizialmente avatar e msg (senza testo)
   wrapper.appendChild(avatar);
