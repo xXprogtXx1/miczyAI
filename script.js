@@ -155,22 +155,48 @@ function aggiungiMessaggio(testo, mittente) {
   const bottomRow = document.createElement("div");
   bottomRow.className = "msg-meta";
 
-  if (mittente === "ai") {
-    const copyBtn = document.createElement("span");
-    copyBtn.className = "copy-btn";
-    copyBtn.innerText = "⧉";
-    copyBtn.title = traduzioni[lingua].copia;
+if (mittente === "ai") {
+  const copyBtn = document.createElement("span");
+  copyBtn.className = "copy-btn";
+  copyBtn.innerText = "⧉";
+  copyBtn.title = traduzioni[lingua].copia;
 
-    copyBtn.onclick = () => {
-      navigator.clipboard.writeText(testo).then(() => {
-        copyBtn.classList.add("clicked");
-        copyBtn.innerText = traduzioni[lingua].copiato;
-        setTimeout(() => {
-          copyBtn.classList.remove("clicked");
-          copyBtn.innerText = "⧉";
-        }, 1000);
-      });
-    };
+  // TEXT TO SPEECH BUTTON
+  const speakBtn = document.createElement("span");
+  speakBtn.className = "speak-btn";
+  speakBtn.innerText = "🗣️";
+  speakBtn.title = lingua === "it" ? "Leggi ad alta voce" : "Read aloud";
+  speakBtn.onclick = () => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(testo);
+      utterance.lang = lingua === "it" ? "it-IT" : "en-US";
+      window.speechSynthesis.cancel(); // Interrompe eventuale voce in corso
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  // ESPORTA CHAT BUTTON (visualizzato solo nel messaggio AI finale)
+  const exportBtn = document.createElement("span");
+  exportBtn.className = "export-btn";
+  exportBtn.innerText = "📄";
+  exportBtn.title = lingua === "it" ? "Esporta chat" : "Export chat";
+  exportBtn.onclick = () => esportaChat();
+
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(testo).then(() => {
+      copyBtn.classList.add("clicked");
+      copyBtn.innerText = traduzioni[lingua].copiato;
+      setTimeout(() => {
+        copyBtn.classList.remove("clicked");
+        copyBtn.innerText = "⧉";
+      }, 1000);
+    });
+  };
+
+  bottomRow.appendChild(copyBtn);
+  bottomRow.appendChild(speakBtn);
+  bottomRow.appendChild(exportBtn);
+}
 
     bottomRow.appendChild(copyBtn);
   }
@@ -368,3 +394,17 @@ document.querySelector(".clear-btn").addEventListener("click", () => {
 
   if (conferma) cancellaCronologiaChat();
 });
+
+function esportaChat() {
+  const contenuto = chatHistory
+    .map(m => `${m.role === "user" ? "👤" : "🤖"}: ${m.content}`)
+    .join("\n\n");
+
+  const blob = new Blob([contenuto], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "miczy-chat.txt";
+  a.click();
+  URL.revokeObjectURL(url);
+}
