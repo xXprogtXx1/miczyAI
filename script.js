@@ -296,21 +296,23 @@ async function talkToMiczy() {
     const data = await response.json();
     rimuoviLoader();
 
-    const risposta = data.response || (lingua === "it" ? "Nessuna risposta ricevuta 😐" : "No response received 😐");
+    const risposta = data.response || (lingua === "it"
+      ? "Nessuna risposta ricevuta 😐"
+      : "No response received 😐");
+
     chatHistory.push({ role: "assistant", content: risposta });
     salvaCronologiaChat();
-    // Invece di mostrare subito la risposta, la scriviamo gradualmente:
     scriviRispostaGraduale(risposta);
 
   } catch (error) {
     console.error(error);
     rimuoviLoader();
     aggiungiMessaggio(traduzioni[lingua].erroreChat, "ai");
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = traduzioni[lingua].invia;
+    inputField.value = "";
   }
-
-  submitButton.disabled = false;
-  submitButton.textContent = traduzioni[lingua].invia;
-  inputField.value = "";
 }
 
 inputField.addEventListener("keydown", function (event) {
