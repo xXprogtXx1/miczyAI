@@ -198,9 +198,6 @@ if (mittente === "ai") {
   bottomRow.appendChild(exportBtn);
 }
 
-    bottomRow.appendChild(copyBtn);
-  }
-
   msg.appendChild(bottomRow);
 
   if (mittente === "utente") {
