@@ -358,3 +358,13 @@ window.onload = function () {
 };
 
 window.cancellaCronologiaChat = cancellaCronologiaChat;
+
+document.querySelector(".clear-btn").addEventListener("click", () => {
+  const conferma = confirm(
+    lingua === "it"
+      ? "Sei sicuro di voler cancellare la cronologia della chat?"
+      : "Are you sure you want to clear the chat history?"
+  );
+
+  if (conferma) cancellaCronologiaChat();
+});
