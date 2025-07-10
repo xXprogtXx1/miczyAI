@@ -417,3 +417,41 @@ body.dark-mode::before {
 body.dark-mode::after {
   background: #00ffff;
 }
+
+html::before {
+  content: "";
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  background: #ffa07a;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.2;
+  top: 50%;
+  left: 0%;
+  animation: floatAlt 60s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+html::after {
+  content: "";
+  position: fixed;
+  width: 180px;
+  height: 180px;
+  background: #32cd32;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.2;
+  bottom: 15%;
+  right: 5%;
+  animation: floatAlt 90s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes floatAlt {
+  0%   { transform: translateY(0) translateX(0); }
+  50%  { transform: translateY(-30px) translateX(20px); }
+  100% { transform: translateY(0) translateX(0); }
+}
