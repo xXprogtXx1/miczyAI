@@ -141,14 +141,14 @@ function aggiornaLingua(lang) {
 
 function aggiungiMessaggio(testo, mittente) {
   const wrapper = document.createElement("div");
-  wrapper.className = msg-wrapper ${mittente};
+  wrapper.className = `msg-wrapper ${mittente}`;
 
   const avatar = document.createElement("div");
   avatar.className = "avatar";
   avatar.textContent = mittente === "ai" ? "🤖" : "👤";
 
   const msg = document.createElement("div");
-  msg.className = msg ${mittente};
+  msg.className = `msg ${mittente}`;
   // Per i messaggi AI usiamo marked, per l'utente testo semplice
   msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
 
@@ -202,11 +202,11 @@ function aggiungiLoader() {
 
   const loader = document.createElement("div");
   loader.className = "msg ai";
-  loader.innerHTML = 
+  loader.innerHTML = `
     <div class="loader">
       <div></div><div></div><div></div>
     </div>
-  ;
+  `;
 
   loaderWrapper.appendChild(avatar);
   loaderWrapper.appendChild(loader);
