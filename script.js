@@ -72,14 +72,7 @@ window.addEventListener("DOMContentLoaded", () => {
   langBtn.style.position = "absolute";
   langBtn.style.top = "10px";
   langBtn.style.left = "10px";
-  langBtn.style.padding = "6px 12px";
-  langBtn.style.borderRadius = "6px";
-  langBtn.style.border = "none";
-  langBtn.style.backgroundColor = "#ff69b4";
-  langBtn.style.color = "white";
   langBtn.style.cursor = "pointer";
-  langBtn.style.fontWeight = "bold";
-  langBtn.style.fontSize = "0.9rem";
   langBtn.style.userSelect = "none";
   langBtn.title = "Cambia lingua / Switch language";
 
