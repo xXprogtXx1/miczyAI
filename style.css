@@ -54,6 +54,8 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 #chatForm {
@@ -284,6 +286,8 @@ input:checked + .slider:before {
   .chat-box {
     height: 250px;
     padding: 0.5rem;
+    z-index: 1;
+  position: relative;
   }
 
   .clear-btn {
