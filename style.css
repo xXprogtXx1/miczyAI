@@ -455,3 +455,14 @@ html::after {
   50%  { transform: translateY(-30px) translateX(20px); }
   100% { transform: translateY(0) translateX(0); }
 }
+
+body::before {
+  animation: testMove 5s linear infinite !important;
+  background: red !important;
+}
+
+@keyframes testMove {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(100px); }
+  100% { transform: translateX(0); }
+}
