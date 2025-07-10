@@ -62,6 +62,7 @@ const traduzioni = {
 let chatHistory = [];
 let lingua = localStorage.getItem("lang") || "it";
 
+// Creo dinamicamente il pulsante lingua dentro header
 window.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector("header");
   header.style.position = "relative";
@@ -74,37 +75,23 @@ window.addEventListener("DOMContentLoaded", () => {
   langBtn.style.cursor = "pointer";
   langBtn.style.userSelect = "none";
   langBtn.title = "Cambia lingua / Switch language";
+
   header.appendChild(langBtn);
 
   langBtn.addEventListener("click", () => {
     aggiornaLingua(lingua === "it" ? "en" : "it");
   });
 
-  // Crea pulsante cancella cronologia
-  const clearBtn = document.createElement("button");
-  clearBtn.className = "clear-btn";
-  clearBtn.innerHTML = "🗑";
-  clearBtn.setAttribute("aria-label", traduzioni[lingua].cancella);
-  document.querySelector("main").appendChild(clearBtn);
-
-  clearBtn.addEventListener("click", () => {
-    const conferma = confirm(
-      lingua === "it"
-        ? "Sei sicuro di voler cancellare la cronologia della chat?"
-        : "Are you sure you want to clear the chat history?"
-    );
-    if (conferma) cancellaCronologiaChat();
-  });
-
   aggiornaLingua(lingua);
 });
 
-let sottotitoloTimer;
+let sottotitoloTimer; // globale per controllare l'animazione
 
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
-  clearTimeout(sottotitoloTimer);
+  clearTimeout(sottotitoloTimer); // interrompe l'animazione precedente
   elemento.innerHTML = "";
   let i = 0;
+
   function scrivi() {
     if (i < testo.length) {
       const char = testo[i] === " " ? "&nbsp;" : testo[i];
@@ -113,6 +100,7 @@ function scriviTestoGradualmente(elemento, testo, velocita = 50) {
       sottotitoloTimer = setTimeout(scrivi, velocita);
     }
   }
+
   scrivi();
 }
 
@@ -125,26 +113,43 @@ function scegliSottotitolo() {
 function aggiornaLingua(lang) {
   lingua = lang;
   localStorage.setItem("lang", lang);
+
   const t = traduzioni[lang];
   const langBtn = document.getElementById("langBtn");
 
+  // Titolo visibile nel sito
   mainTitle.textContent = t.titolo;
+
+  // Titolo scheda browser
   document.title = t.titoloScheda;
+
+  // Placeholder input
   inputField.placeholder = t.placeholder;
+
+  // Bottone invia
   submitButton.textContent = t.invia;
+
+  // Bottone cancella
   document.querySelector(".clear-btn").setAttribute("aria-label", t.cancella);
+
+  // Testo sottotitolo random
   scegliSottotitolo();
+
+  // Aggiorna testo bottone lingua
   if (langBtn) langBtn.textContent = lang === "it" ? "EN" : "IT";
 }
 
 function aggiungiMessaggio(testo, mittente) {
   const wrapper = document.createElement("div");
-  wrapper.className = `msg-wrapper ${mittente}`;
+  wrapper.className = msg-wrapper ${mittente};
+
   const avatar = document.createElement("div");
   avatar.className = "avatar";
   avatar.textContent = mittente === "ai" ? "🤖" : "👤";
+
   const msg = document.createElement("div");
-  msg.className = `msg ${mittente}`;
+  msg.className = msg ${mittente};
+  // Per i messaggi AI usiamo marked, per l'utente testo semplice
   msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
 
   const bottomRow = document.createElement("div");
@@ -166,6 +171,7 @@ function aggiungiMessaggio(testo, mittente) {
         }, 1000);
       });
     };
+
     bottomRow.appendChild(copyBtn);
   }
 
@@ -184,6 +190,7 @@ function aggiungiMessaggio(testo, mittente) {
   salvaCronologiaChat();
 }
 
+// Funzione per mostrare il loader
 function aggiungiLoader() {
   const loaderWrapper = document.createElement("div");
   loaderWrapper.className = "msg-wrapper ai";
@@ -195,11 +202,11 @@ function aggiungiLoader() {
 
   const loader = document.createElement("div");
   loader.className = "msg ai";
-  loader.innerHTML = `
+  loader.innerHTML = 
     <div class="loader">
       <div></div><div></div><div></div>
     </div>
-  `;
+  ;
 
   loaderWrapper.appendChild(avatar);
   loaderWrapper.appendChild(loader);
@@ -207,20 +214,25 @@ function aggiungiLoader() {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// Rimuove il loader
 function rimuoviLoader() {
   const loader = document.getElementById("loader");
   if (loader) loader.remove();
 }
 
+// Funzione che simula la scrittura graduale della risposta AI
 function scriviRispostaGraduale(testo) {
   const wrapper = document.createElement("div");
   wrapper.className = "msg-wrapper ai";
+
   const avatar = document.createElement("div");
   avatar.className = "avatar";
   avatar.textContent = "🤖";
+
   const msg = document.createElement("div");
   msg.className = "msg ai";
 
+  // Crea il container per i pulsanti/copia, che verrà aggiunto al termine
   const bottomRow = document.createElement("div");
   bottomRow.className = "msg-meta";
 
@@ -241,6 +253,8 @@ function scriviRispostaGraduale(testo) {
   };
 
   bottomRow.appendChild(copyBtn);
+
+  // Aggiungo inizialmente avatar e msg (senza testo)
   wrapper.appendChild(avatar);
   wrapper.appendChild(msg);
   chatBox.appendChild(wrapper);
@@ -249,14 +263,16 @@ function scriviRispostaGraduale(testo) {
   let i = 0;
   const interval = setInterval(() => {
     if (i < testo.length) {
+      // Aggiungo progressivamente il testo, utilizzando marked per formattazione
       msg.innerHTML = marked.parse(testo.slice(0, i + 1));
+      // Riaggiungo il bottomRow (i pulsanti) dopo l'aggiornamento del contenuto
       if (!msg.contains(bottomRow)) msg.appendChild(bottomRow);
       chatBox.scrollTop = chatBox.scrollHeight;
       i++;
     } else {
       clearInterval(interval);
     }
-  }, 15);
+  }, 15); // Regola la velocità di scrittura (ms per carattere)
 }
 
 async function talkToMiczy() {
@@ -283,6 +299,7 @@ async function talkToMiczy() {
     const risposta = data.response || (lingua === "it" ? "Nessuna risposta ricevuta 😐" : "No response received 😐");
     chatHistory.push({ role: "assistant", content: risposta });
     salvaCronologiaChat();
+    // Invece di mostrare subito la risposta, la scriviamo gradualmente:
     scriviRispostaGraduale(risposta);
 
   } catch (error) {
@@ -332,9 +349,22 @@ function cancellaCronologiaChat() {
 
 window.onload = function () {
   caricaCronologiaChat();
+
   const darkMode = localStorage.getItem("darkMode");
   if (darkMode === "true") {
     document.body.classList.add("dark-mode");
     toggleDark.checked = true;
   }
 };
+
+window.cancellaCronologiaChat = cancellaCronologiaChat;
+
+document.querySelector(".clear-btn").addEventListener("click", () => {
+  const conferma = confirm(
+    lingua === "it"
+      ? "Sei sicuro di voler cancellare la cronologia della chat?"
+      : "Are you sure you want to clear the chat history?"
+  );
+
+  if (conferma) cancellaCronologiaChat();
+});
