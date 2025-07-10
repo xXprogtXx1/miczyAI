@@ -363,3 +363,10 @@ body.dark-mode #langBtn {
 body.dark-mode #langBtn:hover {
   background-color: #666;
 }
+
+#langBtn {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
