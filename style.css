@@ -370,3 +370,46 @@ body.dark-mode #langBtn:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.25;
+  z-index: 0;
+  animation: float 60s ease-in-out infinite;
+  pointer-events: none;
+}
+
+body::before {
+  width: 300px;
+  height: 300px;
+  background: #ff69b4;
+  top: 10%;
+  left: 15%;
+}
+
+body::after {
+  width: 400px;
+  height: 400px;
+  background: #87ceeb;
+  bottom: 5%;
+  right: 10%;
+  animation-delay: 30s;
+}
+
+@keyframes float {
+  0%   { transform: translateY(0px) translateX(0px); }
+  50%  { transform: translateY(-40px) translateX(30px); }
+  100% { transform: translateY(0px) translateX(0px); }
+}
+
+/* Per modalità dark */
+body.dark-mode::before {
+  background: #5555ff;
+}
+body.dark-mode::after {
+  background: #00ffff;
+}
