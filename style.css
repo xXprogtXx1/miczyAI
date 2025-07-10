@@ -345,3 +345,35 @@ body.dark-mode #langBtn {
   background-color: #555;
   color: white;
 }
+
+/* Posiziona il pulsante lingua in alto a sinistra dentro header */
+header {
+  position: relative; /* assicurati che ci sia */
+}
+
+#langBtn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  user-select: none;
+}
+
+#langBtn:hover {
+  background-color: #d0d0d0;
+}
+
+body.dark-mode #langBtn {
+  background-color: #555;
+  color: white;
+}
+
+body.dark-mode #langBtn:hover {
+  background-color: #666;
+}
