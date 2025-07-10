@@ -1,9 +1,8 @@
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
-const submitButton = document.getElementById("submitBtn");
-const langBtn = document.getElementById("langBtn");
-const mainTitle = document.getElementById("mainTitle");
+const submitButton = document.querySelector("#chatForm button");
+const mainTitle = document.querySelector("header h1");
 const subtitleElemento = document.getElementById("subtitle");
 
 const sottotitoli = {
@@ -63,6 +62,36 @@ const traduzioni = {
 let chatHistory = [];
 let lingua = localStorage.getItem("lang") || "it";
 
+// Creo dinamicamente il pulsante lingua dentro header
+window.addEventListener("DOMContentLoaded", () => {
+  const header = document.querySelector("header");
+  header.style.position = "relative";
+
+  const langBtn = document.createElement("button");
+  langBtn.id = "langBtn";
+  langBtn.style.position = "absolute";
+  langBtn.style.top = "10px";
+  langBtn.style.left = "10px";
+  langBtn.style.padding = "6px 12px";
+  langBtn.style.borderRadius = "6px";
+  langBtn.style.border = "none";
+  langBtn.style.backgroundColor = "#ff69b4";
+  langBtn.style.color = "white";
+  langBtn.style.cursor = "pointer";
+  langBtn.style.fontWeight = "bold";
+  langBtn.style.fontSize = "0.9rem";
+  langBtn.style.userSelect = "none";
+  langBtn.title = "Cambia lingua / Switch language";
+
+  header.appendChild(langBtn);
+
+  langBtn.addEventListener("click", () => {
+    aggiornaLingua(lingua === "it" ? "en" : "it");
+  });
+
+  aggiornaLingua(lingua);
+});
+
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
   elemento.innerHTML = "";
   let i = 0;
@@ -88,6 +117,7 @@ function aggiornaLingua(lang) {
   localStorage.setItem("lang", lang);
 
   const t = traduzioni[lang];
+  const langBtn = document.getElementById("langBtn");
 
   // Titolo visibile nel sito
   mainTitle.textContent = t.titolo;
@@ -101,7 +131,8 @@ function aggiornaLingua(lang) {
   // Bottone invia
   submitButton.textContent = t.invia;
 
-  // Tooltip bottone copia (gli aggiorneremo dinamicamente dentro aggiungiMessaggio)
+  // Tooltip bottone copia (aggiorniamo dinamicamente dentro aggiungiMessaggio)
+
   // Bottone cancella
   document.querySelector(".clear-btn").setAttribute("aria-label", t.cancella);
 
@@ -109,7 +140,7 @@ function aggiornaLingua(lang) {
   scegliSottotitolo();
 
   // Aggiorna testo bottone lingua
-  langBtn.textContent = lang === "it" ? "EN" : "IT";
+  if(langBtn) langBtn.textContent = lang === "it" ? "EN" : "IT";
 }
 
 function aggiungiMessaggio(testo, mittente) {
@@ -239,10 +270,6 @@ toggleDark.addEventListener("change", function () {
   localStorage.setItem("darkMode", toggleDark.checked);
 });
 
-langBtn.addEventListener("click", () => {
-  aggiornaLingua(lingua === "it" ? "en" : "it");
-});
-
 function salvaCronologiaChat() {
   localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
   localStorage.setItem("lang", lingua);
@@ -268,15 +295,11 @@ function cancellaCronologiaChat() {
 window.onload = function () {
   caricaCronologiaChat();
 
-  // Imposta modalità scura salvata
   const darkMode = localStorage.getItem("darkMode");
   if (darkMode === "true") {
     document.body.classList.add("dark-mode");
     toggleDark.checked = true;
   }
-
-  // Imposta lingua salvata o default
-  aggiornaLingua(lingua);
 };
 
 window.cancellaCronologiaChat = cancellaCronologiaChat;
