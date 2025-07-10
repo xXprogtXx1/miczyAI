@@ -62,7 +62,6 @@ const traduzioni = {
 let chatHistory = [];
 let lingua = localStorage.getItem("lang") || "it";
 
-// Creo dinamicamente il pulsante lingua dentro header
 window.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector("header");
   header.style.position = "relative";
