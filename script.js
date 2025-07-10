@@ -92,17 +92,22 @@ window.addEventListener("DOMContentLoaded", () => {
   aggiornaLingua(lingua);
 });
 
+let sottotitoloTimer; // globale per controllare l'animazione
+
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
+  clearTimeout(sottotitoloTimer); // interrompe l'animazione precedente
   elemento.innerHTML = "";
   let i = 0;
+
   function scrivi() {
     if (i < testo.length) {
       const char = testo[i] === " " ? "&nbsp;" : testo[i];
       elemento.innerHTML += char;
       i++;
-      setTimeout(scrivi, velocita);
+      sottotitoloTimer = setTimeout(scrivi, velocita);
     }
   }
+
   scrivi();
 }
 
