@@ -376,15 +376,17 @@ body.dark-mode #langBtn:hover {
 }
 
 body::before,
-body::after {
+body::after,
+html::before,
+html::after {
   content: "";
   position: fixed;
   border-radius: 50%;
   filter: blur(60px);
   opacity: 0.25;
   z-index: 0;
-  animation: float 60s ease-in-out infinite;
   pointer-events: none;
+  animation: float 60s ease-in-out infinite;
 }
 
 body::before {
@@ -404,54 +406,44 @@ body::after {
   animation-delay: 30s;
 }
 
-@keyframes float {
-  0%   { transform: translateY(0px) translateX(0px); }
-  50%  { transform: translateY(-100px) translateX(60px); }
-  100% { transform: translateY(0px) translateX(0px); }
-}
-
-/* Per modalità dark */
-body.dark-mode::before {
-  background: #5555ff;
-}
-body.dark-mode::after {
-  background: #00ffff;
-}
-
 html::before {
-  content: "";
-  position: fixed;
   width: 200px;
   height: 200px;
   background: #ffa07a;
-  border-radius: 50%;
-  filter: blur(50px);
-  opacity: 0.4;
   top: 50%;
   left: 0%;
+  filter: blur(50px);
+  opacity: 0.2;
   animation: floatAlt 60s ease-in-out infinite;
-  z-index: 0;
-  pointer-events: none;
 }
 
 html::after {
-  content: "";
-  position: fixed;
   width: 180px;
   height: 180px;
   background: #32cd32;
-  border-radius: 50%;
-  filter: blur(50px);
-  opacity: 0.4;
   bottom: 15%;
   right: 5%;
+  filter: blur(50px);
+  opacity: 0.2;
   animation: floatAlt 90s ease-in-out infinite;
-  z-index: 0;
-  pointer-events: none;
+}
+
+@keyframes float {
+  0%   { transform: translateY(0px) translateX(0px); }
+  50%  { transform: translateY(-40px) translateX(30px); }
+  100% { transform: translateY(0px) translateX(0px); }
 }
 
 @keyframes floatAlt {
   0%   { transform: translateY(0px) translateX(0px); }
-  50%  { transform: translateY(-80px) translateX(40px); }
+  50%  { transform: translateY(-30px) translateX(20px); }
   100% { transform: translateY(0px) translateX(0px); }
+}
+
+body.dark-mode::before {
+  background: #5555ff;
+}
+
+body.dark-mode::after {
+  background: #00ffff;
 }
