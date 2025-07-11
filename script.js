@@ -469,3 +469,10 @@ document.addEventListener("DOMContentLoaded", () => {
     container.appendChild(bubble);
   }
 });
+
+const socialToggle = document.querySelector(".social-toggle");
+const socialBtn = document.getElementById("socialBtn");
+
+socialBtn.addEventListener("click", () => {
+  socialToggle.classList.toggle("active");
+});
