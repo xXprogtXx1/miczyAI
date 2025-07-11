@@ -469,22 +469,3 @@ document.addEventListener("DOMContentLoaded", () => {
     container.appendChild(bubble);
   }
 });
-
-document.addEventListener("DOMContentLoaded", () => {
-  const socialToggle = document.querySelector(".social-toggle");
-  const socialBtn = document.getElementById("socialBtn");
-
-  if (!socialBtn) {
-    console.warn("socialBtn non trovato!");
-    return;
-  }
-  if (!socialToggle) {
-    console.warn("socialToggle non trovato!");
-    return;
-  }
-
-  socialBtn.addEventListener("click", () => {
-    socialToggle.classList.toggle("active");
-    console.log("socialToggle active:", socialToggle.classList.contains("active"));
-  });
-});
