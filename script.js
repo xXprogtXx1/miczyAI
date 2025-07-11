@@ -3,6 +3,31 @@ const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
 const submitButton = document.querySelector("#chatForm button");
 const mainTitle = document.querySelector("header h1");
+
+mainTitle.addEventListener("click", () => {
+  const alternativeNames = [
+    "Miczy.exe crashed",
+    "MiczyAI++",
+    "MiczyGPT-0",
+    "Miczyβeta",
+    "Miczy 🤯 AI",
+    "Miczy🤡AI",
+    "MiczyAI (unstable)",
+    "404_AI_NOT_FOUND"
+  ];
+
+  const originalText = traduzioni[lingua].titolo;
+  const random = alternativeNames[Math.floor(Math.random() * alternativeNames.length)];
+
+  mainTitle.classList.add("glitch");
+  mainTitle.textContent = random;
+
+  setTimeout(() => {
+    mainTitle.textContent = originalText;
+    mainTitle.classList.remove("glitch");
+  }, 3000);
+});
+
 const subtitleElemento = document.getElementById("subtitle");
 
 const sottotitoli = {
