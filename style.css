@@ -523,6 +523,8 @@ header h1 {
   bottom: 20px;
   right: 20px;
   z-index: 100;
+  /* Necessario per posizionare i social in assoluto rispetto al fab */
+  position: fixed;
 }
 
 .social-fab button {
@@ -543,21 +545,24 @@ header h1 {
 }
 
 .social-links {
+  position: absolute;      /* Posiziona i social rispetto a .social-fab */
+  bottom: 70px;            /* Sopra il pulsante di circa 70px */
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin: 0;               /* Tolto margin-bottom per evitare spostamenti */
   opacity: 0;
   pointer-events: none;
-  transform: translateY(20px);
+  transform: translateY(20px);  /* Parte spostato sotto e invisibile */
   transition: opacity 0.3s, transform 0.3s;
 }
 
 .social-fab.open .social-links {
   opacity: 1;
   pointer-events: all;
-  transform: translateY(0);
+  transform: translateY(0);     /* Si sposta su e diventa visibile */
 }
 
 .social-links a {
