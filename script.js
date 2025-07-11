@@ -382,3 +382,30 @@ window.onload = function () {
     });
   }
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector(".bubble-container");
+  const numBolle = 40;
+
+  for (let i = 0; i < numBolle; i++) {
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+
+    // Posizione orizzontale casuale
+    bubble.style.left = `${Math.random() * 100}%`;
+
+    // Dimensioni casuali (tra 20px e 60px)
+    const size = 20 + Math.random() * 40;
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+
+    // Durata animazione (tra 15s e 30s)
+    const duration = 15 + Math.random() * 15;
+    bubble.style.animationDuration = `${duration}s`;
+
+    // Ritardo inizio (per non farle partire tutte insieme)
+    bubble.style.animationDelay = `${Math.random() * 10}s`;
+
+    container.appendChild(bubble);
+  }
+});
