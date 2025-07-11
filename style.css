@@ -487,3 +487,32 @@ body:not(.dark-mode) .bubble {
   80% { transform: translate(1px, -1px); }
   100% { transform: translate(0); }
 }
+
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  text-shadow:
+    0 0 5px #ff69b4,
+    0 0 10px #ff69b4,
+    0 0 20px #ff69b4,
+    0 0 40px #ff69b4;
+  animation: pulseNeon 2s ease-in-out infinite;
+}
+
+@keyframes pulseNeon {
+  0%, 100% {
+    text-shadow:
+      0 0 5px #ff69b4,
+      0 0 10px #ff69b4,
+      0 0 20px #ff69b4,
+      0 0 40px #ff69b4;
+  }
+  50% {
+    text-shadow:
+      0 0 10px #ff69b4,
+      0 0 20px #ff69b4,
+      0 0 40px #ff69b4,
+      0 0 60px #ff69b4;
+  }
+}
