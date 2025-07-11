@@ -469,3 +469,13 @@ document.addEventListener("DOMContentLoaded", () => {
     container.appendChild(bubble);
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const fab = document.querySelector(".social-fab");
+  const toggle = document.getElementById("fabToggle");
+
+  toggle.addEventListener("click", () => {
+    fab.classList.toggle("open");
+    toggle.textContent = fab.classList.contains("open") ? "✖" : "➕";
+  });
+});
