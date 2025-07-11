@@ -1,10 +1,18 @@
 body {
   font-family: 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #ffd6e0, #d6f0ff);
+  background: linear-gradient(-45deg, #ffd6e0, #d6f0ff, #b3ffec, #f0d6ff);
+  background-size: 400% 400%;
+  animation: gradientBG 20s ease infinite;
   margin: 0;
   padding: 0;
   text-align: center;
   transition: background 0.5s, color 0.5s;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 body.dark-mode {
