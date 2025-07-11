@@ -470,9 +470,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-const socialToggle = document.querySelector(".social-toggle");
-const socialBtn = document.getElementById("socialBtn");
+document.addEventListener("DOMContentLoaded", () => {
+  const socialToggle = document.querySelector(".social-toggle");
+  const socialBtn = document.getElementById("socialBtn");
 
-socialBtn.addEventListener("click", () => {
-  socialToggle.classList.toggle("active");
+  if (!socialBtn) {
+    console.warn("socialBtn non trovato!");
+    return;
+  }
+  if (!socialToggle) {
+    console.warn("socialToggle non trovato!");
+    return;
+  }
+
+  socialBtn.addEventListener("click", () => {
+    socialToggle.classList.toggle("active");
+    console.log("socialToggle active:", socialToggle.classList.contains("active"));
+  });
 });
