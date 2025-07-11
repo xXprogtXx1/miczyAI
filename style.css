@@ -449,3 +449,11 @@ body.dark-mode #langBtn:hover {
     opacity: 0;
   }
 }
+
+body.dark-mode .bubble {
+  background: rgba(255, 255, 255, 0.25); /* Bianco tenue per dark mode */
+}
+
+body:not(.dark-mode) .bubble {
+  background: rgba(173, 216, 230, 0.4); /* Azzurro chiaro per light mode */
+}
