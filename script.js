@@ -13,6 +13,16 @@ mainTitle.addEventListener("click", () => {
     "Miczy 🤯 AI",
     "Miczy🤡AI",
     "MiczyAI (unstable)",
+    "🎉 Congratulazioni, hai sbloccato il nulla",
+    "Se clicchi di nuovo potrei diventare senziente 😬",
+    "💬 Bruh.",
+    "🚀 Elon non approverebbe questo codice",
+    "🛠️ Error 007: licenza di pensare revocata",
+    "🎭 Questa IA finge bene, vero?",
+    "🤷 Nessuna AI è stata maltrattata in questo glitch",
+    "👀 Ti vedo.",
+    "Behind you.",
+    "📞 Sto chiamando il supporto. Ah no, sono io.",
     "404_AI_NOT_FOUND"
   ];
 
