@@ -457,3 +457,18 @@ body.dark-mode .bubble {
 body:not(.dark-mode) .bubble {
   background: rgba(173, 216, 230, 0.4); /* Azzurro chiaro per light mode */
 }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.msg-wrapper {
+  animation: fadeInUp 0.4s ease-out;
+}
