@@ -489,6 +489,7 @@ body:not(.dark-mode) .bubble {
 }
 
 header h1 {
+  user-select: none;
   font-size: 3rem;
   margin-bottom: 0.5rem;
   color: #fff;
