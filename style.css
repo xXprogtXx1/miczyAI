@@ -472,3 +472,18 @@ body:not(.dark-mode) .bubble {
 .msg-wrapper {
   animation: fadeInUp 0.4s ease-out;
 }
+
+.glitch {
+  animation: glitch 0.5s linear infinite;
+  color: #ff3cac;
+  text-shadow: 1px 1px 0 #0ff, -1px -1px 0 #f0f;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(-1px, -1px); }
+  60% { transform: translate(1px, 1px); }
+  80% { transform: translate(1px, -1px); }
+  100% { transform: translate(0); }
+}
