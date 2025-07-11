@@ -382,3 +382,70 @@ body.dark-mode #langBtn:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.bubble-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -100px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: floatBubble 20s linear infinite;
+}
+
+.bubble:nth-child(1) {
+  left: 10%;
+  width: 30px;
+  height: 30px;
+  animation-duration: 18s;
+}
+.bubble:nth-child(2) {
+  left: 30%;
+  width: 50px;
+  height: 50px;
+  animation-duration: 22s;
+}
+.bubble:nth-child(3) {
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  animation-duration: 25s;
+}
+.bubble:nth-child(4) {
+  left: 70%;
+  width: 60px;
+  height: 60px;
+  animation-duration: 20s;
+}
+.bubble:nth-child(5) {
+  left: 90%;
+  width: 35px;
+  height: 35px;
+  animation-duration: 23s;
+}
+
+@keyframes floatBubble {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50vh) scale(1.1);
+  }
+  100% {
+    transform: translateY(-100vh) scale(1);
+    opacity: 0;
+  }
+}
