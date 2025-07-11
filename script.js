@@ -4,14 +4,15 @@ const chatBox = document.getElementById("chat-box");
 const submitButton = document.querySelector("#chatForm button");
 const mainTitle = document.querySelector("header h1");
 
-mainTitle.addEventListener("click", () => {
-  const alternativeNames = [
-    "Miczy.exe crashed",
+const glitchFrasi = {
+  it: [
+    "Miczy.exe crashato",
     "MiczyAI++",
     "MiczyGPT-0",
     "Miczyβeta",
     "Miczy 🤯 AI",
     "Miczy🤡AI",
+    "MiczyAI (instabile)",
     "MiczyAI (unstable)",
     "🎉 Congratulazioni, hai sbloccato il nulla",
     "Se clicchi di nuovo potrei diventare senziente 😬",
@@ -24,16 +25,40 @@ mainTitle.addEventListener("click", () => {
     "Behind you.",
     "📞 Sto chiamando il supporto. Ah no, sono io.",
     "404_AI_NOT_FOUND"
-  ];
+  ],
+ en: [
+  "Miczy.exe crashed",
+  "MiczyAI++",
+  "MiczyGPT-0",
+  "Miczyβeta",
+  "Miczy 🤯 AI",
+  "Miczy🤡AI",
+  "MiczyAI (unstable)",
+  "MiczyAI (unstable)", // stessa frase in italiano e inglese
+  "🎉 Congrats, you've unlocked nothing",
+  "Click again and I might become sentient 😬",
+  "💬 Bruh.",
+  "🚀 Elon wouldn't approve this code",
+  "🛠️ Error 007: license to think revoked",
+  "🎭 This AI is pretending quite well, right?",
+  "🤷 No AIs were harmed during this glitch",
+  "👀 I'm watching you.",
+  "Behind you.",
+  "📞 Calling support. Oh wait, that's me.",
+  "404_AI_NOT_FOUND"
+]
+};
 
-  const originalText = traduzioni[lingua].titolo;
-  const random = alternativeNames[Math.floor(Math.random() * alternativeNames.length)];
+mainTitle.addEventListener("click", () => {
+  const lista = glitchFrasi[lingua] || glitchFrasi.en;
+  const casuale = lista[Math.floor(Math.random() * lista.length)];
+  const testoOriginale = traduzioni[lingua].titolo;
 
   mainTitle.classList.add("glitch");
-  mainTitle.textContent = random;
+  mainTitle.textContent = casuale;
 
   setTimeout(() => {
-    mainTitle.textContent = originalText;
+    mainTitle.textContent = testoOriginale;
     mainTitle.classList.remove("glitch");
   }, 3000);
 });
