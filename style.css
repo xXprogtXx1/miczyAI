@@ -729,3 +729,9 @@ body.dark-mode .cookie-modal {
 .cookie-content button:hover {
   background-color: #1976d2;
 }
+
+.cookie-button button svg:hover {
+  color: #ff9800;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
