@@ -729,3 +729,16 @@ body.dark-mode .cookie-modal {
 .cookie-content button:hover {
   background-color: #1976d2;
 }
+
+.cookie-button button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;        /* Reset padding */
+}
+
+.cookie-icon {
+  width: 24px;
+  height: 24px;
+  color: white;      /* Icona bianca su sfondo marrone */
+}
