@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function copyEmail() {
-  const email = "miczy@example.com"; // ← Cambia con la tua email
+  const email = "miczy690@gmail.com"; // ← Cambia con la tua email
   navigator.clipboard.writeText(email).then(() => {
     const tooltip = document.querySelector(".email-tooltip");
     tooltip.textContent = "Copiata!";
