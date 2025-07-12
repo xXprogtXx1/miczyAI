@@ -596,6 +596,15 @@ body.dark-mode .social-links a {
   height: 24px;
 }
 
+.social-links a svg {
+  fill: currentColor;
+  color: #333;
+}
+
+body.dark-mode .social-links a svg {
+  color: white;
+}
+
 .email-wrapper {
   position: relative;
   display: flex;
