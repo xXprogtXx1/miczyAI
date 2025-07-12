@@ -675,6 +675,9 @@ body.dark-mode .email-tooltip {
 }
 
 #cookieBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #6b4e16;
   color: white;
   border: none;
@@ -687,10 +690,11 @@ body.dark-mode .email-tooltip {
   transition: transform 0.3s ease;
 }
 
-#cookieBtn:hover {
-  transform: scale(1.1);
+#cookieBtn svg {
+  width: 24px;
+  height: 24px;
+  margin: 0;
 }
-
 .cookie-modal {
   display: none;
   position: fixed;
