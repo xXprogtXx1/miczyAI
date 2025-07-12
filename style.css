@@ -503,9 +503,13 @@ header h1 {
 }
 
 #subtitle {
-  display: block;
-  width: 100%;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #ff69b4;
+  animation: blink-caret 0.75s step-end infinite;
   margin-top: 0.3rem;
+  max-width: 100%;
 }
 
 @keyframes pulseNeon {
