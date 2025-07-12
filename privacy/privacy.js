@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dirittiTitolo: "5. Diritti",
       dirittiTesto: "Puoi contattarci per visualizzare o cancellare eventuali dati trattati (se identificabili).",
       contatti: "Contattaci: ",
-      contattiInfo: "[inserisci una mail o Discord server]",
+      contattiInfo: "[miczy690@gmail.com]",
       tornaLinkTesto: "Torna a MiczyAI",
       linguaBtn: "EN"
     },
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dirittiTitolo: "5. Rights",
       dirittiTesto: "You can contact us to view or delete any processed data (if identifiable).",
       contatti: "Contact us: ",
-      contattiInfo: "[insert email or Discord server]",
+      contattiInfo: "[miczy690@gmail.com]",
       tornaLinkTesto: "Back to MiczyAI",
       linguaBtn: "IT"
     }
