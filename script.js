@@ -505,14 +505,19 @@ function copyEmail() {
   });
 }
 
-const cookieBtn = document.getElementById("cookieBtn");
-const cookieModal = document.getElementById("cookieModal");
-const closeCookie = document.getElementById("closeCookie");
+document.addEventListener("DOMContentLoaded", () => {
 
-cookieBtn.addEventListener("click", () => {
-  cookieModal.classList.add("show");
-});
+  const cookieBtn = document.getElementById("cookieBtn");
+  const cookieModal = document.getElementById("cookieModal");
+  const closeCookie = document.getElementById("closeCookie");
 
-closeCookie.addEventListener("click", () => {
-  cookieModal.classList.remove("show");
+  if (cookieBtn && cookieModal && closeCookie) {
+    cookieBtn.addEventListener("click", () => {
+      cookieModal.classList.add("show");
+    });
+
+    closeCookie.addEventListener("click", () => {
+      cookieModal.classList.remove("show");
+    });
+  }
 });
