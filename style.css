@@ -657,3 +657,66 @@ body.dark-mode .email-copy {
 body.dark-mode .email-tooltip {
   background-color: #222;
 }
+
+.cookie-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 999;
+}
+
+#cookieBtn {
+  background-color: #6b4e16;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+#cookieBtn:hover {
+  transform: scale(1.1);
+}
+
+.cookie-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  max-width: 90%;
+  width: 400px;
+  text-align: center;
+}
+
+body.dark-mode .cookie-modal {
+  background-color: #333;
+  color: #f0f0f0;
+}
+
+.cookie-modal.show {
+  display: block;
+}
+
+.cookie-content button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cookie-content button:hover {
+  background-color: #1976d2;
+}
