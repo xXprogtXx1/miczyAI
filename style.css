@@ -736,3 +736,14 @@ body.dark-mode .cookie-modal {
 .cookie-content button:hover {
   background-color: #1976d2;
 }
+
+.cookie-content a {
+  color: #2196f3;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.cookie-content a:hover {
+  color: #1976d2;
+}
