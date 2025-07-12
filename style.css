@@ -595,3 +595,55 @@ body.dark-mode .social-links a {
   width: 24px;
   height: 24px;
 }
+
+.email-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.email-copy {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.email-copy:hover {
+  transform: scale(1.2);
+}
+
+.email-tooltip {
+  position: absolute;
+  right: 110%;
+  background-color: #333;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.email-wrapper:hover .email-tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+body.dark-mode .email-copy {
+  background-color: #444;
+  color: white;
+}
+
+body.dark-mode .email-tooltip {
+  background-color: #222;
+}
