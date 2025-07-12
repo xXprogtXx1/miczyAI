@@ -506,21 +506,18 @@ function copyEmail() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
   const cookieBtn = document.getElementById("cookieBtn");
-  const cookieExtraButtons = document.getElementById("cookieExtraButtons");
+  const cookieModal = document.getElementById("cookieModal");
+  const closeCookie = document.getElementById("closeCookie");
 
-  if (cookieBtn && cookieExtraButtons) {
+  if (cookieBtn && cookieModal && closeCookie) {
     cookieBtn.addEventListener("click", () => {
-      const isShown = cookieExtraButtons.classList.toggle("show");
-      cookieBtn.setAttribute("aria-expanded", isShown);
+      cookieModal.classList.add("show");
     });
 
-    document.getElementById("tosBtn").addEventListener("click", () => {
-      window.location.href = "/tos/";
-    });
-
-    document.getElementById("privacyBtn").addEventListener("click", () => {
-      window.location.href = "/privacy/";
+    closeCookie.addEventListener("click", () => {
+      cookieModal.classList.remove("show");
     });
   }
 });
