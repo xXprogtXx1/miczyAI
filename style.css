@@ -43,13 +43,16 @@ p {
   margin: 0;
 }
 
+#subtitle-wrapper {
+  text-align: center;
+}
+
 #subtitle {
+  display: inline-block;
   white-space: nowrap;
   overflow: hidden;
   border-right: 2px solid #ff69b4;
   animation: blink-caret 0.75s step-end infinite;
-  display: inline-block;
-  max-width: 100%;
 }
 
 @keyframes blink-caret {
