@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const lang = localStorage.getItem("lang") || "it";
 
-  // Testi in italiano e inglese
   const testi = {
     it: {
       titolo: "Privacy Policy",
