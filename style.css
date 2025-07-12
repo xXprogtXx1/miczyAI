@@ -682,8 +682,8 @@ body.dark-mode .email-tooltip {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 60px;
+  height: 60px;
   font-size: 20px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -691,8 +691,8 @@ body.dark-mode .email-tooltip {
 }
 
 #cookieBtn svg {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   margin: 0;
 }
 .cookie-modal {
