@@ -473,9 +473,23 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const fab = document.querySelector(".social-fab");
   const toggle = document.getElementById("fabToggle");
+  const icon = document.getElementById("fabIcon");
 
   toggle.addEventListener("click", () => {
     fab.classList.toggle("open");
-    toggle.textContent = fab.classList.contains("open") ? "✖" : "➕";
+
+    if (fab.classList.contains("open")) {
+      // Cambia icona in "X"
+      icon.setAttribute("viewBox", "0 0 24 24");
+      icon.innerHTML = `
+        <path d="M18.3 5.7a1 1 0 0 0-1.4-1.4L12 9.17 7.1 4.3a1 1 0 0 0-1.4 1.4L10.83 12l-5.13 5.1a1 1 0 0 0 1.4 1.4L12 14.83l4.9 4.9a1 1 0 0 0 1.4-1.4L13.17 12l5.13-5.1z"/>
+      `;
+    } else {
+      // Cambia icona in "share"
+      icon.setAttribute("viewBox", "0 0 24 24");
+      icon.innerHTML = `
+        <path d="M18 8a3 3 0 1 0-2.83-2H9.83A3 3 0 1 0 7 8c0 .21.02.42.05.62l6.17 3.7a3.01 3.01 0 1 0 .76-1.3L8.24 7.34A3.01 3.01 0 0 0 6 8z"/>
+      `;
+    }
   });
 });
