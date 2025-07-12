@@ -502,6 +502,12 @@ header h1 {
   animation: pulseNeon 2s ease-in-out infinite;
 }
 
+#subtitle {
+  display: block;
+  width: 100%;
+  margin-top: 0.3rem;
+}
+
 @keyframes pulseNeon {
   0%, 100% {
     text-shadow:
