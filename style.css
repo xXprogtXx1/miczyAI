@@ -720,3 +720,9 @@ body.dark-mode .cookie-modal {
 .cookie-content button:hover {
   background-color: #1976d2;
 }
+
+.social-links svg {
+  opacity: 1 !important;
+  fill: #000 !important;
+  color: #000 !important;
+}
