@@ -504,3 +504,15 @@ function copyEmail() {
     }, 1500);
   });
 }
+
+const cookieBtn = document.getElementById("cookieBtn");
+const cookieModal = document.getElementById("cookieModal");
+const closeCookie = document.getElementById("closeCookie");
+
+cookieBtn.addEventListener("click", () => {
+  cookieModal.classList.add("show");
+});
+
+closeCookie.addEventListener("click", () => {
+  cookieModal.classList.remove("show");
+});
