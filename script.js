@@ -114,21 +114,6 @@ window.addEventListener("DOMContentLoaded", () => {
   aggiornaLingua(lingua);
 });
 
-function aggiornaLingua(lang) {
-  lingua = lang;
-  localStorage.setItem("lang", lang);
-  const t = traduzioni[lang];
-  const langBtn = document.getElementById("langBtn");
-
-  mainTitle.textContent = t.titolo;
-  document.title = t.titoloScheda;
-  inputField.placeholder = t.placeholder;
-  submitButton.textContent = t.invia;
-  document.querySelector(".clear-btn").setAttribute("aria-label", t.cancella);
-  scegliSottotitolo();
-  if (langBtn) langBtn.textContent = lang === "it" ? "EN" : "IT";
-
-  // 🟡 Traduzione popup cookie
   document.querySelector(".cookie-content h2").textContent = t.cookieTitolo;
   document.querySelector(".cookie-content p").textContent = t.cookieTesto;
 
