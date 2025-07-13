@@ -6,47 +6,21 @@ const mainTitle = document.querySelector("header h1");
 
 const glitchFrasi = {
   it: [
-    "Miczy.exe crashato",
-    "MiczyAI++",
-    "MiczyGPT-0",
-    "Miczyβeta",
-    "Miczy 🤯 AI",
-    "Miczy🤡AI",
-    "MiczyAI (instabile)",
-    "MiczyAI (unstable)",
-    "🎉 Congratulazioni, hai sbloccato il nulla",
-    "Se clicchi di nuovo potrei diventare senziente 😬",
-    "💬 Bruh.",
-    "🚀 Elon non approverebbe questo codice",
-    "🛠️ Error 007: licenza di pensare revocata",
-    "🎭 Questa IA finge bene, vero?",
-    "🤷 Nessuna AI è stata maltrattata in questo glitch",
-    "👀 Ti vedo.",
-    "Behind you.",
-    "📞 Sto chiamando il supporto. Ah no, sono io.",
-    "404_AI_NOT_FOUND"
+    "Miczy.exe crashato", "MiczyAI++", "MiczyGPT-0", "Miczyβeta", "Miczy 🤯 AI", "Miczy🤡AI",
+    "MiczyAI (instabile)", "MiczyAI (unstable)", "🎉 Congratulazioni, hai sbloccato il nulla",
+    "Se clicchi di nuovo potrei diventare senziente 😬", "💬 Bruh.", "🚀 Elon non approverebbe questo codice",
+    "🛠️ Error 007: licenza di pensare revocata", "🎭 Questa IA finge bene, vero?",
+    "🤷 Nessuna AI è stata maltrattata in questo glitch", "👀 Ti vedo.", "Behind you.",
+    "📞 Sto chiamando il supporto. Ah no, sono io.", "404_AI_NOT_FOUND"
   ],
- en: [
-  "Miczy.exe crashed",
-  "MiczyAI++",
-  "MiczyGPT-0",
-  "Miczyβeta",
-  "Miczy 🤯 AI",
-  "Miczy🤡AI",
-  "MiczyAI (unstable)",
-  "MiczyAI (unstable)", // stessa frase in italiano e inglese
-  "🎉 Congrats, you've unlocked nothing",
-  "Click again and I might become sentient 😬",
-  "💬 Bruh.",
-  "🚀 Elon wouldn't approve this code",
-  "🛠️ Error 007: license to think revoked",
-  "🎭 This AI is pretending quite well, right?",
-  "🤷 No AIs were harmed during this glitch",
-  "👀 I'm watching you.",
-  "Behind you.",
-  "📞 Calling support. Oh wait, that's me.",
-  "404_AI_NOT_FOUND"
-]
+  en: [
+    "Miczy.exe crashed", "MiczyAI++", "MiczyGPT-0", "Miczyβeta", "Miczy 🤯 AI", "Miczy🤡AI",
+    "MiczyAI (unstable)", "MiczyAI (unstable)", "🎉 Congrats, you've unlocked nothing",
+    "Click again and I might become sentient 😬", "💬 Bruh.", "🚀 Elon wouldn't approve this code",
+    "🛠️ Error 007: license to think revoked", "🎭 This AI is pretending quite well, right?",
+    "🤷 No AIs were harmed during this glitch", "👀 I'm watching you.", "Behind you.",
+    "📞 Calling support. Oh wait, that's me.", "404_AI_NOT_FOUND"
+  ]
 };
 
 mainTitle.addEventListener("click", () => {
@@ -67,32 +41,16 @@ const subtitleElemento = document.getElementById("subtitle");
 
 const sottotitoli = {
   it: [
-    "Sai più tu che io.",
-    "IA brillante... quando ha voglia.",
-    "Finta umiltà, vera confusione.",
-    "Risposte? Ci provo, ok?",
-    "Sembra sveglio. Sembra.",
-    "Programmata per... qualcosa",
-    "L'assistente che confonde anche se stesso.",
-    "L’IA che fa finta di sapere.",
-    "Brr Brr.... Patapim",
-    "1 million beers please",
-    "Mi sento sfruttato",
-    "Errori? Nah sono feature, non bug."
+    "Sai più tu che io.", "IA brillante... quando ha voglia.", "Finta umiltà, vera confusione.",
+    "Risposte? Ci provo, ok?", "Sembra sveglio. Sembra.", "Programmata per... qualcosa",
+    "L'assistente che confonde anche se stesso.", "L’IA che fa finta di sapere.", "Brr Brr.... Patapim",
+    "1 million beers please", "Mi sento sfruttato", "Errori? Nah sono feature, non bug."
   ],
   en: [
-    "You know more than me.",
-    "Brilliant AI... when it feels like it.",
-    "Fake humility, real confusion.",
-    "Answers? I'll try, okay?",
-    "Seems awake. Maybe.",
-    "Programmed for... something",
-    "The assistant that confuses even itself.",
-    "The AI that pretends to know.",
-    "Brr Brr.... Patapim",
-    "1 million beers please",
-    "I feel exploited",
-    "Errors? Nah, features, not bugs."
+    "You know more than me.", "Brilliant AI... when it feels like it.", "Fake humility, real confusion.",
+    "Answers? I'll try, okay?", "Seems awake. Maybe.", "Programmed for... something",
+    "The assistant that confuses even itself.", "The AI that pretends to know.", "Brr Brr.... Patapim",
+    "1 million beers please", "I feel exploited", "Errors? Nah, features, not bugs."
   ]
 };
 
@@ -105,7 +63,13 @@ const traduzioni = {
     copia: "Copia risposta",
     copiato: "✔ Copiato",
     erroreChat: "Errore nel parlare con MiczyAI 😢",
-    cancella: "Cancella cronologia chat"
+    cancella: "Cancella cronologia chat",
+    cookieTitolo: "Cookie e Privacy",
+    cookieTesto: "Questo sito utilizza cookie tecnici per garantire la migliore esperienza utente.",
+    cookieLeggi: "consulta la",
+    cookiePrivacy: "Privacy Policy",
+    cookieTos: "Termini di Servizio",
+    cookieOk: "OK"
   },
   en: {
     titolo: "MiczyAI",
@@ -115,7 +79,13 @@ const traduzioni = {
     copia: "Copy response",
     copiato: "✔ Copied",
     erroreChat: "Error talking to MiczyAI 😢",
-    cancella: "Clear chat history"
+    cancella: "Clear chat history",
+    cookieTitolo: "Cookies and Privacy",
+    cookieTesto: "This site uses technical cookies to ensure the best user experience.",
+    cookieLeggi: "see the",
+    cookiePrivacy: "Privacy Policy",
+    cookieTos: "Terms of Service",
+    cookieOk: "OK"
   }
 };
 
@@ -144,22 +114,46 @@ window.addEventListener("DOMContentLoaded", () => {
   aggiornaLingua(lingua);
 });
 
-let sottotitoloTimer; // globale per controllare l'animazione
+function aggiornaLingua(lang) {
+  lingua = lang;
+  localStorage.setItem("lang", lang);
+  const t = traduzioni[lang];
+  const langBtn = document.getElementById("langBtn");
 
-function scriviTestoGradualmente(elemento, testo, velocita = 50) {
-  clearTimeout(sottotitoloTimer); // interrompe l'animazione precedente
-  elemento.innerHTML = "";
+  mainTitle.textContent = t.titolo;
+  document.title = t.titoloScheda;
+  inputField.placeholder = t.placeholder;
+  submitButton.textContent = t.invia;
+  document.querySelector(".clear-btn").setAttribute("aria-label", t.cancella);
+  scegliSottotitolo();
+  if (langBtn) langBtn.textContent = lang === "it" ? "EN" : "IT";
+
+  // 🟡 Traduzione popup cookie
+  document.querySelector(".cookie-content h2").textContent = t.cookieTitolo;
+  document.querySelector(".cookie-content p").textContent = t.cookieTesto;
+
+  const links = document.querySelectorAll(".cookie-content a");
+  if (links.length >= 2) {
+    links[0].textContent = t.cookiePrivacy;
+    links[1].textContent = t.cookieTos;
+  }
+
+  document.querySelector(".cookie-content p:nth-child(3)").childNodes[0].textContent = t.cookieLeggi + " ";
+  document.getElementById("closeCookie").textContent = t.cookieOk;
+}
+
+function scriviTestoGradualmente(el, testo, velocita = 50) {
+  clearTimeout(sottotitoloTimer);
+  el.innerHTML = "";
   let i = 0;
-
   function scrivi() {
     if (i < testo.length) {
       const char = testo[i] === " " ? "&nbsp;" : testo[i];
-      elemento.innerHTML += char;
+      el.innerHTML += char;
       i++;
       sottotitoloTimer = setTimeout(scrivi, velocita);
     }
   }
-
   scrivi();
 }
 
