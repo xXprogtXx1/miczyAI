@@ -100,7 +100,7 @@ const sottotitoli = {
   ]
 };
 
-// traduzioni testo
+// Traduzioni complete per IT e EN
 const traduzioni = {
   it: {
     titolo: "MiczyAI",
@@ -110,7 +110,12 @@ const traduzioni = {
     copia: "Copia risposta",
     copiato: "✔ Copiato",
     erroreChat: "Errore nel parlare con MiczyAI 😢",
-    cancella: "Cancella cronologia chat"
+    cancella: "Cancella cronologia chat",
+    cookieTitle: "Cookie e Privacy",
+    cookieMessage1:
+      "Questo sito utilizza cookie tecnici per garantire la migliore esperienza utente. Per maggiori chiarimenti e informazioni",
+    cookieMessage2:
+      `consulta la <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> e i <a href="/tos" target="_blank" rel="noopener noreferrer">Termini di Servizio</a>.`,
   },
   en: {
     titolo: "MiczyAI",
@@ -120,70 +125,99 @@ const traduzioni = {
     copia: "Copy response",
     copiato: "✔ Copied",
     erroreChat: "Error talking to MiczyAI 😢",
-    cancella: "Clear chat history"
+    cancella: "Clear chat history",
+    cookieTitle: "Cookies & Privacy",
+    cookieMessage1:
+      "This site uses technical cookies to guarantee the best user experience. For more clarifications and information",
+    cookieMessage2:
+      `see the <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and the <a href="/tos" target="_blank" rel="noopener noreferrer">Terms of Service</a>.`,
   }
 };
 
-// traduzioni popup cookie
-const testiCookieModal = {
-  it: {
-    title: "Cookie e Privacy",
-    msg1: "Questo sito utilizza cookie tecnici per garantire la migliore esperienza utente. Per maggiori chiarimenti e informazioni",
-    msg2: 'consulta la <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> e i <a href="/tos" target="_blank" rel="noopener noreferrer">Termini di Servizio</a>.',
-    btn: "OK"
-  },
-  en: {
-    title: "Cookies and Privacy",
-    msg1: "This website uses technical cookies to ensure the best user experience. For more information and details",
-    msg2: 'see the <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and the <a href="/tos" target="_blank" rel="noopener noreferrer">Terms of Service</a>.',
-    btn: "OK"
-  }
+const glitchFrasi = {
+  it: [
+    "Miczy.exe crashato",
+    "MiczyAI++",
+    "MiczyGPT-0",
+    "Miczyβeta",
+    "Miczy 🤯 AI",
+    "Miczy🤡AI",
+    "MiczyAI (instabile)",
+    "🎉 Congratulazioni, hai sbloccato il nulla",
+    "Se clicchi di nuovo potrei diventare senziente 😬",
+    "💬 Bruh.",
+    "🚀 Elon non approverebbe questo codice",
+    "🛠️ Error 007: licenza di pensare revocata",
+    "🎭 Questa IA finge bene, vero?",
+    "🤷 Nessuna AI è stata maltrattata in questo glitch",
+    "👀 Ti vedo.",
+    "Behind you.",
+    "📞 Sto chiamando il supporto. Ah no, sono io.",
+    "404_AI_NOT_FOUND"
+  ],
+  en: [
+    "Miczy.exe crashed",
+    "MiczyAI++",
+    "MiczyGPT-0",
+    "Miczyβeta",
+    "Miczy 🤯 AI",
+    "Miczy🤡AI",
+    "MiczyAI (unstable)",
+    "🎉 Congrats, you've unlocked nothing",
+    "Click again and I might become sentient 😬",
+    "💬 Bruh.",
+    "🚀 Elon wouldn't approve this code",
+    "🛠️ Error 007: license to think revoked",
+    "🎭 This AI is pretending quite well, right?",
+    "🤷 No AIs were harmed during this glitch",
+    "👀 I'm watching you.",
+    "Behind you.",
+    "📞 Calling support. Oh wait, that's me.",
+    "404_AI_NOT_FOUND"
+  ]
 };
 
-let chatHistory = [];
+const sottotitoli = {
+  it: [
+    "Sai più tu che io.",
+    "IA brillante... quando ha voglia.",
+    "Finta umiltà, vera confusione.",
+    "Risposte? Ci provo, ok?",
+    "Sembra sveglio. Sembra.",
+    "Programmata per... qualcosa",
+    "L'assistente che confonde anche se stesso.",
+    "L’IA che fa finta di sapere.",
+    "Brr Brr.... Patapim",
+    "1 million beers please",
+    "Mi sento sfruttato",
+    "Errori? Nah sono feature, non bug."
+  ],
+  en: [
+    "You know more than me.",
+    "Brilliant AI... when it feels like it.",
+    "Fake humility, real confusion.",
+    "Answers? I'll try, okay?",
+    "Seems awake. Maybe.",
+    "Programmed for... something",
+    "The assistant that confuses even itself.",
+    "The AI that pretends to know.",
+    "Brr Brr.... Patapim",
+    "1 million beers please",
+    "I feel exploited",
+    "Errors? Nah, features, not bugs."
+  ]
+};
+
 let lingua = localStorage.getItem("lang") || "it";
+let chatHistory = [];
 
-// Funzione copia email (aggiunta mancante)
-function copyEmail() {
-  const email = "miczy690@gmail.com";
-  navigator.clipboard.writeText(email).then(() => {
-    alert("Email copiata negli appunti: " + email);
-  });
-}
+const mainTitle = document.querySelector("header h1");
+const subtitleElemento = document.getElementById("subtitle");
+const inputField = document.getElementById("userInput");
+const submitButton = document.querySelector("#chatForm button");
+const toggleDark = document.getElementById("toggleDark");
 
-// Event listener toggle social fab
-document.addEventListener("DOMContentLoaded", () => {
-  const socialToggle = document.querySelector(".social-links");
-  const socialBtn = document.getElementById("fabToggle");
-
-  if (socialBtn && socialToggle) {
-    socialBtn.addEventListener("click", () => {
-      socialToggle.classList.toggle("active");
-    });
-  }
-
-  // Event listener toggle modalità scura
-  if (toggleDark) {
-    toggleDark.addEventListener("change", () => {
-      if (toggleDark.checked) {
-        document.body.classList.add("dark");
-        localStorage.setItem("darkMode", "true");
-      } else {
-        document.body.classList.remove("dark");
-        localStorage.setItem("darkMode", "false");
-      }
-    });
-
-    // Imposta modalità scura al caricamento se attivata
-    const darkModePref = localStorage.getItem("darkMode");
-    if (darkModePref === "true") {
-      toggleDark.checked = true;
-      document.body.classList.add("dark");
-    }
-  }
-});
-
-// click glitch titolo
+// --- Funzione per animare titolo glitch ---
 mainTitle.addEventListener("click", () => {
   const lista = glitchFrasi[lingua] || glitchFrasi.en;
   const casuale = lista[Math.floor(Math.random() * lista.length)];
@@ -198,27 +232,326 @@ mainTitle.addEventListener("click", () => {
   }, 3000);
 });
 
-// gestione lingua + pulsante cambio lingua
-window.addEventListener("DOMContentLoaded", () => {
-  const header = document.querySelector("header");
-  header.style.position = "relative";
+// --- Funzioni per sottotitolo con scrittura graduale ---
+let sottotitoloTimer;
+function scriviTestoGradualmente(elemento, testo, velocita = 50) {
+  clearTimeout(sottotitoloTimer);
+  elemento.innerHTML = "";
+  let i = 0;
+  function scrivi() {
+    if (i < testo.length) {
+      const char = testo[i] === " " ? "&nbsp;" : testo[i];
+      elemento.innerHTML += char;
+      i++;
+      sottotitoloTimer = setTimeout(scrivi, velocita);
+    }
+  }
+  scrivi();
+}
+function scegliSottotitolo() {
+  const lista = sottotitoli[lingua];
+  const fraseCasuale = lista[Math.floor(Math.random() * lista.length)];
+  scriviTestoGradualmente(subtitleElemento, fraseCasuale, 40);
+}
 
-  const langBtn = document.createElement("button");
-  langBtn.id = "langBtn";
-  langBtn.style.position = "absolute";
-  langBtn.style.top = "5px";
-  langBtn.style.left = "10px";
-  langBtn.style.cursor = "pointer";
-  langBtn.style.userSelect = "none";
-  langBtn.title = "Cambia lingua / Switch language";
+// --- Funzione per aggiornare la lingua ---
+function aggiornaLingua(lang) {
+  lingua = lang;
+  localStorage.setItem("lang", lang);
 
-  header.appendChild(langBtn);
+  const t = traduzioni[lang];
+  const langBtn = document.getElementById("langBtn");
 
-  langBtn.addEventListener("click", () => {
-    aggiornaLingua(lingua === "it" ? "en" : "it");
-  });
+  mainTitle.textContent = t.titolo;
+  document.title = t.titoloScheda;
+  inputField.placeholder = t.placeholder;
+  submitButton.textContent = t.invia;
+  document.querySelector(".clear-btn").setAttribute("aria-label", t.cancella);
 
+  scegliSottotitolo();
+
+  if (langBtn) langBtn.textContent = lang === "it" ? "EN" : "IT";
+
+  // Aggiorna testi popup cookie
+  const cookieTitle = document.getElementById("cookieTitle");
+  const cookieMsg1 = document.getElementById("cookieMessage1");
+  const cookieMsg2 = document.getElementById("cookieMessage2");
+
+  if (cookieTitle) cookieTitle.textContent = t.cookieTitle || "";
+  if (cookieMsg1) cookieMsg1.textContent = t.cookieMessage1 || "";
+  if (cookieMsg2) cookieMsg2.innerHTML = t.cookieMessage2 || "";
+}
+
+// --- Funzioni per aggiungere messaggi in chat ---
+function aggiungiMessaggio(testo, mittente) {
+  const wrapper = document.createElement("div");
+  wrapper.className = `msg-wrapper ${mittente}`;
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = mittente === "ai" ? "🤖" : "👤";
+
+  const msg = document.createElement("div");
+  msg.className = `msg ${mittente}`;
+  msg.innerHTML = mittente === "ai" ? marked.parse(testo) : testo;
+
+  const bottomRow = document.createElement("div");
+  bottomRow.className = "msg-meta";
+
+  if (mittente === "ai") {
+    const copyBtn = document.createElement("span");
+    copyBtn.className = "copy-btn";
+    copyBtn.innerText = "⧉";
+    copyBtn.title = traduzioni[lingua].copia;
+
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(testo).then(() => {
+        copyBtn.classList.add("clicked");
+        copyBtn.innerText = traduzioni[lingua].copiato;
+        setTimeout(() => {
+          copyBtn.classList.remove("clicked");
+          copyBtn.innerText = "⧉";
+        }, 1000);
+      });
+    };
+    bottomRow.appendChild(copyBtn);
+  }
+
+  msg.appendChild(bottomRow);
+
+  if (mittente === "utente") {
+    wrapper.appendChild(msg);
+    wrapper.appendChild(avatar);
+  } else {
+    wrapper.appendChild(avatar);
+    wrapper.appendChild(msg);
+  }
+
+  const chatBox = document.getElementById("chat-box");
+  chatBox.appendChild(wrapper);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  salvaCronologiaChat();
+}
+
+// --- Funzioni per loader ---
+function aggiungiLoader() {
+  const loaderWrapper = document.createElement("div");
+  loaderWrapper.className = "msg-wrapper ai";
+  loaderWrapper.setAttribute("id", "loader");
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = "🤖";
+
+  const loader = document.createElement("div");
+  loader.className = "msg ai";
+  loader.innerHTML = `
+    <div class="loader">
+      <div></div><div></div><div></div>
+    </div>
+  `;
+
+  loaderWrapper.appendChild(avatar);
+  loaderWrapper.appendChild(loader);
+  const chatBox = document.getElementById("chat-box");
+  chatBox.appendChild(loaderWrapper);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function rimuoviLoader() {
+  const loader = document.getElementById("loader");
+  if (loader) loader.remove();
+}
+
+// --- Scrittura graduale risposta AI ---
+function scriviRispostaGraduale(testo) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "msg-wrapper ai";
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = "🤖";
+
+  const msg = document.createElement("div");
+  msg.className = "msg ai";
+
+  const bottomRow = document.createElement("div");
+  bottomRow.className = "msg-meta";
+
+  const copyBtn = document.createElement("span");
+  copyBtn.className = "copy-btn";
+  copyBtn.innerText = "⧉";
+  copyBtn.title = traduzioni[lingua].copia;
+
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(testo).then(() => {
+      copyBtn.classList.add("clicked");
+      copyBtn.innerText = traduzioni[lingua].copiato;
+      setTimeout(() => {
+        copyBtn.classList.remove("clicked");
+        copyBtn.innerText = "⧉";
+      }, 1000);
+    });
+  };
+
+  bottomRow.appendChild(copyBtn);
+
+  wrapper.appendChild(avatar);
+  wrapper.appendChild(msg);
+  const chatBox = document.getElementById("chat-box");
+  chatBox.appendChild(wrapper);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i < testo.length) {
+      msg.innerHTML = marked.parse(testo.slice(0, i + 1));
+      if (!msg.contains(bottomRow)) msg.appendChild(bottomRow);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      i++;
+    } else {
+      clearInterval(interval);
+    }
+  }, 15);
+}
+
+// --- Funzione chat con backend ---
+async function talkToMiczy() {
+  const input = inputField.value.trim();
+  if (!input) return;
+
+  submitButton.disabled = true;
+  submitButton.textContent = lingua === "it" ? "mhhh..." : "hmm...";
+
+  aggiungiMessaggio(input, "utente");
+  chatHistory.push({ role: "user", content: input });
+  aggiungiLoader();
+
+  try {
+    const response = await fetch("https://backend-miczy-ai.onrender.com/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: chatHistory }),
+    });
+    const data = await response.json();
+    rimuoviLoader();
+
+    const risposta =
+      data.response || (lingua === "it" ? "Nessuna risposta ricevuta 😐" : "No response received 😐");
+
+    chatHistory.push({ role: "assistant", content: risposta });
+    salvaCronologiaChat();
+    scriviRispostaGraduale(risposta);
+  } catch (error) {
+    console.error(error);
+    rimuoviLoader();
+    aggiungiMessaggio(traduzioni[lingua].erroreChat, "ai");
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = traduzioni[lingua].invia;
+    inputField.value = "";
+  }
+}
+
+// --- Eventi input e dark mode ---
+inputField.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    talkToMiczy();
+  }
+});
+
+toggleDark.addEventListener("change", () => {
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem("darkMode", toggleDark.checked);
+});
+
+// --- Cronologia chat ---
+function salvaCronologiaChat() {
+  localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+  localStorage.setItem("lang", lingua);
+}
+
+function caricaCronologiaChat() {
+  const salvata = localStorage.getItem("chatHistory");
+  if (salvata) {
+    chatHistory = JSON.parse(salvata);
+    const chatBox = document.getElementById("chat-box");
+    chatBox.innerHTML = "";
+    chatHistory.forEach((msg) => {
+      aggiungiMessaggio(msg.content, msg.role === "user" ? "utente" : "ai");
+    });
+  }
+}
+
+function cancellaCronologiaChat() {
+  localStorage.removeItem("chatHistory");
+  const chatBox = document.getElementById("chat-box");
+  chatBox.innerHTML = "";
+  chatHistory = [];
+}
+
+// --- Popup cookie gestione ---
+document.addEventListener("DOMContentLoaded", () => {
+  caricaCronologiaChat();
+
+  // Lingua aggiornata
   aggiornaLingua(lingua);
+
+  // Dark mode
+  const darkMode = localStorage.getItem("darkMode");
+  if (darkMode === "true") {
+    document.body.classList.add("dark-mode");
+    toggleDark.checked = true;
+  }
+
+  // Pulsante cancella cronologia
+  const clearBtn = document.querySelector(".clear-btn");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      const conferma = confirm(
+        lingua === "it"
+          ? "Sei sicuro di voler cancellare la cronologia?"
+          : "Are you sure you want to clear the chat history?"
+      );
+      if (conferma) cancellaCronologiaChat();
+    });
+  }
+
+  // Popup cookie
+  const cookieModal = document.getElementById("cookieModal");
+  const cookieAccepted = localStorage.getItem("cookieAccepted");
+
+  if (!cookieAccepted && cookieModal) {
+    cookieModal.classList.add("show");
+  }
+
+  const closeCookie = document.getElementById("closeCookie");
+  if (closeCookie) {
+    closeCookie.addEventListener("click", () => {
+      cookieModal.classList.remove("show");
+      localStorage.setItem("cookieAccepted", "true");
+    });
+  }
+
+  // Bottone cambio lingua (appeso a header)
+  const header = document.querySelector("header");
+  if (!document.getElementById("langBtn")) {
+    const langBtn = document.createElement("button");
+    langBtn.id = "langBtn";
+    langBtn.style.position = "absolute";
+    langBtn.style.top = "5px";
+    langBtn.style.left = "10px";
+    langBtn.style.cursor = "pointer";
+    langBtn.style.userSelect = "none";
+    langBtn.title = "Cambia lingua / Switch language";
+
+    header.appendChild(langBtn);
+
+    langBtn.addEventListener("click", () => {
+      aggiornaLingua(lingua === "it" ? "en" : "it");
+    });
+  }
 });
 
 // Funzioni scrittura sottotitolo graduale
