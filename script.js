@@ -1,4 +1,4 @@
-// const inputField, toggleDark, chatBox, submitButton, mainTitle
+// Elementi DOM principali
 const inputField = document.getElementById("userInput");
 const toggleDark = document.getElementById("toggleDark");
 const chatBox = document.getElementById("chat-box");
@@ -143,6 +143,62 @@ const testiCookieModal = {
 let chatHistory = [];
 let lingua = localStorage.getItem("lang") || "it";
 
+// Funzione copia email (aggiunta mancante)
+function copyEmail() {
+  const email = "miczy690@gmail.com";
+  navigator.clipboard.writeText(email).then(() => {
+    alert("Email copiata negli appunti: " + email);
+  });
+}
+
+// Event listener toggle social fab
+document.addEventListener("DOMContentLoaded", () => {
+  const socialToggle = document.querySelector(".social-links");
+  const socialBtn = document.getElementById("fabToggle");
+
+  if (socialBtn && socialToggle) {
+    socialBtn.addEventListener("click", () => {
+      socialToggle.classList.toggle("active");
+    });
+  }
+
+  // Event listener toggle modalità scura
+  if (toggleDark) {
+    toggleDark.addEventListener("change", () => {
+      if (toggleDark.checked) {
+        document.body.classList.add("dark");
+        localStorage.setItem("darkMode", "true");
+      } else {
+        document.body.classList.remove("dark");
+        localStorage.setItem("darkMode", "false");
+      }
+    });
+
+    // Imposta modalità scura al caricamento se attivata
+    const darkModePref = localStorage.getItem("darkMode");
+    if (darkModePref === "true") {
+      toggleDark.checked = true;
+      document.body.classList.add("dark");
+    }
+  }
+});
+
+// click glitch titolo
+mainTitle.addEventListener("click", () => {
+  const lista = glitchFrasi[lingua] || glitchFrasi.en;
+  const casuale = lista[Math.floor(Math.random() * lista.length)];
+  const testoOriginale = traduzioni[lingua].titolo;
+
+  mainTitle.classList.add("glitch");
+  mainTitle.textContent = casuale;
+
+  setTimeout(() => {
+    mainTitle.textContent = testoOriginale;
+    mainTitle.classList.remove("glitch");
+  }, 3000);
+});
+
+// gestione lingua + pulsante cambio lingua
 window.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector("header");
   header.style.position = "relative";
@@ -165,6 +221,7 @@ window.addEventListener("DOMContentLoaded", () => {
   aggiornaLingua(lingua);
 });
 
+// Funzioni scrittura sottotitolo graduale
 let sottotitoloTimer;
 
 function scriviTestoGradualmente(elemento, testo, velocita = 50) {
@@ -189,19 +246,22 @@ function scegliSottotitolo() {
   scriviTestoGradualmente(subtitleElemento, fraseCasuale, 40);
 }
 
+// aggiorna testi modale cookie
 function aggiornaTestiCookieModal() {
   const c = testiCookieModal[lingua] || testiCookieModal.it;
-  const cookieTitle = document.getElementById("cookieTitle");
-  const cookieMessage1 = document.getElementById("cookieMessage1");
-  const cookieMessage2 = document.getElementById("cookieMessage2");
-  const closeCookieBtn = document.getElementById("closeCookie");
+  const cookieModal = document.getElementById("cookieModal");
 
-  if (cookieTitle) cookieTitle.innerText = c.title;
-  if (cookieMessage1) cookieMessage1.innerText = c.msg1;
-  if (cookieMessage2) cookieMessage2.innerHTML = c.msg2;
-  if (closeCookieBtn) closeCookieBtn.innerText = c.btn;
+  if (!cookieModal) return;
+
+  cookieModal.querySelector("h2").innerText = c.title;
+  const pEls = cookieModal.querySelectorAll("p");
+  if (pEls[0]) pEls[0].innerText = c.msg1;
+  if (pEls[1]) pEls[1].innerHTML = c.msg2;
+  const btn = cookieModal.querySelector("button#closeCookie");
+  if (btn) btn.innerText = c.btn;
 }
 
+// aggiorna lingua frontend
 function aggiornaLingua(lang) {
   lingua = lang;
   localStorage.setItem("lang", lang);
@@ -222,6 +282,7 @@ function aggiornaLingua(lang) {
   aggiornaTestiCookieModal();
 }
 
+// funzioni messaggi chat
 function aggiungiMessaggio(testo, mittente) {
   const wrapper = document.createElement("div");
   wrapper.className = `msg-wrapper ${mittente}`;
@@ -420,14 +481,14 @@ function caricaCronologiaChat() {
   }
 }
 
+// clear cronologia chat
 document.querySelector(".clear-btn").addEventListener("click", () => {
   localStorage.removeItem("chatHistory");
   chatHistory = [];
   chatBox.innerHTML = "";
 });
 
-// --- gestione popup cookie ---
-
+// gestione popup cookie
 const cookieBtn = document.getElementById("cookieBtn");
 const cookieModal = document.getElementById("cookieModal");
 const closeCookie = document.getElementById("closeCookie");
@@ -440,10 +501,4 @@ closeCookie.addEventListener("click", () => {
   cookieModal.classList.remove("show");
 });
 
-// al cambio lingua aggiorna testi cookie
-aggiornaTestiCookieModal();
-
-// carica cronologia al caricamento pagina
-window.onload = () => {
-  caricaCronologiaChat();
-};
+// al cambio lingua aggiorna testi
