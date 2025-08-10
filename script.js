@@ -501,4 +501,20 @@ closeCookie.addEventListener("click", () => {
   cookieModal.classList.remove("show");
 });
 
-// al cambio lingua aggiorna testi
+// al cambio lingua aggiorna testi cookie
+aggiornaTestiCookieModal();
+
+// carica cronologia al caricamento pagina
+window.onload = () => {
+  caricaCronologiaChat();
+
+  // inizializza toggle social fab (se esiste)
+  const socialToggle = document.querySelector(".social-links");
+  const socialBtn = document.getElementById("fabToggle");
+
+  if (socialBtn && socialToggle) {
+    socialBtn.addEventListener("click", () => {
+      socialToggle.classList.toggle("active");
+    });
+  }
+};
